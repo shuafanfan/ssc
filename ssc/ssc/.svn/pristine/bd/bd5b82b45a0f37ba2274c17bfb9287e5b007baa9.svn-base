@@ -1,0 +1,26 @@
+<?php 
+namespace Html\TagLib;
+use Think\Template\TagLib;
+class config extends TagLib{
+	protected $tags=array(
+			'list'=>array('attr'=>'limit,order,where','close'=>1)
+		);
+
+	public function _list($tag,$content){
+		$attr=$this->parseXmlAttr($attr);
+		$limit=$tag['limit'];
+		$order=$tag['order'];
+		$where=$tag['where'];
+		$str.='<?php ';
+		$str.='$setting=M("setting")->where(array("id=>"'.$where.'))->select()';
+		$str.=' ?>';
+		return $str;
+	}
+}
+
+
+
+
+
+
+ ?>

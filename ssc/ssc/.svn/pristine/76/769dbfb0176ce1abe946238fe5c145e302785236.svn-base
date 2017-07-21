@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="__PUBLIC__/Html/css/index.css">
+		<link rel="stylesheet" href="__PUBLIC__/Html/lib/jquery.searchableselect.css" />
+		<link rel="stylesheet" href="__PUBLIC__/Html/laydate/need/laydate.css" />
+		<link rel="stylesheet" href="__PUBLIC__/Html/laydate/skins/default/laydate.css" />
+		<link rel="stylesheet" href="__PUBLIC__/Html/laydate/skins/danlan/laydate.css" />
+		<script src="__PUBLIC__/Html/lib/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+		<div class="header_menu_wrap">
+			<div class="header_menu clearfix">
+				<img src="__PUBLIC__/Html/images/logo.png" alt="logo">
+				<ul>
+					<li>
+						<a href="javascript:void(0);" data-id="sy" class="active">首页</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);" data-id="cpyx">彩票游戏</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);" data-id="yhhd">优惠活动</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);" data-id="zxkf">
+						
+						在线客服<!-- <test id="1"  sid='10'/>  -->
+						
+						</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);" data-id="xljc">线路检测</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div id="section" class="clearfix">
+			<div class="banner clearfix">
+				<ul class="img clearfix">
+					<li>
+						<a href="javascript:void(0);"><img src="__PUBLIC__/Html/images/Banner4.png"></a>
+					</li>
+					<li>
+						<a href="javascript:void(0);"><img src="__PUBLIC__/Html/images/Banner5.png"></a>
+					</li>
+					<li>
+						<a href="javascript:void(0);"><img src="__PUBLIC__/Html/images/Banner3.png"></a>
+					</li>
+					<li>
+						<a href="javascript:void(0);"><img src="__PUBLIC__/Html/images/Banner2.png"></a>
+					</li>
+					<li>
+						<a href="javascript:void(0);"><img src="__PUBLIC__/Html/images/Banner.png"></a>
+					</li>
+				</ul>
+				<ul class="num">
+				</ul>
+				<div class="btn btn_l">&lt;</div>
+				<div class="btn btn_r">&gt;</div>
+			</div>
+			<div class="notice_wrap">
+				<div class="notice">
+					<strong class="fl"></strong>
+					<div class="notice_content">
+						<div id="notice_bar">欢迎来到JC网络投注平台，祝你玩的愉快！</div>
+					</div>
+					<strong class="fr"></strong>
+				</div>
+			</div>
+			<div class="section_content">
+				<div>
+					<img src="__PUBLIC__/Html/images/bg_3.png" class="bg_animate">
+					<div>
+						<img src="__PUBLIC__/Html/images/icon_list5.png">
+						<h1>时时彩</h1>
+						<ul>
+							<li>
+								<a href="javascript:void(0);" data-id="ssccq">重庆时时彩</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" data-id="ssctj">天津时时彩</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" data-id="sscxj">新疆时时彩</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" data-id="txffc">腾讯分分彩</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" data-id="sscyn">云南时时彩</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="variety_min"><img src="__PUBLIC__/Html/images/bg_1.png" class="bg_animate">
+					<div><img src="__PUBLIC__/Html/images/icon_list1.png">
+						<h1>11选5</h1>
+							<ul>
+							<li>
+								<a href="javascript:void(0);" data-id="11x5gd">广东11选5</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" data-id="11x5jx">江西11选5</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" data-id="11x5sd">山东11选5</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" data-id="11x5aw">安徽11选5</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" data-id="11x5sh">上海11选5</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="variety_sharp"><img src="__PUBLIC__/Html/images/bg_2.png" class="bg_animate">
+					<div><img src="__PUBLIC__/Html/images/icon_list2.png">
+						<h1>快三</h1>
+						<ul>
+							<li>
+								<a href="javascript:void(0);" data-id="k3js">江苏快3</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" data-id="k3aw">安徽快3</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" data-id="k3jl">吉林快3</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" data-id="k3bj">北京快3</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" data-id="k3gx">广西快3</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="variety_sec"><img src="__PUBLIC__/Html/images/bg_5.png" class="bg_animate">
+					<div><img src="__PUBLIC__/Html/images/icon_list3.png">
+						<h1>低频彩</h1>
+						<ul style="top: 80px; position: relative;">
+							<li>
+								<a href="javascript:void(0);" data-id="fc3d">福彩3D</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" data-id="xg6hc">香港六合彩</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="variety_ten"><img src="__PUBLIC__/Html/images/bg_4.png" class="bg_animate">
+					<div><img src="__PUBLIC__/Html/images/icon_list4.png">
+						<h1>快乐十分</h1>
+						<ul style="width: 112px; left: 242px; top: 46px;">
+							<li>
+								<a href="javascript:void(0);" data-id="kl10fcq">重庆快乐十分</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" data-id="kl10ftj">天津快乐十分</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" data-id="kl10fgd">广东快乐十分</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" data-id="kl10fsx">山西快乐十分</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" data-id="kl10fhn">湖南快乐十分</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="variety_else"><img src="__PUBLIC__/Html/images/bg_6.png" class="bg_animate">
+					<div><img src="__PUBLIC__/Html/images/else_icon.png">
+						<h1>其他</h1>
+						<ul style="position: relative; top: 79px;">
+							<li>
+								<a href="javascript:void(0);" data-id="bjpk10">北京赛车</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" data-id="shssl">上海时时乐</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--模态框-->
+		<div id="m_modal">
+			<!--遮罩层-->
+			<section class="modal_shutter"></section>
+			<!--模态框-->
+			<section class="popups">
+				<!--头-->
+				<header class="popups_header">
+					<img class="popups_inform" src="__PUBLIC__/Html/images/inform.png" />
+					<h2 class="popups_inform_title">消息列表</h2>
+					<div class="popups_close">
+						<img src="__PUBLIC__/Html/images/off.png" />
+					</div>
+				</header>
+				<!--主体内容-->
+				<div class="popups_body">
+					<div class="Vertical"></div>
+					<div class="popups_body_left">
+						<ul class="inform_list"></ul>
+					</div>
+					<div class="popups_body_right"></div>
+				</div>
+			</section>
+		</div>
+
+		<div id="help" style="display: none"></div>
+		
+		<!-- 线路检测 -->
+		<div class="xljc_tanc">
+			<div class="xljc_tanc_top">
+				<p><img src="__PUBLIC__/Html/images/xlxz_logo.png">线路检测</p>
+				<a><img src="__PUBLIC__/Html/images/tanc_close.png"></a>
+			</div>
+			<div class="xljc_tanc_body">
+				<div class="xljc_tanc_title"><img src="__PUBLIC__/Html/images/xljc_tanc_Logo.png"> 线路检测中心</div>
+				<p>温馨提示：请根据最少毫秒数，选择最快的线路进入<a onclick='getping()'>重测</a></p>
+	             <dl id="urllist">
+	            	<dd><span id="span_color1">测速中</span><i id="time1"></i><a id="links1" href="javascript:void(0);">进入</a><div id="host1"></div></dd>
+	                <dd><span id="span_color2">测速中</span><i id="time2"></i><a id="links2" href="javascript:void(0);">进入</a><div id="host2"></div></dd>
+	                <dd><span id="span_color3">测速中</span><i id="time3"></i><a id="links3" href="javascript:void(0);">进入</a><div id="host3"></div></dd>
+	                <dd><span id="span_color4">测速中</span><i id="time4"></i><a id="links4" href="javascript:void(0);">进入</a><div id="host4"></div></dd>
+	                <dd><span id="span_color5">测速中</span><i id="time5"></i><a id="links5" href="javascript:void(0);">进入</a><div id="host5"></div></dd>
+            	</dl>
+	            <ul>
+	            	<li>如果检测后还不能登陆请按以下操作方式，<br>
+	            	 	操作步骤：打开浏览器：选择：工具-》Internet选线-》再选择（删除历史浏览器记录）-》删除-》重启浏览器</li>
+					<li>如果您无法访问，请选择一个新的线路使用看看！</li>
+					<li>如果您在访问我们的域名被跳转到其它网站，那是您当地电信运营商dns被劫持，您可以通过修改电脑本地dns来解决。此处为您提供手动修改教程和自动修改软件。</li>
+	            </ul>
+			</div>	
+		</div>
+
+		
+		<script>
+			$('#help').load('/html/index/help.html');
+		</script>
+		<div id="footer">
+			<div class="footer_top_wrap">
+				<div class="footer_top">
+					<strong>合作伙伴</strong>
+				</div>
+			</div>
+			<div class="footer_msg">
+				<ul>
+					<li>关于我们</li>
+					<li>常见问题</li>
+					<li>条款与规则</li>
+					<li>博彩责任</li>
+					<li>免责声明</li>
+					<li>彩种玩法</li>
+				</ul>
+				<p class="copyright">本网站属于菲律宾卡格杨（Cageayan）授权和监管 所有版权归JC投注所有</p>
+				<p>©2009-2016 Win World by flgj Group LIMITED</p>
+			</div>
+		</div>
+		<script src="__PUBLIC__/Html/lib/jquery.min.js"></script>
+		<script>
+			$(function() {
+				var i = 0;
+				var clone = $(".banner .img li").first().clone();
+				$(".banner .img").append(clone);
+				var size = $(".banner .img li").size();
+				for(var j = 0; j < size - 1; j++) {
+					$(".banner .num").append("<li></li>");
+				}
+				$(".banner .num li").first().addClass("on");
+				$(".banner .num li").hover(function() {
+					var index = $(this).index();
+					i = index;
+					$(".banner .img").stop().animate({ left: -index * 1920 }, 500);
+					$(this).addClass("on").siblings().removeClass("on")
+				})
+				var t = setInterval(function() {
+					i++;
+					move()
+				}, 5000);
+				$(".banner").hover(function() {
+					clearInterval(t);
+				}, function() {
+					t = setInterval(function() {
+						i++;
+						move()
+					}, 5000)
+				});
+				$(".banner .btn_l").click(function() {
+					i--;
+					move();
+				});
+				$(".banner .btn_r").click(function() {
+					i++;
+					move()
+				});
+
+				function move() {
+
+					if(i == size) {
+						$(".banner  .img").css({ left: 0 });
+						i = 1;
+					}
+					if(i == -1) {
+						$(".banner .img").css({ left: -(size - 1) * 1920 });
+						i = size - 2;
+					}
+					$(".banner .img").stop().animate({ left: -i * 1920 }, 500);
+
+					if(i == size - 1) {
+						$(".banner .num li").eq(0).addClass("on").siblings().removeClass("on")
+					} else {
+						$(".banner .num li").eq(i).addClass("on").siblings().removeClass("on")
+					}
+				}
+			});
+			/*公告 */
+			var notice = function() {
+				var i;
+
+				function movechar() {
+					if(i <= "-980px") {
+						$("#notice_bar").css({ left: 1100 })
+					}
+					$("#notice_bar").stop().animate({ left: -1100 }, 20000)
+				}
+				var tim = setInterval(function() {
+					i = $("#notice_bar").css('left');
+					movechar()
+				}, 20000)
+			}();
+		</script>
+		<script>
+			//header_menu
+			$(document).ready(function() {
+			$(".header_menu li a").click(function() {
+				switch($(this).data("id")) {
+					case 'sy':
+						$('#ym_home').load('home.html');
+						break;
+					case 'yhhd':
+						$('#ym_home').load('activity.html');
+						break;
+					case 'xljc':
+						$(".xljc_tanc").show();
+						break;
+					default:
+						return false
+				}
+			});
+			$(document).on("click",".xljc_tanc_top a",function(){
+				$(".xljc_tanc").hide();
+			});
+			});
+		</script>
+		 <script>
+
+        var autourl=new Array();
+
+        function getping(){
+            bb=1;tim=1;
+        request = $.ajax({
+                            type: "GET",
+                            url: "{:U('Html/Getdata/getaurlping')}",
+
+                            async: true,
+                            timeout: 10000,
+                            success: function(data) {
+                                    $("#urllist").empty();
+                                    var html="";
+                                        for (var i = 0; i < data.length; i++) {
+                                            a=i+1;
+                                            html+='<dd><span id="span_color'+a+'">测速中</span><i id="time'+a+'"></i><a id="links'+a+'" href="javascript:void(0);">进入</a><div id="host'+a+'"></div></dd>';
+                                            autourl[a]='http://'+data[i].url;
+
+                                        }
+                                        $("#urllist").append(html);
+                                        run();
+                                }
+
+                            })
+        }
+        getping();
+        var tim=1;
+        setInterval("tim++",100);
+        var bb=1;
+        function auto(url){
+            //console.log(url);
+                document.getElementById("host"+bb).innerHTML = url;
+                document.getElementById("links"+bb).href = url;
+                console.log(bb);
+                if(tim<=3){
+                     document.getElementById("time"+bb).innerHTML = tim*10+"ms";
+                     $("#span_color"+bb).attr('class','span_0');
+                     $("#span_color"+bb).html('极速');
+                }
+                if(tim>3 && tim<12){
+                     document.getElementById("time"+bb).innerHTML = tim*10+"ms";
+                     $("#span_color"+bb).attr('class','span_1');
+                     $("#span_color"+bb).html('正常');
+                }
+                if(tim>12 && tim<200){
+                     document.getElementById("time"+bb).innerHTML = tim*10+"ms";
+                     $("#span_color"+bb).attr('class','span_2');
+                     $("#span_color"+bb).html('缓慢');
+                }
+                if( tim>200)
+                {
+                    document.getElementById("time"+bb).innerHTML = "超时";
+                    $("#span_color"+bb).attr('class','span_3');
+                    $("#span_color"+bb).html('超时');
+                }
+
+           
+            bb++;
+        }
+
+        function run(){
+            for(var i=1;i<autourl.length;i++){
+                $("body").append("<img src="+autourl[i]+"/"+Math.random()+" width=1 height=1 onerror=auto('"+autourl[i]+"') style='display:none'>");
+                }
+            
+        }
+        
+    </script>
+		<!--弹出层-->
+	
+		<script type="text/javascript">
+			// 用于判断是否发送请求完成
+			var flag = true;
+			if(flag) {
+				flag = false;
+				$('#section .fr').click(function() {
+					//模态框显示
+					$('#m_modal').fadeIn();
+					// 阻止屏幕滚动
+					//					$(window).scroll(function(e) {
+					//						$(this).css({ "position": "relative" })
+					//						$(this).scrollTop(0);
+					//					});
+					// 发送请求	
+					$.get("{:U('Html/Notice/notice')}",function(resdata) {
+							var innerHTML1 = null;
+							var innerHTML2 = null;
+							// 转化时间格式
+							function addTime(time) {
+								var time = new Date(time * 1000);
+								return time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate() + ' ' + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
+							}
+							for(var i = 0; i < resdata.length; i++) {
+								innerHTML1 = '<li class="inform_item" data-index="' + i + '"><p>' + resdata[i].title + '</p><p>' + addTime(resdata[i].addtime) + '</p><span class="globule"></span></li>';
+								innerHTML2 = '<div class="popups_body_right_container"><h2>' + resdata[i].title + '</h2><p>' + resdata[i].content + '</p></div>';
+								$('#m_modal .popups_body_left .inform_list').append(innerHTML1);
+								$('#m_modal .popups_body_right').append(innerHTML2);
+							}
+							$('#m_modal  .inform_item:first').addClass('inform_active');
+							$('#m_modal  .inform_item').each(function(i, value) {
+								// 首次判断选择的内容
+								if($(this).hasClass('inform_active')) {
+									$('#m_modal .popups_body_right_container').eq($(this).index()).css("display", "block");
+								}
+							});
+							// 开启请求
+							flag = true;
+					});
+				});
+			}
+			// 关闭模态框
+			$('#m_modal .popups_close').click(function() {
+				$('#m_modal').fadeOut();
+				// 清空数据
+				$('#m_modal .popups_body_left .inform_list li').remove();
+				$('#m_modal .popups_body_right div').remove();
+				//解绑滚动
+				//				$(window).unbind('scroll');
+			});
+			// 点击对应的消息
+			$('#m_modal .inform_list').on('click', '.inform_item', function() {
+				$('.inform_item').removeClass('inform_active');
+				$(this).addClass('inform_active');
+				$('#m_modal .popups_body_right_container').css("display", "none");
+				$('#m_modal .popups_body_right_container').eq($(this).data().index).css("display", "block");
+			})
+		</script>
+		<script>
+			//footer
+			$(document).ready(function() {
+				$(".footer_msg li").click(function() {
+					$("#section").hide();
+					$("#help").show();
+					var li_in = $(this).index();
+					$('.help_list li').eq(li_in).click();
+				})
+				$("#logo_register").click(function() {
+					$("#section").show();
+					$("#help").hide();
+				})
+				$('.help_list li').click(function() {
+					var li_in = $(this).index();
+					$(this).addClass("on").siblings().removeClass("on");
+					$(".help_writing .help_writing_no").eq(li_in).addClass("on").siblings().removeClass("on");
+					$('html, body').animate({ scrollTop: 0 }, 'slow');
+				})
+			});
+		</script>
+	</body>
+
+</html>

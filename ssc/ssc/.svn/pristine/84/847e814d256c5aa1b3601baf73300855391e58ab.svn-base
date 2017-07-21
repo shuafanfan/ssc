@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" href="__PUBLIC__/Html/css/default.css"/>
+<link rel="stylesheet" href="__PUBLIC__/Html/css/gycss.css"/>
+<link rel="stylesheet" href="__PUBLIC__/Html/layer/layer.css"/>
+<link rel="stylesheet" href="__PUBLIC__/Html/lib/jquery.searchableselect.css"/>
+<link rel="stylesheet" href="__PUBLIC__/Html/css/bet.css"/>
+</head>
+<body>
+<!--内容-->
+    <form id="mainForm" name="mainForm" method="post" action="./default.html" enctype="application/x-www-form-urlencoded">
+            <input type="hidden" name="mainForm" value="mainForm">
+			<input type="hidden" name="lotteryid" id="lotteryid" value="1">
+			<input type="hidden" name="flag" id="flag" value="save"> 
+    <div class="lottery_wrap">
+      <div class="lottery_top clearfix">
+        <div class="gm_con">
+          <div class="gm_logo xg6hclogo"> <a href="javascript:void(0);">官方玩法<i></i></a> </div>
+        </div>
+        <div class="gct_l" style="margin: 36px 0 0 45px;">
+          <p>第<span id="current_issue">20170228-057</span>期 投注截止时间</p>
+          <div id="countdown_knob" class="timerArea" ></div>
+        </div>
+        <div class="bet-kai">
+          <p>第<span id="lt_gethistorycode"></span>期 开奖结果</p>
+          <div class="bet-nums" id="showcodebox">
+				<span class="gr_s gr_sx" flag="normal">1</span>
+				<span class="gr_s gr_sx" flag="normal">2</span>
+				<span class="gr_s gr_sx" flag="normal">3</span>
+                <span class="gr_s gr_sx" flag="normal">4</span>
+				<span class="gr_s gr_sx" flag="normal">5</span>
+				<span class="gr_s gr_sx" flag="normal">6</span>
+                <span class="gr_s gr_sx" flag="normal">7</span>
+            </div>
+        </div>
+      </div>
+      
+      <!-- 玩法标签开始-->
+      <div class="bet-box" >
+        <div class="bet-content-tabs" id="tabbar-div-s2"> 
+          <!-- 加载大类别 --> 
+        </div>
+        <div class="bet-contents">
+          <div class="con01">
+            <div class="conbok">
+              <div class="con02">
+                <ul class="con-box-ul" id="tabbar-div-s3">
+                  <!-- 加载小类别 -->
+                </ul>
+              </div>
+              <div class="con03">
+                <ul class="con-box-num-ul con-box-6hc-ul" id="lt_selector">
+                  <!-- 加载玩法选择 -->
+                </ul>
+              </div>
+            </div>
+            <div class="con04">
+              <div class="total-box">
+                <div class="f-left account-num">已选 <span class="tips-font" id="lt_sel_nums">0</span> 注</div>
+                <div class="f-left multiple">
+                  <div class="f-left"> <span class="f-left jian-btn" id="reducetime"></span>
+                    <input class="f-left multiple-input" id="lt_sel_times" type="text" value="99">
+                    <span class="f-left jia-btn" id="plustime"></span></div>
+                  <span class="f-left f16">倍</span> </div>
+                <div class="f-left total-type">
+                  <div class="f-left" id="lt_sel_modes" value="1"><span class="f-left unit 1 on">元</span><span class="f-left unit 2">角</span><span class="f-left unit 3">分</span><span class="f-left unit 4">厘</span></div>
+                </div>
+                <div class="f-left account-num f16">投注金额 <span class="tips-font" id="lt_sel_money">0</span> 元</div>
+                <div style="display: none;" class="f-left">&#36820;&#28857;:<span id="lt_sel_prize"></span></div>
+                <ul class="operate">
+                  <li id="lt_sel_insert">添加</li>
+                  <li id="lt_sel_jiabei">加倍</li>
+                  <!--<li>机选</li>-->
+                </ul>
+                <i class="delete" id="i_li_delete"></i> </div>
+            </div>
+            <div class="con03">
+              <div class="total-table">
+                <div class="total-table-l">
+                  <ul class="total-table-l-ul total-table-l-ul02" id="lt_cf_content">
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="gm_con_r fr">
+        <div class="dis_txt_high"> <a href="#none" class="jiluxx tzjl on">投注记录</a> <a href="#none" class="jiluxx zhjl">追号记录</a> <a href="#none" class="jiluxx kjjl">开奖记录</a> </div>
+        <div class="tb_list tb_list1 clearfix tzjilu" style="display: block;">
+          <div class="tab_bet_record"> <span>彩种</span> <span>期号</span> <span>投注内容</span> <span>盈亏</span> </div>
+          <ul>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+          </ul>
+          <div class="more_r"><a href="javascript:void(0);">更多</a><i></i></div>
+        </div>
+        <div class="tb_list tb_list2 clearfix">
+          <div class="tab_bet_record"> <span>彩种</span> <span>期号</span> <span>投注内容</span> <span>盈亏</span> </div>
+          <ul>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+            <li> <span>新西兰45秒彩</span><span>412</span><span>3,4,5,6</span><span>-1,222</span> </li>
+          </ul>
+          <div class="more_r"><a href="javascript:void(0);">更多</a><i></i></div>
+        </div>
+        <div class="tb_list tb_list3 tb_list_2 clearfix">
+          <div class="tab_bet_record tab_bet_record_2"> <span>期号</span> <span>开奖号码</span> </div>
+          <ul>
+            <li> <span>412</span><span>3,4,5,6</span> </li>
+            <li> <span>412</span><span>3,4,5,6</span> </li>
+            <li> <span>412</span><span>3,4,5,6</span> </li>
+            <li> <span>412</span><span>3,4,5,6</span> </li>
+            <li> <span>412</span><span>3,4,5,6</span> </li>
+            <li> <span>412</span><span>3,4,5,6</span> </li>
+            <li> <span>412</span><span>3,4,5,6</span> </li>
+            <li> <span>412</span><span>3,4,5,6</span> </li>
+          </ul>
+			<div class="more_r"><a href="javascript:void(0);">更多</a><i></i></div>
+        </div>
+        <div class="bet_divbg">
+          <div id="icon" class="icon">
+            <div class="wheel">
+              <div id="indicator" class="indicator"></div>
+              <div class="shade_div">
+                <div id="lt_fast_buy" class="rel now_bet_div"></div>
+                <div id="lt_buy" class="rel confirm_bet_div"></div>
+              </div>
+              <div class="wheel_number" id="wheel_number">
+                <div class="fl"><span class="wheel_span_bf">8.5</span>%</div>
+                <div class="fr">
+                  <div id="wheel_number_jj">+<span class="wheel_span_jj">18</span></div>
+                  <div id="wheel_number_pl">×<span class="wheel_span_pl">9</span></div>
+                  <div class="wheel_number_h">
+                    <div><span>奖金=<span class="wheel_span_jj">18</span></span><span>赔率=<span class="wheel_span_pl">9</span></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bet_type_list">
+           <span id="lt_issues" style="display: none;"></span>
+          <input name="lt_trace_if" id="lt_trace_if" type="checkbox" value="yes" style="display:none;">
+          <span class=""><a href="javascript:void(0);" id="lt_trace_if_btn">追号</a></span> <span class=""><a href="javascript:void(0);">合买</a></span> </div>
+      </div>
+    </div>
+    <!--alert-追号设置 start-->
+	<div class="alert-box" id="lt_trace_box" style="display:none;">
+	  <div class="alert-big">
+		<div class="alert-title2">追号
+			<span class="close-btn" id="J-trace-cancle"></span>
+		</div>
+		<div class="alert-body">
+		  <div class="alert-body-tabs" id="lt_trace_label"><span class="tab-btn f-left cur">利润率追号</span><span class="tab-btn f-left">同倍追号</span><span class="tab-btn f-left">翻倍追号</span></div>
+		  <div class="alert-body-tabcon">
+			<div class="tabcon01">
+			   <div class="tabcon01_sz">
+				  <p class="text-center">追号期数选择：<select class="tab-select" id="lt_trace_qissueno">
+			                    <option>请选择</option>
+			                    <option value="5">5期</option>
+			                    <option value="10">10期</option>
+			                    <option value="15">15期</option>
+			                    <option value="20">20期</option>
+			                    <option value="25">25期</option>
+			                	<option value="all">全部</option>
+				            </select>总期数：<span class="tips-font" id="lt_trace_count">0</span>期， 总投注金额：<span class="tips-font" id="lt_trace_hmoney">&yen;20.00</span>元</p>
+				  <ul class="tabcon-title" id="lt_trace_labelhtml">
+					 <li class="li_but"><a class="button text-center" id="lt_trace_ok">生成追号</a></li>
+				  </ul>
+				  <label class="alert-title-r" for="lt_trace_stop">
+				  <input class="checkbox" type="checkbox" name="lt_trace_stop" id="lt_trace_stop" value="yes" />
+				  中奖后停止追号</label>
+			  </div>
+			  <div class="tabcon-tables">
+				<ul class="tabcon-table tabcon-table02 tabcon-table03" id="lt_trace_issues">
+				</ul>
+			  </div>
+			</div>
+		  </div>
+		  <div class="alert-body-control">
+			<div class="total-bigbtns2"><span class="button" id="lt_buy_trace">投注</span></div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<!--alert-追号设置 end-->
+	<input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id5" autocomplete="off" />
+	</form>
+<!--订单详情-->
+<div id="recharge2" class="clearfix">
+  <div class="tctip .clearfix">
+    <div class="tctitile2">
+      <div>订单详情</div>
+      <strong class="state_close"></strong> </div>
+    <div class="jltable">
+      <table class="state_tab clearfix">
+        <thead>
+          <tr>
+            <th>订单号</th>
+            <th>开奖号码</th>
+            <th>投注金额</th>
+            <th>中奖金额</th>
+            <th>盈亏金额</th>
+            <th>状态</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>cs4455132145</td>
+            <td>7,5,6,3,2</td>
+            <td>20.000</td>
+            <td>0.000</td>
+            <td>-19.960</td>
+            <td>未中奖</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="jiluinfo">
+      <ul>
+        <li><span>彩票名称：</span><em>重庆时时彩</em></li>
+        <li><span>玩法名称：</span><em>定位胆五星定位胆</em></li>
+        <li><span>投注期号：</span><em>20161230024</em></li>
+        <li><span>下单时间：</span><em>2016-12-30 09:34:25</em></li>
+        <li><span>投注数量：</span><em>1</em></li>
+        <li><span>返点金额：</span><em>0.000</em></li>
+        <li><span>投注倍数：</span><em>32</em></li>
+        <li><span>中奖注数：</span><em>0</em></li>
+        <li><span>元角模式：</span><em>厘</em></li>
+        <li><span>单注奖金：</span><em></em></li>
+      </ul>
+    </div>
+    <div class="jiluhaoma">
+      <dd>投注号码：</dd>
+      <dt>,,3,,</dt>
+    </div>
+    <div class="btnbox btnbox2"> <a href="javascript:void(0);" class="btn_qd">确定</a> </div>
+  </div>
+</div>
+<!--alert-common start-->
+<div class="alert-box" id="tk02" style="display:none;">
+  <div class="alert">
+    <div class="alert-title1">
+      <div class="alert-logo"><i><img src="images/cqssc.png"></i></div>
+      <div class="alert-txt"> <span>第<em>1615651621</em>期</span>
+        <p>是否提交购物车中的方案？</p>
+      </div>
+      <span class="close-btn f-right reveal-modal-close"></span> </div>
+    <div class="alert-body">
+      <div class="alert-body-con">
+        <ul id="tk02_content">
+        </ul>
+      </div>
+      <div class="alert-tishi"> 
+           <p>温馨提示:<em class="red">本平台每单最高奖金20万，单期最高奖金50万，请会员谨慎投注！</em></p> <p>特别提醒:<em class="red">本平台任何彩种单挑最高奖金2万</em></p>
+      </div>
+      <div class="alert-body-control">
+        <span>总单数：<span class="tips-font" id="td02_size">1</span></span>&nbsp;&nbsp;<span>付款总金额：<span class="tips-font red" id="td02_money">2</span>元</span>
+      </div>
+      <div class="total-bigbtns1">
+         <span class="button reveal-modal-submit">确定</span><span class="button reveal-modal-close">取消</span>
+      </div>
+    </div>
+  </div>
+</div>
+<!--alert-common end--> 
+<script src="__PUBLIC__/Html/js/jquery.min.js"></script> 
+<script src="__PUBLIC__/Html/layer/layer.js"></script> 
+<script src="__PUBLIC__/Html/js/byte2hex.js" type="text/javascript"></script> 
+<script src="__PUBLIC__/Html/js/lzma.js" type="text/javascript"></script> 
+<script src="__PUBLIC__/Html/js/reveal.js"></script> 
+<script src="__PUBLIC__/Html/js/gamecommon.js"></script> 
+<script src="__PUBLIC__/Html/js/jquery.dialogUI.js"></script> 
+<script src="__PUBLIC__/Html/js/lang_zh.js"></script> 
+<script src="__PUBLIC__/Html/js/face/face.pl5.js"></script> 
+<script src="__PUBLIC__/Html/js/methods/methods.pl5.js"></script> 
+<script src="__PUBLIC__/Html/js/game/jquery.game.pl5.js"></script> 
+<script>
+	var pri_user_data = [{methodid:569,prize:{1:'1800.0'},dyprize:[{'level':1,'prize':[{'point':0,'prize':1882.00},{'point':'0.041','prize':1800.0}]}]},{methodid:570,prize:{1:'1800.0'},dyprize:[{'level':1,'prize':[{'point':0,'prize':1882.00},{'point':'0.041','prize':1800.0}]}]},{methodid:572,prize:{1:'600.0'},dyprize:[{'level':1,'prize':[{'point':0,'prize':627.32},{'point':'0.041','prize':600.0}]}]},{methodid:573,prize:{1:'300.0'},dyprize:[{'level':1,'prize':[{'point':0,'prize':313.65},{'point':'0.041','prize':300.0}]}]},{methodid:574,prize:{1:'600.0',2:'300.0'},dyprize:[{'level':1,'prize':[{'point':0,'prize':627.32},{'point':'0.041','prize':600.0}]},{'level':2,'prize':[{'point':'0.041','prize':300.0},{'point':0,'prize':313.67}]}]},{methodid:575,prize:{1:'600.0',2:'300.0'},dyprize:[{'level':1,'prize':[{'point':0,'prize':627.32},{'point':'0.041','prize':600.0}]},{'level':2,'prize':[{'point':'0.041','prize':300.0},{'point':0,'prize':313.67}]}]},{methodid:577,prize:{1:'180.0'},dyprize:[{'level':1,'prize':[{'point':0,'prize':188.20},{'point':'0.041','prize':180.0}]}]},{methodid:579,prize:{1:'90.0'},dyprize:[{'level':1,'prize':[{'point':0,'prize':94.10},{'point':'0.041','prize':90.0}]}]},{methodid:581,prize:{1:'180.0'},dyprize:[{'level':1,'prize':[{'point':0,'prize':188.20},{'point':'0.041','prize':180.0}]}]},{methodid:583,prize:{1:'90.0'},dyprize:[{'level':1,'prize':[{'point':0,'prize':94.10},{'point':'0.041','prize':90.0}]}]},{methodid:585,prize:{1:'18.0'},dyprize:[{'level':1,'prize':[{'point':0,'prize':18.82},{'point':'0.041','prize':18.0}]}]},{methodid:589,prize:{1:'6.6'},dyprize:[{'level':1,'prize':[{'point':0,'prize':6.90},{'point':'0.041','prize':6.6}]}]},{methodid:591,prize:{1:'33.0'},dyprize:[{'level':1,'prize':[{'point':0,'prize':34.51},{'point':'0.041','prize':33.0}]}]},{methodid:593,prize:{1:'7.2'},dyprize:[{'level':1,'prize':[{'point':0,'prize':7.53},{'point':'0.041','prize':7.2}]}]},{methodid:594,prize:{1:'7.2'},dyprize:[{'level':1,'prize':[{'point':0,'prize':7.53},{'point':'0.041','prize':7.2}]}]}];
+        var pri_issues = [{issue:'2017053',endtime:'2017-03-01 21:00:00'},{issue:'2017054',endtime:'2017-03-02 21:00:00'},{issue:'2017055',endtime:'2017-03-03 21:00:00'},{issue:'2017056',endtime:'2017-03-04 21:00:00'},{issue:'2017057',endtime:'2017-03-05 21:00:00'},{issue:'2017058',endtime:'2017-03-06 21:00:00'},{issue:'2017059',endtime:'2017-03-07 21:00:00'},{issue:'2017060',endtime:'2017-03-08 21:00:00'},{issue:'2017061',endtime:'2017-03-09 21:00:00'},{issue:'2017062',endtime:'2017-03-10 21:00:00'},{issue:'2017063',endtime:'2017-03-11 21:00:00'},{issue:'2017064',endtime:'2017-03-12 21:00:00'},{issue:'2017065',endtime:'2017-03-13 21:00:00'},{issue:'2017066',endtime:'2017-03-14 21:00:00'},{issue:'2017067',endtime:'2017-03-15 21:00:00'},{issue:'2017068',endtime:'2017-03-16 21:00:00'},{issue:'2017069',endtime:'2017-03-17 21:00:00'},{issue:'2017070',endtime:'2017-03-18 21:00:00'},{issue:'2017071',endtime:'2017-03-19 21:00:00'},{issue:'2017072',endtime:'2017-03-20 21:00:00'},{issue:'2017073',endtime:'2017-03-21 21:00:00'},{issue:'2017074',endtime:'2017-03-22 21:00:00'},{issue:'2017075',endtime:'2017-03-23 21:00:00'},{issue:'2017076',endtime:'2017-03-24 21:00:00'},{issue:'2017077',endtime:'2017-03-25 21:00:00'},{issue:'2017078',endtime:'2017-03-26 21:00:00'},{issue:'2017079',endtime:'2017-03-27 21:00:00'},{issue:'2017080',endtime:'2017-03-28 21:00:00'},{issue:'2017081',endtime:'2017-03-29 21:00:00'},{issue:'2017082',endtime:'2017-03-30 21:00:00'},{issue:'2017083',endtime:'2017-03-31 21:00:00'},{issue:'2017084',endtime:'2017-04-01 21:00:00'},{issue:'2017085',endtime:'2017-04-02 21:00:00'},{issue:'2017086',endtime:'2017-04-03 21:00:00'},{issue:'2017087',endtime:'2017-04-04 21:00:00'},{issue:'2017088',endtime:'2017-04-05 21:00:00'},{issue:'2017089',endtime:'2017-04-06 21:00:00'},{issue:'2017090',endtime:'2017-04-07 21:00:00'},{issue:'2017091',endtime:'2017-04-08 21:00:00'},{issue:'2017092',endtime:'2017-04-09 21:00:00'},{issue:'2017093',endtime:'2017-04-10 21:00:00'},{issue:'2017094',endtime:'2017-04-11 21:00:00'},{issue:'2017095',endtime:'2017-04-12 21:00:00'},{issue:'2017096',endtime:'2017-04-13 21:00:00'},{issue:'2017097',endtime:'2017-04-14 21:00:00'},{issue:'2017098',endtime:'2017-04-15 21:00:00'},{issue:'2017099',endtime:'2017-04-16 21:00:00'},{issue:'2017100',endtime:'2017-04-17 21:00:00'},{issue:'2017101',endtime:'2017-04-18 21:00:00'},{issue:'2017102',endtime:'2017-04-19 21:00:00'},{issue:'2017103',endtime:'2017-04-20 21:00:00'},{issue:'2017104',endtime:'2017-04-21 21:00:00'},{issue:'2017105',endtime:'2017-04-22 21:00:00'},{issue:'2017106',endtime:'2017-04-23 21:00:00'},{issue:'2017107',endtime:'2017-04-24 21:00:00'},{issue:'2017108',endtime:'2017-04-25 21:00:00'},{issue:'2017109',endtime:'2017-04-26 21:00:00'},{issue:'2017110',endtime:'2017-04-27 21:00:00'},{issue:'2017111',endtime:'2017-04-28 21:00:00'},{issue:'2017112',endtime:'2017-04-29 21:00:00'},{issue:'2017113',endtime:'2017-04-30 21:00:00'},{issue:'2017114',endtime:'2017-05-01 21:00:00'},{issue:'2017115',endtime:'2017-05-02 21:00:00'},{issue:'2017116',endtime:'2017-05-03 21:00:00'},{issue:'2017117',endtime:'2017-05-04 21:00:00'},{issue:'2017118',endtime:'2017-05-05 21:00:00'},{issue:'2017119',endtime:'2017-05-06 21:00:00'},{issue:'2017120',endtime:'2017-05-07 21:00:00'},{issue:'2017121',endtime:'2017-05-08 21:00:00'},{issue:'2017122',endtime:'2017-05-09 21:00:00'},{issue:'2017123',endtime:'2017-05-10 21:00:00'},{issue:'2017124',endtime:'2017-05-11 21:00:00'},{issue:'2017125',endtime:'2017-05-12 21:00:00'},{issue:'2017126',endtime:'2017-05-13 21:00:00'},{issue:'2017127',endtime:'2017-05-14 21:00:00'},{issue:'2017128',endtime:'2017-05-15 21:00:00'},{issue:'2017129',endtime:'2017-05-16 21:00:00'},{issue:'2017130',endtime:'2017-05-17 21:00:00'},{issue:'2017131',endtime:'2017-05-18 21:00:00'},{issue:'2017132',endtime:'2017-05-19 21:00:00'},{issue:'2017133',endtime:'2017-05-20 21:00:00'},{issue:'2017134',endtime:'2017-05-21 21:00:00'},{issue:'2017135',endtime:'2017-05-22 21:00:00'},{issue:'2017136',endtime:'2017-05-23 21:00:00'},{issue:'2017137',endtime:'2017-05-24 21:00:00'},{issue:'2017138',endtime:'2017-05-25 21:00:00'},{issue:'2017139',endtime:'2017-05-26 21:00:00'},{issue:'2017140',endtime:'2017-05-27 21:00:00'},{issue:'2017141',endtime:'2017-05-28 21:00:00'},{issue:'2017142',endtime:'2017-05-29 21:00:00'},{issue:'2017143',endtime:'2017-05-30 21:00:00'},{issue:'2017144',endtime:'2017-05-31 21:00:00'},{issue:'2017145',endtime:'2017-06-01 21:00:00'},{issue:'2017146',endtime:'2017-06-02 21:00:00'},{issue:'2017147',endtime:'2017-06-03 21:00:00'},{issue:'2017148',endtime:'2017-06-04 21:00:00'},{issue:'2017149',endtime:'2017-06-05 21:00:00'},{issue:'2017150',endtime:'2017-06-06 21:00:00'},{issue:'2017151',endtime:'2017-06-07 21:00:00'},{issue:'2017152',endtime:'2017-06-08 21:00:00'},{issue:'2017153',endtime:'2017-06-09 21:00:00'},{issue:'2017154',endtime:'2017-06-10 21:00:00'},{issue:'2017155',endtime:'2017-06-11 21:00:00'},{issue:'2017156',endtime:'2017-06-12 21:00:00'},{issue:'2017157',endtime:'2017-06-13 21:00:00'},{issue:'2017158',endtime:'2017-06-14 21:00:00'},{issue:'2017159',endtime:'2017-06-15 21:00:00'},{issue:'2017160',endtime:'2017-06-16 21:00:00'},{issue:'2017161',endtime:'2017-06-17 21:00:00'},{issue:'2017162',endtime:'2017-06-18 21:00:00'},{issue:'2017163',endtime:'2017-06-19 21:00:00'},{issue:'2017164',endtime:'2017-06-20 21:00:00'},{issue:'2017165',endtime:'2017-06-21 21:00:00'},{issue:'2017166',endtime:'2017-06-22 21:00:00'},{issue:'2017167',endtime:'2017-06-23 21:00:00'},{issue:'2017168',endtime:'2017-06-24 21:00:00'},{issue:'2017169',endtime:'2017-06-25 21:00:00'},{issue:'2017170',endtime:'2017-06-26 21:00:00'},{issue:'2017171',endtime:'2017-06-27 21:00:00'},{issue:'2017172',endtime:'2017-06-28 21:00:00'},{issue:'2017173',endtime:'2017-06-29 21:00:00'},{issue:'2017174',endtime:'2017-06-30 21:00:00'},{issue:'2017175',endtime:'2017-07-01 21:00:00'},{issue:'2017176',endtime:'2017-07-02 21:00:00'},{issue:'2017177',endtime:'2017-07-03 21:00:00'},{issue:'2017178',endtime:'2017-07-04 21:00:00'},{issue:'2017179',endtime:'2017-07-05 21:00:00'},{issue:'2017180',endtime:'2017-07-06 21:00:00'},{issue:'2017181',endtime:'2017-07-07 21:00:00'},{issue:'2017182',endtime:'2017-07-08 21:00:00'},{issue:'2017183',endtime:'2017-07-09 21:00:00'},{issue:'2017184',endtime:'2017-07-10 21:00:00'},{issue:'2017185',endtime:'2017-07-11 21:00:00'},{issue:'2017186',endtime:'2017-07-12 21:00:00'},{issue:'2017187',endtime:'2017-07-13 21:00:00'},{issue:'2017188',endtime:'2017-07-14 21:00:00'},{issue:'2017189',endtime:'2017-07-15 21:00:00'},{issue:'2017190',endtime:'2017-07-16 21:00:00'},{issue:'2017191',endtime:'2017-07-17 21:00:00'},{issue:'2017192',endtime:'2017-07-18 21:00:00'},{issue:'2017193',endtime:'2017-07-19 21:00:00'},{issue:'2017194',endtime:'2017-07-20 21:00:00'},{issue:'2017195',endtime:'2017-07-21 21:00:00'},{issue:'2017196',endtime:'2017-07-22 21:00:00'},{issue:'2017197',endtime:'2017-07-23 21:00:00'},{issue:'2017198',endtime:'2017-07-24 21:00:00'},{issue:'2017199',endtime:'2017-07-25 21:00:00'},{issue:'2017200',endtime:'2017-07-26 21:00:00'},{issue:'2017201',endtime:'2017-07-27 21:00:00'},{issue:'2017202',endtime:'2017-07-28 21:00:00'},{issue:'2017203',endtime:'2017-07-29 21:00:00'},{issue:'2017204',endtime:'2017-07-30 21:00:00'},{issue:'2017205',endtime:'2017-07-31 21:00:00'},{issue:'2017206',endtime:'2017-08-01 21:00:00'},{issue:'2017207',endtime:'2017-08-02 21:00:00'},{issue:'2017208',endtime:'2017-08-03 21:00:00'},{issue:'2017209',endtime:'2017-08-04 21:00:00'},{issue:'2017210',endtime:'2017-08-05 21:00:00'},{issue:'2017211',endtime:'2017-08-06 21:00:00'},{issue:'2017212',endtime:'2017-08-07 21:00:00'},{issue:'2017213',endtime:'2017-08-08 21:00:00'},{issue:'2017214',endtime:'2017-08-09 21:00:00'},{issue:'2017215',endtime:'2017-08-10 21:00:00'},{issue:'2017216',endtime:'2017-08-11 21:00:00'},{issue:'2017217',endtime:'2017-08-12 21:00:00'},{issue:'2017218',endtime:'2017-08-13 21:00:00'},{issue:'2017219',endtime:'2017-08-14 21:00:00'},{issue:'2017220',endtime:'2017-08-15 21:00:00'},{issue:'2017221',endtime:'2017-08-16 21:00:00'},{issue:'2017222',endtime:'2017-08-17 21:00:00'},{issue:'2017223',endtime:'2017-08-18 21:00:00'},{issue:'2017224',endtime:'2017-08-19 21:00:00'},{issue:'2017225',endtime:'2017-08-20 21:00:00'},{issue:'2017226',endtime:'2017-08-21 21:00:00'},{issue:'2017227',endtime:'2017-08-22 21:00:00'},{issue:'2017228',endtime:'2017-08-23 21:00:00'},{issue:'2017229',endtime:'2017-08-24 21:00:00'},{issue:'2017230',endtime:'2017-08-25 21:00:00'},{issue:'2017231',endtime:'2017-08-26 21:00:00'},{issue:'2017232',endtime:'2017-08-27 21:00:00'},{issue:'2017233',endtime:'2017-08-28 21:00:00'},{issue:'2017234',endtime:'2017-08-29 21:00:00'},{issue:'2017235',endtime:'2017-08-30 21:00:00'},{issue:'2017236',endtime:'2017-08-31 21:00:00'},{issue:'2017237',endtime:'2017-09-01 21:00:00'},{issue:'2017238',endtime:'2017-09-02 21:00:00'},{issue:'2017239',endtime:'2017-09-03 21:00:00'},{issue:'2017240',endtime:'2017-09-04 21:00:00'},{issue:'2017241',endtime:'2017-09-05 21:00:00'},{issue:'2017242',endtime:'2017-09-06 21:00:00'},{issue:'2017243',endtime:'2017-09-07 21:00:00'},{issue:'2017244',endtime:'2017-09-08 21:00:00'},{issue:'2017245',endtime:'2017-09-09 21:00:00'},{issue:'2017246',endtime:'2017-09-10 21:00:00'},{issue:'2017247',endtime:'2017-09-11 21:00:00'},{issue:'2017248',endtime:'2017-09-12 21:00:00'},{issue:'2017249',endtime:'2017-09-13 21:00:00'},{issue:'2017250',endtime:'2017-09-14 21:00:00'},{issue:'2017251',endtime:'2017-09-15 21:00:00'},{issue:'2017252',endtime:'2017-09-16 21:00:00'},{issue:'2017253',endtime:'2017-09-17 21:00:00'},{issue:'2017254',endtime:'2017-09-18 21:00:00'},{issue:'2017255',endtime:'2017-09-19 21:00:00'},{issue:'2017256',endtime:'2017-09-20 21:00:00'},{issue:'2017257',endtime:'2017-09-21 21:00:00'},{issue:'2017258',endtime:'2017-09-22 21:00:00'},{issue:'2017259',endtime:'2017-09-23 21:00:00'},{issue:'2017260',endtime:'2017-09-24 21:00:00'},{issue:'2017261',endtime:'2017-09-25 21:00:00'},{issue:'2017262',endtime:'2017-09-26 21:00:00'},{issue:'2017263',endtime:'2017-09-27 21:00:00'},{issue:'2017264',endtime:'2017-09-28 21:00:00'},{issue:'2017265',endtime:'2017-09-29 21:00:00'},{issue:'2017266',endtime:'2017-09-30 21:00:00'},{issue:'2017267',endtime:'2017-10-01 21:00:00'},{issue:'2017268',endtime:'2017-10-02 21:00:00'},{issue:'2017269',endtime:'2017-10-03 21:00:00'},{issue:'2017270',endtime:'2017-10-04 21:00:00'},{issue:'2017271',endtime:'2017-10-05 21:00:00'},{issue:'2017272',endtime:'2017-10-06 21:00:00'},{issue:'2017273',endtime:'2017-10-07 21:00:00'},{issue:'2017274',endtime:'2017-10-08 21:00:00'},{issue:'2017275',endtime:'2017-10-09 21:00:00'},{issue:'2017276',endtime:'2017-10-10 21:00:00'},{issue:'2017277',endtime:'2017-10-11 21:00:00'},{issue:'2017278',endtime:'2017-10-12 21:00:00'},{issue:'2017279',endtime:'2017-10-13 21:00:00'},{issue:'2017280',endtime:'2017-10-14 21:00:00'},{issue:'2017281',endtime:'2017-10-15 21:00:00'},{issue:'2017282',endtime:'2017-10-16 21:00:00'},{issue:'2017283',endtime:'2017-10-17 21:00:00'},{issue:'2017284',endtime:'2017-10-18 21:00:00'},{issue:'2017285',endtime:'2017-10-19 21:00:00'},{issue:'2017286',endtime:'2017-10-20 21:00:00'},{issue:'2017287',endtime:'2017-10-21 21:00:00'},{issue:'2017288',endtime:'2017-10-22 21:00:00'},{issue:'2017289',endtime:'2017-10-23 21:00:00'},{issue:'2017290',endtime:'2017-10-24 21:00:00'},{issue:'2017291',endtime:'2017-10-25 21:00:00'},{issue:'2017292',endtime:'2017-10-26 21:00:00'},{issue:'2017293',endtime:'2017-10-27 21:00:00'},{issue:'2017294',endtime:'2017-10-28 21:00:00'},{issue:'2017295',endtime:'2017-10-29 21:00:00'},{issue:'2017296',endtime:'2017-10-30 21:00:00'},{issue:'2017297',endtime:'2017-10-31 21:00:00'},{issue:'2017298',endtime:'2017-11-01 21:00:00'},{issue:'2017299',endtime:'2017-11-02 21:00:00'},{issue:'2017300',endtime:'2017-11-03 21:00:00'},{issue:'2017301',endtime:'2017-11-04 21:00:00'},{issue:'2017302',endtime:'2017-11-05 21:00:00'},{issue:'2017303',endtime:'2017-11-06 21:00:00'},{issue:'2017304',endtime:'2017-11-07 21:00:00'},{issue:'2017305',endtime:'2017-11-08 21:00:00'},{issue:'2017306',endtime:'2017-11-09 21:00:00'},{issue:'2017307',endtime:'2017-11-10 21:00:00'},{issue:'2017308',endtime:'2017-11-11 21:00:00'},{issue:'2017309',endtime:'2017-11-12 21:00:00'},{issue:'2017310',endtime:'2017-11-13 21:00:00'},{issue:'2017311',endtime:'2017-11-14 21:00:00'},{issue:'2017312',endtime:'2017-11-15 21:00:00'},{issue:'2017313',endtime:'2017-11-16 21:00:00'},{issue:'2017314',endtime:'2017-11-17 21:00:00'},{issue:'2017315',endtime:'2017-11-18 21:00:00'},{issue:'2017316',endtime:'2017-11-19 21:00:00'},{issue:'2017317',endtime:'2017-11-20 21:00:00'},{issue:'2017318',endtime:'2017-11-21 21:00:00'},{issue:'2017319',endtime:'2017-11-22 21:00:00'},{issue:'2017320',endtime:'2017-11-23 21:00:00'},{issue:'2017321',endtime:'2017-11-24 21:00:00'},{issue:'2017322',endtime:'2017-11-25 21:00:00'},{issue:'2017323',endtime:'2017-11-26 21:00:00'},{issue:'2017324',endtime:'2017-11-27 21:00:00'},{issue:'2017325',endtime:'2017-11-28 21:00:00'},{issue:'2017326',endtime:'2017-11-29 21:00:00'},{issue:'2017327',endtime:'2017-11-30 21:00:00'},{issue:'2017328',endtime:'2017-12-01 21:00:00'},{issue:'2017329',endtime:'2017-12-02 21:00:00'},{issue:'2017330',endtime:'2017-12-03 21:00:00'},{issue:'2017331',endtime:'2017-12-04 21:00:00'},{issue:'2017332',endtime:'2017-12-05 21:00:00'},{issue:'2017333',endtime:'2017-12-06 21:00:00'},{issue:'2017334',endtime:'2017-12-07 21:00:00'},{issue:'2017335',endtime:'2017-12-08 21:00:00'},{issue:'2017336',endtime:'2017-12-09 21:00:00'},{issue:'2017337',endtime:'2017-12-10 21:00:00'},{issue:'2017338',endtime:'2017-12-11 21:00:00'},{issue:'2017339',endtime:'2017-12-12 21:00:00'},{issue:'2017340',endtime:'2017-12-13 21:00:00'},{issue:'2017341',endtime:'2017-12-14 21:00:00'},{issue:'2017342',endtime:'2017-12-15 21:00:00'},{issue:'2017343',endtime:'2017-12-16 21:00:00'},{issue:'2017344',endtime:'2017-12-17 21:00:00'},{issue:'2017345',endtime:'2017-12-18 21:00:00'},{issue:'2017346',endtime:'2017-12-19 21:00:00'},{issue:'2017347',endtime:'2017-12-20 21:00:00'},{issue:'2017348',endtime:'2017-12-21 21:00:00'},{issue:'2017349',endtime:'2017-12-22 21:00:00'},{issue:'2017350',endtime:'2017-12-23 21:00:00'},{issue:'2017351',endtime:'2017-12-24 21:00:00'},{issue:'2017352',endtime:'2017-12-25 21:00:00'},{issue:'2017353',endtime:'2017-12-26 21:00:00'},{issue:'2017354',endtime:'2017-12-27 21:00:00'},{issue:'2017355',endtime:'2017-12-28 21:00:00'},{issue:'2017356',endtime:'2017-12-29 21:00:00'},{issue:'2017357',endtime:'2017-12-30 21:00:00'},{issue:'2017358',endtime:'2017-12-31 21:00:00'}];
+        var pri_cur_issue = {issue:'2017054',endtime:'2017-03-02 21:00:00',opentime:'2017-03-02 21:15:10'};
+        var pri_lastopen  = {issue:'2017053',endtime:'2017-03-01 21:15:10',opentime:'2017-03-01 21:15:10',statuscode:'2'};
+        var	pri_issuecount= 1;
+        var pri_servertime= '2017-03-02 14:49:46';
+        var pri_lotteryid = parseInt(11,10);
+        var	pri_isdynamic = 1;
+        var pri_showhistoryrecord = 0;
+        var pri_ajaxurl   = "/LotteryService.aspx";
+
+      function showNewWin(title, w, h, url) {
+        //iframe层
+        layer.open({
+          type: 2,
+          title: title,
+          shadeClose: true,
+          shade: 0.4,
+          area: [w + 'px', h + 70 + 'px'],
+          content: url //iframe的url
+        });
+      }
+      </script> 
+<script src="__PUBLIC__/Html/lib/jquery.countdown.js"></script> 
+<script src="__PUBLIC__/Html/lib/jquery.rotate.min.js"></script> 
+<script src="__PUBLIC__/Html/lib/countdown.min.js"></script> 
+<script src="__PUBLIC__/Html/lib/jquery.knob.min.js"></script> 
+<script src="__PUBLIC__/Html/lib/tweenlite.min.js"></script> 
+<script src="__PUBLIC__/Html/lib/draggable.min.js"></script> 
+<script src="__PUBLIC__/Html/lib/cssplugin.min.js"></script> 
+<script src="__PUBLIC__/Html/lib/choos.js"></script>
+<script src="__PUBLIC__/Html/lib/jquery.searchableselect.js"></script>
+</body>
+</html>

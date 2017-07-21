@@ -1,0 +1,157 @@
+﻿<include file="Public/header" />
+<body>
+<style>
+.pages a,.pages span {
+    display:inline-block;
+    padding:2px 5px;
+    margin:0 1px;
+    border:1px solid #f0f0f0;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+    
+}
+.pages a,.pages li {
+    display:inline-block;
+    list-style: none;
+    text-decoration:none; color:#58A0D3;
+        
+}
+.pages a.first,.pages a.prev,.pages a.next,.pages a.end{
+    margin:0;
+}
+.pages a:hover{
+    border-color:#50A8E6;
+}
+.pages span.current{
+    background:#50A8E6;
+    color:#FFF;
+    font-weight:700;
+    border-color:#50A8E6;
+</style>
+
+<div class="wrapper wrapper-content animated fadeInRight"> 
+   <div class="row"> 
+    <div class="col-sm-12"> 
+     <div class="ibox float-e-margins"> 
+      <div class="ibox-title"> 
+       <h5>订单管理</h5>
+       <div style="clear: both;">
+      <div class="btn-group" style="float: left;margin-left: 12px;">
+
+      <!--<form class="" method="post" action="">
+            彩种赛选： 
+            <input type="text" name="uid" style="width: 100px;" value="" placeholder="请输入彩种">
+            <input type="submit" class="btn btn-primary" value="搜索">
+            用户赛选： 
+            <input class="form-control" type="text" name="keyword" style="width: 200px; display: inline;" value="" placeholder="请输入用户">
+            <input type="submit" class="btn btn-primary" value="搜索">
+        </form>-->
+        </div>
+       <if condition="($threeMenuInfo neq '') and ($type eq '')">  
+       <div class="btn-group" style="float: right;margin-left: 12px;">
+            <input id="tc_bnt_dl" class="btn btn-success" type="button" value="{$threeMenuInfo.3.title}">
+        </div>
+        </if>
+        <!--<if condition="($threeMenuInfo neq '') and ($type eq '')">
+        <div class="btn-group" style="float: right;margin-left: 12px;">
+         <button class="btn btn-primary" onclick="location.href='{$threeMenuInfo.2.name}'">{$threeMenuInfo.2.title}</button>
+        </div>
+        </if>
+        <if condition="($threeMenuInfo neq '') and ($type eq '')">
+        <div class="btn-group" style="float: right;margin-left: 12px;">
+         <button class="btn btn-info" onclick="location.href='{$threeMenuInfo.1.name}'" >{$threeMenuInfo.1.title}</button>
+        </div>
+         </if>
+       <if condition="($type eq 2) and ($threeMenuInfo neq '')">
+         <div class="btn-group" style="float: right;margin-left: 12px;">
+         <button class="btn btn-warning" onclick="location.href='{$threeMenuInfo.name}'">{$threeMenuInfo.title}</button>
+         </div> 
+        </if>
+        <if condition="($threeMenuInfo neq '') and ($type eq '')">
+         <div class="btn-group" style="float: right;margin-left: 12px;">
+         <button class="btn btn-danger" onclick="location.href='{$threeMenuInfo.0.name}'">{$threeMenuInfo.0.title}</button>
+         </div> 
+        </if>-->
+       </if>
+      </div>
+      <div class="ibox-content">  
+       <div class="table-responsive">
+        <table class="table table-striped"> 
+         <thead> 
+          <tr> 
+           <th>编号</th> 
+           <th>用户名</th> 
+           <th>订单号</th> 
+           <th>投注时间</th> 
+           <th>期号</th>
+           <th>彩种</th>
+           <th>玩法</th>
+           <th>投注内容</th>
+           <th>模式</th>
+           <th>金额</th>
+           <th>中奖金额</th>
+           <th>状态</th>
+           <th>操作</th> 
+          </tr> 
+         </thead> 
+         <tbody> 
+         <foreach name="list" item="item" key="key">
+          <tr>
+           <td>{$item.gid}</td> 
+           <td><a href="__URL__/orderManagement/userid/{$item.userId}">{$item.username}</a></td>
+           <td>{$item.orderNum}</td>
+           <td>{:date('Y-m-d H:i:s',$item['time'])}</td>
+           <td>{$item.issue}</td>
+           <td><a href="__URL__/orderManagement/category_id/{$item.category_id}">{$item.catename}</a></td>
+           <!--asd-->
+           <td>{$item.twoName} {$item.playname}</td>
+           <td>{$item.content|subtext=10}</td>
+           <td><if condition="$item.mode eq 1">元
+           <elseif condition="$item.mode eq 2" />角
+           <elseif condition="$item.mode eq 3" />分
+           <else />厘
+           </if>
+           </td>
+           <td>{$item.money}</td>
+           <td>{$item.profitLoss}</td>
+           <td>
+           <if condition="$item.status eq 1">正常
+           <elseif condition="$item.status eq 2" />中奖
+           <elseif condition="$item.status eq 3" /><span class="label label-danger">未中奖</span>
+           <else />撤单
+           </if>
+           </td>
+           <td>
+            <!-- <a href="__URL__/orderDetails/id/{$item.id}">查看详情</a> -->
+            <a href="{:U('Home/Order/orderDetails/id/'.$item['gid'])}">查看详情</a>
+            <a href="javascript:del({$item.gid})">撤单</a>
+           </td>  
+          </tr>
+          </foreach>
+          </tbody> 
+        </table> 
+       </div> 
+       <div class="pages">{$page}</div> 
+      </div>
+       </div>      
+    </div>    
+   </div>   
+  </div>
+  </div> 
+  <include file="Public/footer" />
+<script>
+  $('#tc_bnt_dl').click(function(){
+          $('.tc_bj').show(100);
+          $('.tc_01').show(100);
+  });
+  $('#tc_bnt_qr').click(function(){
+          $('.tc_bj').hide(100);
+          $('.tc_01').hide(100);
+  });
+  $('#tc_bnt_qx').click(function(){
+          $('.tc_bj').hide(100);
+          $('.tc_01').hide(100);
+  });
+
+ </body>

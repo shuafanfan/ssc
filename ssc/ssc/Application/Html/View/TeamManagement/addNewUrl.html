@@ -1,0 +1,115 @@
+					<table class="state_tab state_tab_no safe-logta clearfix">
+						<thead>
+						<tr>
+							<th>注册链接</th>
+							<th>账户类型</th>
+							<th>高频彩返点</th>
+							<th>低频彩返点</th>
+							<th>备注</th>
+							<th>注册量</th>
+							<th>操作</th>
+						</tr>
+						</thead>
+						<tbody>
+                                                <volist name="userOpenList" id="item">
+                                                <tr data-id="{$item.id}">
+                                                        <if condition="($item.url eq '')">
+                                                        <td class="td_blue"></td>
+                                                        </if>
+                                                        <if condition="($item.url neq '')">
+                                                        <td><a href="http://{$item.url}" id="link-cfblegn2kg" target="_blank">http://{$item.url}</a></td>
+                                                         </if>
+							<td>{$item.type}</td>
+							<td class="td_green">{$item.top_rebate}</td>
+							<td class="td_green">{$item.low_rebate}</td>
+							<td>{$item.content}</td>
+							<td>{$item.registerNum}</td>
+							<td class="td_delete"><i></i></td>
+						</tr> 
+                                                </volist>
+						</tbody>
+					</table>
+                <div class="panging clearfix">
+                    <div class="panging_info fl">
+                        第<span>{$count.current}</span>页 ,共<span>{$count.count}</span>条 ,每页<span>{$count.number}</span>条
+                    </div>
+                    <div class="page_jump fr">
+                        <if condition="($count.current eq 1)">
+                             <span>上一页</span>
+                        </if>
+                        <if condition="($count.current neq 1)">
+                             <span  class="active">上一页</span>
+                        </if>
+                        <span class="active">{$count.current}</span>
+                        <if condition="($count.lastPage eq '')">
+                            <span class="active">下一页</span>
+                        </if>
+                        <if condition="($count.lastPage neq '')">
+                            <span>下一页</span>
+                        </if>
+                        <lable><input type="text" value="" name="jump"></lable>
+                        <span class="go">跳转</span>
+                    </div>
+                </div>
+<script>
+//开户中心page
+$(document).on('click','#ad_open .page_jump .active',function(){
+	var  page_s = $(this).parents('.page_jump').siblings('.panging_info').children('span:nth-child(1)').html();
+	var  page_i = $(this).html();
+	$.ajax({
+                cache: true,
+                type: "POST",
+                url:'{:U('Html/TeamManagement/page')}',
+                data:'page_s' + '=' + page_s + '&' + 'page_i'+ '=' + page_i,
+                async: false,
+                success: function(data) {
+                    $('#ad_open').html(data);
+                }
+            });
+});
+$(document).on('click','#ad_open .page_jump .go',function(){
+	var  page_s = $(this).parents('.page_jump').siblings('.panging_info').children('span:nth-child(1)').html();
+	var  page_i = $(this).siblings('lable').children('input').val();
+        if( page_i <= 0 ){
+            alert('请输入大等于零的正整数');
+        } else{
+            $.ajax({
+                cache: true,
+                type: "POST",
+                url:'{:U('Html/TeamManagement/jumpPage')}',
+                data:'page_s' + '=' + page_s + '&' + 'page_i'+ '=' + page_i,
+                async: false,
+                success: function(data) {
+                    $('#ad_open').html(data);
+                }
+            });
+        }
+
+});
+$("#ad_open i").click(function(){
+		var td_r = $(this).parents('tr').data('id');
+		$.ajax({
+                cache: true,
+                type: "POST",
+                url:'{:U('Html/TeamManagement/delete')}',
+                data:'td_r' + '=' + td_r,
+                async: false,
+                dataType: 'json',
+                success: function(data) {
+                        if (data.state == 1) {
+                            alert('删除成功');
+                            $.ajax({
+                                cache: true,
+                                type: "POST",
+                                url:'{:U('Html/TeamManagement/query')}',
+                                data:'1',
+                                async: false,
+                                success: function(data) {
+                                    $("#ad_open").html(data);
+                                }
+                            });
+                        }
+                }
+            });
+})
+</script>

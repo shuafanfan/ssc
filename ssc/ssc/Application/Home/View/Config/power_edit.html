@@ -1,0 +1,110 @@
+<include file="Public/header" />
+<body class="gray-bg">
+  
+    <div class="wrapper wrapper-content animated fadeInRight">
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>权限配置 </h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form action="" method="post" class="form-horizontal">
+                            <volist name="menuList" id="menuList">
+                            <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                                <div class="col-xs-8">
+                                                    <h3 class="panel-title">
+                                                    <input name="oneMenu[]" value="{$menuList.id}" {$menuList.style} level="1" type="checkbox">{$menuList.title}</h3>
+                                        </div>
+                                    </div>
+                                        
+                                    </div>
+                                    
+                                    <div class="panel-body" >
+                                        <volist name="menuList['twoMenu']" id="twoMenu">
+                                            <label class="checkbox-inline">                    
+                                                    <input name="twoMenu[]" {$twoMenu.style} value="{$twoMenu.id}" type="checkbox">                
+                                                    <span class="label label-primary">{$twoMenu.title}</span>
+                                            </label>
+                                        <volist name="twoMenu['threeMenu']" id="threeMenu">
+                                            <label class="checkbox-inline">                    
+                                                    <input name="threeMenu[]" {$threeMenu.style}  value="{$threeMenu.id}" type="checkbox">                
+                                                    <span class="label label-primary">{$threeMenu.title}</span> 
+                                            </label> 
+                                        </volist>
+                                   
+                                        </volist>
+
+                                    </div>
+              
+                                    
+                            </div>
+                            </volist>
+                            
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                    <button class="btn btn-white" type="submit">取消</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<include file="Public/footer" />
+<script type="text/javascript">
+    $(function(){
+         
+        //选中全部子级
+        $('input[level=1]').click(function(){
+
+            var checked = $(this).prop('checked');            
+            var inputs = $(this).parents('.panel').find('.panel-body input');     
+            if (checked) {
+                inputs.prop('checked', true);
+            }else {
+                inputs.prop('checked', false);
+            }
+            
+        });
+        //选中全部子级
+        $('input[level=2]').click(function(){
+
+            var checked = $(this).prop('checked');            
+            var parent = $(this).parents('.panel:eq(0)'); 
+            var topParent = parent.parents('.panel:eq(0)');    
+            if (checked) {
+                parent.find('.panel-body input').prop('checked', true);
+                topParent.find('input[level=1]').prop('checked', true);
+            }else {
+                parent.find('.panel-body input').prop('checked', false);
+                topParent.find('input[level=1]').prop('checked', false);
+            }
+            
+        });
+
+        //选中父级
+        $('input[level=3]').click(function(){
+
+            var checked = $(this).prop('checked');            
+            var parent = $(this).parents('.panel:eq(0)');
+            var topParent = parent.parents('.panel:eq(0)');  
+            if (checked) {
+                parent.find('.panel-heading input').prop('checked', true);
+                topParent.find('input[level=1]').prop('checked', true);
+            }
+            
+        });
+
+
+
+    });
+ 
+</script>
+</html>

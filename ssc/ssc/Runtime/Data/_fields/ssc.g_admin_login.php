@@ -1,0 +1,1 @@
+a:8:{i:0;s:2:"id";i:1;s:8:"admin_id";i:2;s:9:"action_ip";i:3;s:5:"email";i:4;s:10:"login_time";i:5;s:9:"rand_code";s:3:"_pk";s:2:"id";s:5:"_type";a:6:{s:2:"id";s:16:"int(11) unsigned";s:8:"admin_id";s:11:"varchar(32)";s:9:"action_ip";s:11:"varchar(64)";s:5:"email";s:11:"varchar(30)";s:10:"login_time";s:7:"int(11)";s:9:"rand_code";s:11:"varchar(30)";}}

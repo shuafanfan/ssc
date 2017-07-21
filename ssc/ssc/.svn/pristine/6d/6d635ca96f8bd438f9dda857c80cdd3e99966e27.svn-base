@@ -1,0 +1,88 @@
+<include file="Public/header" />
+<div class="wrapper wrapper-content animated fadeInRight"> 
+   <div class="row"> 
+    <div class="col-sm-12"> 
+     <div class="ibox float-e-margins"> 
+      <div class="ibox-title">
+          <div class="btn-group" style="float: left;">
+         <h3>URL配置</h3>
+         </div> 
+         <div class="btn-group" style="float: right;">
+         <button class="btn btn-success" onclick="location.href='__URL__/site_url_add'">添加Url</button>
+         </div> 
+      <div class="ibox-content">  
+       <div class="table-responsive"> 
+       <form action="" method="post">
+        <table class="table table-striped"> 
+         <thead> 
+          <tr> 
+          
+           <th>ID</th>
+           <th>url</th>
+           <th>类型</th>
+           <th>状态</th>
+           <th>备注</th>
+          
+          </tr> 
+         </thead> 
+         <tbody> 
+          <volist name="list" id="vo">
+          <tr>
+            <td>{$vo.id}</td>
+            <td><input type="text" name="url" value="{$vo.url}"> </td>
+            <td>
+              <if condition="$vo.type eq 1">
+                前台url
+              <elseif  condition="$vo.type eq 2" />
+                移动端url
+              <else />
+                后台URL
+              </if>
+              </td>
+            <td>
+              <if condition="$vo.status eq 1">
+                <a href="__URL__/edit_url_status/id/{$vo.id}/status/0">关闭</a>
+              <else />
+                <a href="__URL__/edit_url_status/id/{$vo.id}/status/1">开启</a>
+              </if>
+            </td>
+            <td><input type="text" name="remarks" value="{$vo.remarks}"> </td>
+            <td><a href="javascript:site_url_del({$vo.id})">删除</a></td>
+          </tr>
+         </volist>
+          </tbody> 
+        </table> 
+        <button type="submit" class="btn btn-w-m btn-primary">提交</button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">返回</button>
+        </form>
+       </div>  
+      </div>      
+     </div>      
+    </div>    
+   </div>   
+  </div>
+  </div> 
+  <include file="Public/footer" />
+  <script type="text/javascript">
+     function site_url_del(id){
+    	 if (confirm('确定删除该配置项吗？') == true){
+    		 $.ajax({
+    			 url: '{:U('Home/config/site_url_del')}',
+    			 type: 'post',
+    			 dataType: 'json',
+    		     data: {'id':id},
+    		     success: function (data) {
+    		    	 if (data.state == true) {
+                      alert('删除成功！');
+                      window.location.reload(); 
+                     } else {
+                    	 alert('删除失败!');
+                     }
+    		     }
+    		 });
+    	 }
+     }
+  </script>
+
+ </body>
+</html>

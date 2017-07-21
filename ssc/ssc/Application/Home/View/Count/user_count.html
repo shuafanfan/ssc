@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/form_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:15 GMT -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H+ 后台主题UI框架 - 基本表单</title>
+<meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+<meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+<link rel="shortcut icon" href="favicon.ico">
+<link href="__PUBLIC__/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="__PUBLIC__/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="__PUBLIC__/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="__PUBLIC__/css/animate.min.css" rel="stylesheet">
+<link href="__PUBLIC__/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>代理数据查看</h5>
+          <div class="ibox-tools"> <a class="collapse-link"> <i class="fa fa-chevron-up"></i> </a> </div>
+        </div>
+        <div class="ibox-content">
+          <div  class="form-horizontal" >
+            <div class="form-group">
+              <div class="btn-group " style="float: left;">
+                <button class="btn btn-white" content="today" type="button">当天</button>
+                <button class="btn btn-white" content="threeday" type="button">三天内</button>
+                <button class="btn btn-white" content="sevenday" type="button">七天内</button>
+                <button class="btn btn-white" content="monthday" type="button">30天内</button>
+                <button class="btn btn-white" content="allday" type="button">所有</button>
+              </div>
+              <div class="col-sm-3">
+                <form id="tForm" method="post" onsubmit="return false;">
+                  <div class=" input-group ">
+                    <input class="input-sm form-control" placeholder="开始日期" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" name="date_min">
+                    <span class="input-group-addon">到</span>
+                    <input class="input-sm form-control" placeholder="结束日期" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" name="date_max">
+                  </div>
+                </form>
+              </div>
+              <div class="col-sm-3">
+                <div class=" input-group ">
+                  <button id="intForm"  class="btn btn-primary" type="button">查看数据</button>
+                </div>
+              </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <div class="col-sm-4">
+                  <div class="widget style1 navy-bg">
+                    <div class="row">
+                      <div class="col-xs-4"> <i class="fa fa-cloud fa-5x"></i> </div>
+                      <div class="col-xs-8 text-right"> <span> 总注册量 </span>
+                        <h2 class="font-bold">{$sum_register}</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="widget style1 red-bg">
+                    <div class="row">
+                      <div class="col-xs-4"> <i class="fa fa-cloud fa-5x"></i> </div>
+                      <div class="col-xs-8 text-right"> <span> 有效会员 </span>
+                        <h2 class="font-bold">{$normal_num}</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="widget style1 yellow-bg">
+                    <div class="row">
+                      <div class="col-xs-4"> <i class="fa fa-cloud fa-5x"></i> </div>
+                      <div class="col-xs-8 text-right"> <span> 增加人数 </span>
+                        <h2 id="tFormh2" class="font-bold">0</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>ID </th>
+                  <th>用户名</th>
+                  <th>余额</th>
+                  <th>注册时间</th>
+                  <th>状态</th>
+                </tr>
+              </thead>
+              <tbody>
+                <foreach name="userList" item="item" key="key" >
+                  <tr>
+                    <td>{$item.id}</td>
+                    <td>{$item.username}</td>
+                    <td>{$item.money}</td>
+                    <td>{$item.addtime}</td>
+                    <td><if condition="$item.status eq '正常' "><a href="javascript:disable({$item.id})"><span class="badge badge-danger">{$item.status}</span></a>
+                        <else />
+                        <a href="javascript:allow({$item.id})"><span class="badge badge-primary">{$item.status}</span></a> </if></td>
+                  </tr>
+                </foreach>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="__PUBLIC__/js/jquery.min.js?v=2.1.4"></script> 
+<script src="__PUBLIC__/js/bootstrap.min.js?v=3.3.6"></script> 
+<script src="__PUBLIC__/js/content.min.js?v=1.0.0"></script> 
+<script src="__PUBLIC__/js/plugins/layer/laydate/laydate.js"></script> 
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script> 
+<script type="text/javascript">
+     function disable(id){
+    	 if (confirm('确定要禁用该用户吗') == true){
+    		 $.ajax({
+    			 url: '{:U('Count/disable')}',
+    			 type: 'post',
+    			 dataType: 'json',
+    		     data: {'userId':id},
+    		     success: function (data) {
+    		    	 if (data.state == true) {
+                         alert('禁用成功！');
+                         window.location.reload(); 
+                     } else {
+                    	 alert('禁用失败!');
+                    	 window.location.reload(); 
+                     }
+    		     }
+    		 });
+    	 }
+     }
+        function allow(id){
+    	 if (confirm('确定要解禁该用户吗') == true){
+    		 $.ajax({
+    			 url: '{:U('Count/allow')}',
+    			 type: 'post',
+    			 dataType: 'json',
+    		     data: {'userId':id},
+    		     success: function (data) {
+    		    	 if (data.state == true) {
+                         alert('解禁成功！');
+                         window.location.reload(); 
+                     } else {
+                    	 alert('解禁失败!');
+                    	 window.location.reload(); 
+                     }
+    		     }
+    		 });
+    	 }
+     }
+  </script> 
+<script>
+/*报表日期查询*/
+
+$(".btn-group button").click(function(){
+	var getAttr=$(this).attr("content");
+	switch(getAttr){
+		case "today":
+			$(".input-group .input-sm").val((new Date().getFullYear())+"-"+((new Date().getMonth()+1)<10?('0'+(new Date().getMonth()+1)):(new Date().getMonth()+1))+"-"+((new Date().getDate())<10?('0'+(new Date().getDate())):(new Date().getDate())));
+			$(".input-group .input-sm[name='date_min']").val(($(".input-group .input-sm[name='date_min']").val()+" 00:00:00"));
+			$(".input-group .input-sm[name='date_max']").val(($(".input-group .input-sm[name='date_max']").val()+" 23:59:59"));
+			break;
+		case "threeday":
+			$(".input-group .input-sm[name='date_min']").val(
+				getPastHalfYear(3)
+			);
+			$(".input-group .input-sm[name='date_max']").val((new Date().getFullYear())+"-"+((new Date().getMonth()+1)<10?('0'+(new Date().getMonth()+1)):(new Date().getMonth()+1))+"-"+((new Date().getDate())<10?('0'+(new Date().getDate())):(new Date().getDate())));
+			$(".input-group .input-sm[name='date_min']").val(($(".input-group .input-sm[name='date_min']").val()+" 00:00:00"));
+	 		$(".input-group .input-sm[name='date_max']").val(($(".input-group .input-sm[name='date_max']").val()+" 23:59:59"));
+			break;
+		case "sevenday":
+			$(".input-group .input-sm[name='date_min']").val(
+				getPastHalfYear(7)
+			);
+			$(".input-group .input-sm[name='date_max']").val((new Date().getFullYear())+"-"+((new Date().getMonth()+1)<10?('0'+(new Date().getMonth()+1)):(new Date().getMonth()+1))+"-"+(new Date().getDate()<10?('0'+new Date().getDate()):(new Date().getDate())));
+			$(".input-group .input-sm[name='date_min']").val(($(".input-group .input-sm[name='date_min']").val()+" 00:00:00"));
+	 		$(".input-group .input-sm[name='date_max']").val(($(".input-group .input-sm[name='date_max']").val()+" 23:59:59"));
+			break;
+		case "monthday":
+			$(".input-group .input-sm[name='date_min']").val(
+				getPastHalfYear(30)
+			);
+			$(".input-group .input-sm[name='date_max']").val((new Date().getFullYear())+"-"+((new Date().getMonth()+1)<10?('0'+(new Date().getMonth()+1)):(new Date().getMonth()+1))+"-"+(new Date().getDate()<10?('0'+new Date().getDate()):(new Date().getDate())));
+			$(".input-group .input-sm[name='date_min']").val(($(".input-group .input-sm[name='date_min']").val()+" 00:00:00"));
+			$(".input-group .input-sm[name='date_max']").val(($(".input-group .input-sm[name='date_max']").val()+" 23:59:59"));
+			break;
+		case "allday":
+			$(".input-group .input-sm[name='date_min']").val(
+				getPastHalfYear(3650)
+			);
+			$(".input-group .input-sm[name='date_max']").val((new Date().getFullYear())+"-"+((new Date().getMonth()+1)<10?('0'+(new Date().getMonth()+1)):(new Date().getMonth()+1))+"-"+(new Date().getDate()<10?('0'+new Date().getDate()):(new Date().getDate())));
+			$(".input-group .input-sm[name='date_min']").val(($(".input-group .input-sm[name='date_min']").val()+" 00:00:00"));
+			$(".input-group .input-sm[name='date_max']").val(($(".input-group .input-sm[name='date_max']").val()+" 23:59:59"));
+			break;
+	}
+});
+function getPastHalfYear(t) {
+					var curDate = (new Date()).getTime();
+					var halfYear = t * 24 * 3600 * 1000;
+					var pastResult = curDate - halfYear; 
+					var pastDate = new Date(pastResult),
+						pastYear = pastDate.getFullYear(),
+						pastMonth = pastDate.getMonth() + 1<10?('0'+(pastDate.getMonth()+1)):(pastDate.getMonth()+1),
+						pastDay = pastDate.getDate()       <10?('0'+(pastDate.getDate())):(pastDate.getDate());
+					return pastYear + '-' + pastMonth + '-' + pastDay;
+				}
+
+$('#intForm').click(function(){
+	$.ajax({
+                cache: true,
+                type: "POST",
+                url:'{:U('Count/find_user_data')}',
+                data:$('#tForm').serialize(),
+                async: false,
+                success: function(data) {
+                    $('#tFormh2').html(data.num);
+					var tFormtb="";
+					for (var i=0;i<data.userList.length;i++){
+						if(data.userList[i].status == "正常"){
+						tFormtb += "<tr><td>"+data.userList[i].id+"</td><td>"+data.userList[i].username+"</td><td>"+data.userList[i].money+"</td><td>"+data.userList[i].addtime+"</td><td><a href=\"javascript:disable("+data.userList[i].id+")\"><span class=\"badge badge-danger\">"+data.userList[i].status+"</span></a></td></tr>"
+						} else {
+						tFormtb += "<tr><td>"+data.userList[i].id+"</td><td>"+data.userList[i].username+"</td><td>"+data.userList[i].money+"</td><td>"+data.userList[i].addtime+"</td><td><a href=\"javascript:disable("+data.userList[i].id+")\"><span class=\"badge badge-primary\">"+data.userList[i].status+"</span></a></td></tr>"
+						}
+					}
+					$('#tFormtb').html(tFormtb);
+                }
+            });
+})
+</script>
+</body>
+</html>

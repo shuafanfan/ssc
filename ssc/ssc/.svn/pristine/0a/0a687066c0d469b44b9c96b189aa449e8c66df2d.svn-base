@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JC后台系统</title>
+    <link href="../../../../../../Public/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../../../../../../Public/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../../../../../../Public/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../../../../../../Public/css/animate.min.css" rel="stylesheet">
+    <link href="../../../../../../Public/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>智付网银支付</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form action="{:U('config/saveWise')}" method="post" enctype="multipart/form-data" class="form-horizontal" >
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">智付网银支付：</label>
+                                <div class="col-sm-10">智付网银支付&nbsp;&nbsp;
+                                    <a href="http://dinpay.com" target="_blank" style="font-size:18px"><strong>配置帮助</strong></a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">智付商家号:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="merchant_code" value="{$line.merchant_code}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">智付商户私钥:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="merchant_private_key" value="{$line.merchant_private_key}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">智付商户公钥:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="merchant_public_key" value="{$line.merchant_public_key}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">智付公钥:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="dinpay_public_key" value="{$line.dinpay_public_key}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-w-m btn-primary" type="submit">保存内容</button>
+                                    <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">返回</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../../../Public/js/jquery.min.js?v=2.1.4"></script>
+    <script src="../../../../../../Public/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="../../../../../../Public/js/content.min.js?v=1.0.0"></script>
+    <script src="../../../../../../Public/js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function(){$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})});
+    </script>
+</body>
+</html>

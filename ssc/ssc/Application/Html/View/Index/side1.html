@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" href="__PUBLIC__/Html/css/default.css"/>
+<script src="__PUBLIC__/Html/js/jquery.min.js"></script>
+</head>
+<body id="section">
+<!--内容-->
+  <div class="lottery"> 
+    <!--左侧导航-->
+    <div class="left_menu">
+      <h5>热门彩种</h5>
+      <div class="menu_top"> <a href="javascript:void(0);" data-id="ssccq">
+        <div>重庆时时彩
+          <h1 class="alt-2">10:10:20</h1>
+        </div>
+        </a> <a href="javascript:void(0);" data-id="bjpk10">
+        <div>北京PK拾
+          <h1 class="alt-2">10:30:20</h1>
+        </div>
+        </a> <a href="javascript:void(0);">
+        <div>俄罗斯1.5分彩
+          <h1 class="alt-2">12:30:10</h1>
+        </div>
+        </a> <a href="javascript:void(0);" data-id="qqffc">
+        <div>腾讯分分彩
+          <h1 class="alt-2">12:30:45</h1>
+        </div>
+        </a> <a href="javascript:void(0);">
+        <div>官方五分彩
+          <h1 class="alt-2">12:30:45</h1>
+        </div>
+        </a> <a href="javascript:void(0);">
+        <div>新西兰45秒彩
+          <h1 class="alt-2">12:30:45</h1>
+        </div>
+        </a> </div>
+      <ul class="menu">
+        <li class="level1"> <a href="javascript:void(0);" class="show"><i></i>时时彩</a>
+          <ul class="level2">
+            <li data-id="ssccq">重庆时时彩</li>
+            <li>天津时时彩</li>
+            <li>新疆时时彩</li>
+            <li>官方分分彩</li>
+            <li>官方五分彩</li>
+          </ul>
+        </li>
+        <li class="level1"> <a href="javascript:void(0);"><i></i>十一选五</a>
+          <ul class="level2">
+            <li>分分11选5</li>
+            <li data-id="11x5gd">广东11选5</li>
+            <li>江西11选5</li>
+            <li>山东11选5</li>
+            <li>安徽11选5</li>
+            <li>上海11选5</li>
+          </ul>
+        </li>
+        <li class="level1"> <a href="javascript:void(0);"><i></i>快三</a>
+          <ul class="level2">
+            <li data-id="k3js">江苏快3</li>
+            <li>安徽快3</li>
+            <li>吉林快3</li>
+            <li>北京快3</li>
+            <li>广西快3</li>
+          </ul>
+        </li>
+        <li class="level1"> <a href="javascript:void(0);"><i></i>快乐十分</a>
+          <ul class="level2">
+            <li data-id="kl10fcq">重庆快乐十分</li>
+            <li>天津快乐十分</li>
+            <li>广东快乐十分</li>
+          </ul>
+        </li>
+        <li class="level1"> <a href="javascript:void(0);"><i></i>快乐彩</a>
+          <ul class="level2">
+            <li>新西兰45秒彩</li>
+            <li>俄罗斯1.5分彩</li>
+            <li>北京5分彩</li>
+            <li>加拿大3.5分彩</li>
+            <li>台湾5分彩</li>
+          </ul>
+        </li>
+        <li class="level1"> <a href="javascript:void(0);"><i></i>北京赛车</a>
+          <ul class="level2">
+            <li>上海时时乐</li>
+            <li data-id="bjpk10">北京PK拾</li>
+            <li data-id="xg6hc">香港六合彩</li>
+          </ul>
+        </li>
+        <li class="level1"> <a href="javascript:void(0);"><i></i>福彩</a>
+          <ul class="level2">
+            <li>分分3D</li>
+            <li data-id="fc3d">福彩3D</li>
+            <li>排列三</li>
+            <li>排列五</li>
+          </ul>
+        </li>
+        <div class="lf_hidden"> <i></i> <span>隐藏列表</span> </div>
+      </ul>
+    </div>
+    <div class="lf_show"> </div>
+    <!--左侧导航结束-->
+  </div>
+  
+  <div id="ym-center" >
+	  <iframe id="mainiframe" allowtransparency="true" style=" width: 100%; padding: 0px; height: 1112px;" src="{:U('Html/Category/qqffcmj')}" height="750px" frameborder="0" scrolling="no"></iframe>
+  </div>
+
+<script>
+    // 左导航开始
+$(function(){
+        $(".level1 > a").click(function(){
+            $(this).addClass("current")
+                    .next().show(200)
+                    .parent().siblings().children("a").removeClass("current")        //父元素的兄弟元素的子元素移除"current"样式
+                    .next().hide(200);                //它们的下一个元素隐藏
+            return false;
+        });
+        $(".lf_hidden").click(function(){
+            $(".left_menu").slideUp(1000);
+            $(".lf_show").slideDown(1000);
+        })
+        $(".lf_show").click(function(){
+            $(this).slideUp(1000);
+            $(".left_menu").slideDown(1000);
+        })
+    });
+// 左导航结束
+$(document).on('click','.left_menu .menu_top a',function(){
+	    switch($(this).data("id"))
+		{
+		case 'ssccq':
+		  $('#mainiframe').attr('src','{:U('Html/Category/ssccq')}');
+		  $('#mainiframe').height(950);
+		  break;
+		case 'bjpk10':
+		  $('#mainiframe').attr('src','{:U('Html/Category/bjpk10')}');
+		  $('#mainiframe').height(1050);
+		  break;
+    case 'qqffc':
+		  $('#mainiframe').attr('src','{:U('Html/Category/qqffc')}');
+		  $('#mainiframe').height(950);
+      break;
+		default:
+		  return false
+		}
+	});
+$(document).on('click','.left_menu .menu li',function(){
+	    switch($(this).data("id"))
+		{
+	    case 'ssccq':
+		  $('#mainiframe').attr('src','{:U('Html/Category/ssccq')}');
+		  $('#mainiframe').height(950);
+		  break;
+		case '11x5gd':
+		  $('#ym-center').load('{:U('Html/Category/gd11x5')}');
+		  break;
+		case 'k3js':
+		  $('#ym-center').load('{:U('Html/Category/k3js')}');
+		  break;
+		case 'kl10fcq':
+		  $('#ym-center').load('{:U('Html/Category/kl10fcq')}');
+		  break;
+		case 'bjpk10':
+		  $('#mainiframe').attr('src','{:U('Html/Category/bjpk10')}');
+		  $('#mainiframe').height(1050);
+		  break;
+		case 'xg6hc':
+		  $('#ym-center').load('{:U('Html/Category/xg6hc')}');
+		  break;
+		case 'fc3d':
+		  $('#ym-center').load('{:U('Html/Category/fc3d')}');
+		  break;
+		default:
+		  return false
+		}
+	});
+</script>
+</body>
+</html>

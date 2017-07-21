@@ -1,0 +1,51 @@
+<include file="Public/header" /> 
+<body class="gray-bg">
+    <div class="wrapper wrapper-content">
+     <form action="" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{$detail.id}">
+        <div class="row animated fadeInRight">
+            <div class="col-md-2">
+               <div class="form-group">
+                   <label for="showEasing">玩法名称</label>
+                   <input id="showEasing" type="text" name="name" placeholder="" class="form-control" value="{$detail.name}" required>
+               </div>
+            </div>
+            <div class="col-md-2">
+                   <div class="form-group">
+                       <label for="showEasing">所属分类</label>
+                       <select name="catename" class="form-control">
+                          <foreach name="types" item="item" key="key">
+                              <option value="{$item.catename}" <if condition="$detail.catename eq $item['catename']">selected</if>>
+                           {$item.catename}
+                          </option>
+                        </foreach>
+                      </select>
+                   </div>
+            </div>
+            <div class="col-md-2">
+             <div class="form-group">
+                <label for="showEasing">状态</label>
+                <select name="status" class="form-control">
+                  <option value="0" <if condition="(0 eq $detail.cate_id)">selected</if>>关闭</option>
+                  <option value="1" <if condition="(1 eq $detail.cate_id)">selected</if>>开启</option>
+                </select>
+             </div>
+            </div>
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-w-m btn-primary">提交</button>
+              <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">返回</button>
+            </div>
+      </form>
+    </div>
+    </div>
+    <script src="../../../Public/js/jquery.min.js?v=2.1.4"></script>
+    <script src="../../../Public/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="../../../Public/js/content.min.js?v=1.0.0"></script>
+    <script src="../../../Public/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="../../../Public/js/demo/peity-demo.min.js"></script>
+    <script type="text/javascript" src="../../../Public/js/plugins/simditor/module.js"></script>
+    <script type="text/javascript" src="../../../Public/js/plugins/simditor/uploader.js"></script>
+    <script type="text/javascript" src="../../../Public/js/plugins/simditor/hotkeys.js"></script>
+    <script type="text/javascript" src="../../../Public/js/plugins/simditor/simditor.js"></script>
+</body>
+</html>

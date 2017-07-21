@@ -1,0 +1,110 @@
+                    <div class="safe-top clearfix">
+                        <div class="safe-info">   
+                            <div class="safe-level">
+                                安全等级 : 
+                                <i class="in-star"></i>
+                                <i class="out-star"></i>
+                                <i class="out-star"></i>
+                                <i class="out-star"></i>
+                                <i class="out-star"></i>
+                            </div>
+                            <div class="prev-info">
+                                <i></i>
+                                上次登录IP:
+                                <span class="prev_login_ip">{$userInfo.login_ip}</span>
+                            </div>
+                            <div class="prev-info">
+                                <i></i>
+                                上次登录时间:
+                                <span class="prev_login_time">{$userInfo.logintime|date="Y-m-d H:i",###}</span>
+                            </div>
+                        </div>
+                        <div class="safe-log clearfix">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>登录时间</th>
+                                        <th>登录IP</th>
+                                        <th>登录结果</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <volist name="list" id="item">
+                                <tr>
+                                    <td>{$item.loginTime|date="Y-m-d H:i",###}</td>
+                                    <td>{$item.ip}</td>
+                                    <if condition="($item.status eq '成功')">
+                                        <td style="color: rgb(85, 223, 131);">{$item.status}</td>
+                                    </if>
+                                    <if condition="($item.status eq '失败')">
+                                        <td style="color: rgb(255, 102, 102);">{$item.status}</td>
+                                    </if>
+                                </tr> 
+                                </volist>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="safe-center fl">
+                        <div class="line">
+                            <h3 class="lock-icon">登录密码<span>请定期修改密码</span></h3>
+                            <a class="btn_set_password">修改登录密码</a>
+                        </div>
+                        <div class="line">
+                            <h3 class="bank-car-icon">我的银行卡</h3>
+                            <if condition="($userInfo.bank eq 0)">
+                                 <a class="btn_bind_bank">绑定一号卡</a>
+                            </if>
+                            <if condition="($userInfo.bank eq 1)">
+                                 <a class="btn_bind_bank">绑定二号卡</a>
+                            </if>
+                            <if condition="($userInfo.bank eq 2)">
+                                 <a class="btn_bind_bank">绑定三号卡</a>
+                            </if>
+                            <if condition="($userInfo.bank eq 3)">
+                                 <a class="btn_bind_bank">绑定四号卡</a>
+                            </if>
+                            <if condition="($userInfo.bank eq 4)">
+                                 <a class="btn_bind_bank">绑定五号卡</a>
+                            </if>
+                            <if condition="($userInfo.bank eq 5)">
+                                 <a class="btn_bind_bank">绑定六号卡</a>
+                            </if>
+                            <if condition="($userInfo.bank eq 6)">
+                                 <!--<a class="btn_bind_bank">绑定六号卡</a>-->
+                            </if>
+                        </div>
+                        <div class="line" id="security_iphone">
+                            <if condition="($userInfo.mobile eq 0)">
+                                <h3 class="phone-icon">绑定安全电话:<span>未绑定</span></h3>
+                                <a class="btn_bind_phone">修改绑定电话</a>
+                            </if>
+                            <if condition="($userInfo.mobile neq 0)">
+                                <h3 class="phone-icon">绑定安全电话:<span>{$userInfo.mobile}</span></h3>
+                            </if>
+                        </div>
+                    </div>
+                    <div class="safe-center fr">
+                        <div class="line">
+                            <h3 class="money-icon">资金密码<span>请修改默认密码</span></h3>
+                            <a class="btn_set_money">修改资金密码</a>
+                        </div>
+                        <div class="line" id="security_qq">
+                            <if condition="($userInfo.qq eq '')">
+                            <h3 class="qq-icon">绑定安全QQ:<span>未绑定</span></h3>
+                            <a class="btn_set_qq">立即绑定QQ</a>
+                            </if>
+                            <if condition="($userInfo.qq neq '')">
+                                <h3 class="qq-icon">绑定安全QQ:<span>{$userInfo.qq}</span></h3>
+                            </if>
+                        </div>
+                        <div class="line" id="security_email">
+                            <if condition="($userInfo.email eq '')">
+                                <h3 class="email-icon">安全邮箱验证:<span>未绑定</span></h3>
+                                <a class="btn_set_email">立即认证邮箱</a>
+                            </if>
+                            <if condition="($userInfo.email neq '')">
+                                 <h3 class="qq-icon">安全邮箱验证:<span>{$userInfo.email}</span></h3>
+                            </if>
+                        </div>
+                    </div>

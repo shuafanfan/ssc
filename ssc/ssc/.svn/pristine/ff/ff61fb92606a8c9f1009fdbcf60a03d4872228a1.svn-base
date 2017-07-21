@@ -1,0 +1,59 @@
+<?php 
+namespace Html\Controller;
+use Think\Controller;
+class GetdataController extends Controller {
+
+
+	/**
+    * 获取彩种开奖结果
+    */
+    public function getdata(){
+        $code=$_GET['code'];  //彩种ID
+        $limit=$_GET['limit']; //获取最新条数
+        $map['code']=$code;
+        $m=M('open_prize_data');
+        $list=$m->where($map)->limit($limit)->order('expect desc')->select();     
+        $this->ajaxReturn($list);
+    }
+ 
+
+
+    /**
+    * 获取彩票游戏彩种
+    */
+    public function getcategory(){
+        $category=M('category')->select();
+        dump($category);
+        //return $category;
+        //$this->ajaxReturn($category);
+        // $this->assign("userInfo",$userInfo); 
+        // $this->display('public');
+    }
+
+    /**
+    * 获取优惠活动
+    */
+    public function getactivity(){
+        $activity=M('activity')->select();
+        // $this->assign('activity',$activity);
+
+         //$this->display('Index/test');
+         $this->ajaxReturn($activity,json);
+    }
+
+    /**
+    * 获取线路检测值
+    */
+     public function getaurlping(){
+        $activity=M('activity')->select();
+        $data['status']=1;
+        $data['type']=1;
+        $url=M('siteurl')->where($data)->select();
+        $this->ajaxReturn($url);
+    }
+
+ 
+ 
+ 
+}
+        

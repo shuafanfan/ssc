@@ -1,0 +1,282 @@
+<include file="Public/header" />
+<style>
+.pages a,.pages span {
+    display:inline-block;
+    padding:2px 5px;
+    margin:0 1px;
+    border:1px solid #f0f0f0;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+}
+.pages a,.pages li {
+    display:inline-block;
+    list-style: none;
+    text-decoration:none; color:#58A0D3;
+}
+.pages a.first,.pages a.prev,.pages a.next,.pages a.end{
+    margin:0;
+}
+.pages a:hover{
+    border-color:#50A8E6;
+}
+.pages span.current{
+    background:#50A8E6;
+    color:#FFF;
+    font-weight:700;
+    border-color:#50A8E6;
+}
+.state
+{
+	position: absolute;
+	left: 1102px;
+}
+</style>
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/projects.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:44 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>玩法管理</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="__PUBLIC__/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="__PUBLIC__/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+
+    <link href="__PUBLIC__/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="ibox">
+                    <div class="ibox-title">
+                      <button class="btn btn-success" onclick="location.href='/index.php/Home/category/playAdd'">添加玩法</button>
+                            <div id="ww" class="btn-group"  style="position: absolute;right: 50px; top:15px;">
+                                <foreach name="category_list" item="item" key="key">
+                                    <if condition="$item.id eq 1 ">
+                                        <a  class="btn btn-primary race_c" type="button" cate_id="{$item.id}"  >{$item.catename}</a>
+                                        <else />
+                                        <a  class="btn btn-white race_c" type="button" cate_id="{$item.id}" >{$item.catename}</a>
+                                    </if>
+                                </foreach>
+                            </div>
+                    </div>
+                    <br>
+                    <div class="ibox-content">
+                        <div class="project-list">
+                            <table class="table table-hover" id="tab">
+                                <thead>
+                                    <tr>
+                                        <td class="project-status">
+                                            ID
+                                        </td>
+                                        <td class="project-title">
+                                           彩票玩法
+                                        </td>
+                                        <td class="project-completion">
+                                            所属彩种
+                                        </td>
+                                        <td class="project-state">
+                                            状态
+                                        </td>
+                                        <td class="project-actions">
+                                            操作
+                                        </td>
+                                    </tr>
+                                </thead>
+                                    <tbody id="race">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <script src="__PUBLIC__/js/jquery.min.js?v=2.1.4"></script>
+    <script src="__PUBLIC__/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="__PUBLIC__/js/content.min.js?v=1.0.0"></script>
+    <script src="__PUBLIC__/js/plugins/footable/footable.all.min.js"></script>
+    <script>
+       $(document).ready(function(){$("#loading-example-btn").click(function(){btn=$(this);simpleLoad(btn,true);simpleLoad(btn,false)})});function simpleLoad(btn,state){if(state){btn.children().addClass("fa-spin");btn.contents().last().replaceWith(" Loading")}else{setTimeout(function(){btn.children().removeClass("fa-spin");btn.contents().last().replaceWith(" Refresh")},2000)}};
+    </script>
+
+    </body>
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/projects.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:44 GMT -->
+</html>
+  <include file="Public/footer" />
+  <script type="text/javascript">
+
+      $('body').on('click','.cateStatus',function () {
+          var status =  $(this).attr('status');
+          var cate_id =  $(this).attr('cate_id');
+          layer.confirm('确定是否要【'+status+'】吗？', {
+              btn: ['确定', '取消'] //按钮
+          }, function () {
+              $.ajax({
+                  url: "{:U('Home/category/cateStatus')}",
+                  type: 'post',
+                  dataType: 'json',
+                  data: {'ID':cate_id},
+                  success: function (data) {
+                      if (data.state == 1) {
+                          layer.msg(status+'成功！');
+                          setInterval(function () {
+                              window.location.reload();
+                          },2000);
+
+                      }else{
+                          layer.msg(status+'失败！');
+                          setInterval(function () {
+                              window.location.reload();
+                          },2000);
+                      }
+                  }
+              });
+
+
+          },function () {
+
+          });
+      })
+
+   function del(ID){
+       layer.confirm('确定删除吗？', {
+           btn: ['确定','取消'] //按钮
+       }, function(){
+           $.ajax({
+               url: "{:U('Home/category/playDel')}",
+               type: 'post',
+               dataType: 'json',
+               data: {'ID':ID},
+               success: function (data) {
+                       layer.alert(data.msg);
+                   setInterval(function () {
+                       window.location.reload();
+                   },2000);
+               }
+           });
+       }, function(){
+
+       });
+
+        // if (confirm('确定删除吗？') == true){
+             /*$.ajax({
+                 url: "{:U('Home/category/playDel')}",
+                 type: 'post',
+                 dataType: 'json',
+                 data: {'ID':ID},
+                 success: function (data) {
+                     if (data.state == 1) {
+                         layer.alert('删除成功！');
+                         window.location.reload();
+                     }
+                     if (data.state == 2) {
+                         layer.alert('删除失败！');
+                         window.location.reload();
+                     }
+                 }
+             });*/
+     //    }
+   }
+
+
+   $('#ww .race_c').click(function(){
+          $(this).removeClass('btn-white').addClass('btn-primary').siblings().removeClass('btn-primary').addClass('btn-white');
+          $.ajax({
+            type: "POST",
+            url:"{:U('Home/Category/playRace')}",
+            data: {'cate_id':$(this).attr('cate_id')},
+          //  async: false,
+            dataType: 'json',
+              beforeSend:function() {
+                  var html  =  "<tr><td colspan='6' style='text-align: center;color: red'>加载中</td></tr>";
+                  $("#race").html(html);
+              },
+              success: function(datas) {
+                $("#race").empty();
+                    var count = datas.length;
+                    if (count == 0){
+                        var html  =  "<tr><td colspan='6' style='text-align: center;color: red'>暂无数据</td></tr>";
+                        $("#race").html(html);
+                    }else {
+                    var i = 0;
+                    var b="";
+                    for(i=0;i<count;i++){
+                        if(datas[i]["status"] == 1){
+                            var status="开启"
+                            var statu="<a cate_id='"+datas[i]["id"]+"' status='关闭' class='btn btn-white cateStatus btn-sm'><i class='fa fa-close'></i>关闭 </a>"
+                        }else{
+                            var status="关闭"
+                            var statu="<a cate_id='"+datas[i]["id"]+"' status='开启' class='btn btn-white cateStatus btn-sm'><i class='fa fa-folder-open'></i> 开启 </a>"
+                        }
+                        if(datas[i]["level"]==1){
+                            b+="<tr><td class='project-status'><span class='label label-primary'>"+datas[i]["id"]+"</span></td><td class='project-title'>"+datas[i]["playname"]+"</td><td class='project-completion'>"+datas[i]["catename"]+"</td><td class='project-state'>"+status+"</td><td class='project-actions'><a href='javascript:del("+datas[i]["id"]+")'class='btn btn-white btn-sm'><i class='fa fa-trash'></i> 删除 </a>"+statu+" <a href='{:U('Home/category/playEdit/ID/"+datas[i]["id"]+"')}' class='btn btn-white btn-sm'><i class='fa fa-pencil'></i> 编辑 </a></td></tr>"
+                        }else if(datas[i]["level"]==2){
+                            b+="<tr><td class='project-status'><span class='label label-primary'>"+datas[i]["id"]+"</span></td><td class='project-title'>┣━"+datas[i]["playname"]+"</td><td class='project-completion'>"+datas[i]["catename"]+"</td><td class='project-state'>"+status+"</td><td class='project-actions'><a href='javascript:del("+datas[i]["id"]+")'class='btn btn-white btn-sm'><i class='fa fa-trash'></i> 删除 </a>"+statu+" <a href='{:U('Home/category/playEdit/ID/"+datas[i]["id"]+"')}' class='btn btn-white btn-sm'><i class='fa fa-pencil'></i> 编辑 </a></td></tr>"
+                        }else{
+                            b+="<tr><td class='project-status'><span class='label label-primary'>"+datas[i]["id"]+"</span></td><td class='project-title'>┣━━"+datas[i]["playname"]+"</td><td class='project-completion'>"+datas[i]["catename"]+"</td><td class='project-state'>"+status+"</td><td class='project-actions'><a href='javascript:del("+datas[i]["id"]+")'class='btn btn-white btn-sm'><i class='fa fa-trash'></i> 删除 </a>"+statu+" <a href='{:U('Home/category/playEdit/ID/"+datas[i]["id"]+"')}' class='btn btn-white btn-sm'><i class='fa fa-pencil'></i> 编辑 </a></td></tr>"
+                        }
+                    };
+                    $("#race").append(b);
+                    }
+            }
+        });
+      return false;
+    });
+
+$.ajax({
+    type: "POST",
+    url:"{:U('Home/Category/playRace')}",
+    data: {'cate_id':1},
+   // async: false,
+    dataType: 'json',
+    beforeSend:function() {
+        var html  =  "<tr><td colspan='6' style='text-align: center;color: red'>加载中</td></tr>";
+        $("#race").html(html);
+    },
+    success: function(datas) {
+        $("#race").empty();
+            var count = datas.length;
+            var i = 0;
+            var b="";
+            for(i=0;i<count;i++){
+                if(datas[i]["status"] == 1){
+                    var status="开启"
+
+                    var statu="<a href='javascript:;' cate_id='"+datas[i]["id"]+"' status='关闭' class='btn btn-white cateStatus btn-sm'><i class='fa fa-close'></i>关闭 </a>"
+                }else{
+                    var status="关闭"
+                    var statu="<a href='javascript:;' cate_id='"+datas[i]["id"]+"' status='开启' class='btn btn-white cateStatus btn-sm'><i class='fa fa-folder-open'></i> 开启 </a>"
+                }
+
+                if(datas[i]["level"]==1){
+                    b+="<tr><td class='project-status'><span class='label label-primary'>"+datas[i]["id"]+"</span></td><td class='project-title'>"+datas[i]["playname"]+"</td><td class='project-completion'>"+datas[i]["catename"]+"</td><td class='project-state'>"+status+"</td><td class='project-actions'><a href='javascript:del("+datas[i]["id"]+")'class='btn btn-white btn-sm'><i class='fa fa-trash'></i> 删除 </a>"+statu+" <a href='{:U('Home/category/playEdit/ID/"+datas[i]["id"]+"')}' class='btn btn-white btn-sm'><i class='fa fa-pencil'></i> 编辑 </a></td></tr>"
+                }else if(datas[i]["level"]==2){
+                    b+="<tr><td class='project-status'><span class='label label-primary'>"+datas[i]["id"]+"</span></td><td class='project-title'>┣━"+datas[i]["playname"]+"</td><td class='project-completion'>"+datas[i]["catename"]+"</td><td class='project-state'>"+status+"</td><td class='project-actions'><a href='javascript:del("+datas[i]["id"]+")'class='btn btn-white btn-sm'><i class='fa fa-trash'></i> 删除 </a>"+statu+" <a href='{:U('Home/category/playEdit/ID/"+datas[i]["id"]+"')}' class='btn btn-white btn-sm'><i class='fa fa-pencil'></i> 编辑 </a></td></tr>"
+                }else{
+                    b+="<tr><td class='project-status'><span class='label label-primary'>"+datas[i]["id"]+"</span></td><td class='project-title'>┣━━"+datas[i]["playname"]+"</td><td class='project-completion'>"+datas[i]["catename"]+"</td><td class='project-state'>"+status+"</td><td class='project-actions'><a href='javascript:del("+datas[i]["id"]+")'class='btn btn-white btn-sm'><i class='fa fa-trash'></i> 删除 </a>"+statu+" <a href='{:U('Home/category/playEdit/ID/"+datas[i]["id"]+"')}' class='btn btn-white btn-sm'><i class='fa fa-pencil'></i> 编辑 </a></td></tr>"
+                }
+            }
+    $("#race").append(b);
+    }
+});
+
+</script>
+

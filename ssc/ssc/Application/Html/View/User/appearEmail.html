@@ -1,0 +1,43 @@
+<form class="account-edit-form" id="email-form">
+                        <div class="row">
+                            <div class="th">用户名:</div>
+                            <lable class="td" content="user-name">{$userInfo.nickname}</lable>
+                        </div>
+                        <div class="row">
+                            <div class="th">安全邮箱认证:</div>
+                            <lable class="td"><input type="text" name="email"></lable>
+                            <div class="tip"><i class="zhuyi"></i>请输入安全邮箱</div>
+                        </div>
+                        <div class="row">
+                            <div class="th"></div>
+                            <div class="hand">
+                                <a class="submit_deposit">提交</a><a class="go_back">取消</a>
+                            </div>
+                        </div>
+                    </form>
+<script>
+	$('#email-form .submit_deposit').click(function(){
+		var  form_v = $('#email-form input').val();
+		var  form_l = $('#email-form input').val().length;
+		if( form_l !== 0){
+//                    alert(9)
+                    $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url:'{:U('Html/User/bindingEmail')}',
+                    data:$('#email-form').serialize(),
+                    async: false,
+                    dataType: 'json',
+                    success: function(data) {
+                        if(data.state == 1){
+                             alert('绑定成功');
+                            $('#security_email').html('<h3 class="email-icon">安全邮箱验证:<span>'+ data.email + '</span></h3>');
+                            $(".email_show").hide().siblings('.security_level').show();
+                            
+                         }
+                    }
+                });
+			
+		}
+	})
+</script>

@@ -1,0 +1,715 @@
+<?php 
+namespace Home\Controller;
+use Think\Controller;
+class ConfigController extends CommonController {
+    
+    /**
+     * 支付配置
+     * Programmer : manty
+     * Date: 02-07  21:28
+     */
+    public function pay_config(){
+        $PayconfigModel = D('Home/payconfig');
+        $payList = $PayconfigModel->get_payList();
+        foreach ($payList as $key=>$value){
+            if ($payList[$key]['status'] == 0){
+                $payList[$key]['status'] = '未启动';
+            }else {
+                $payList[$key]['status'] = '已启动';
+            }
+        }
+        $this->assign('pay_list', $payList);
+        $this->display();
+    }
+    /**
+     * 支付方式列表
+     */
+    public function pay_list() {
+        $config = require('Application/Common/Conf/wisePay.php');
+        $this->assign('item', $config);
+        $this->display();
+    }
+    
+    /**
+     * 权限管理
+     * Programmer : manty
+     * Date: 02-07  21:28
+     */
+    public function power_config(){
+        if($_GET['twoMenu'])$threeMenu = R('Index/threeMenu',array('twoMenu'=>$_GET['twoMenu']));
+        $roleList = M('auth_group')->select();
+        $this->assign('role_list', $roleList);
+        $this->assign('threeMenuInfo', $threeMenu);
+        $this->display();
+    }
+    
+    /**
+     * 权限管理角色添加
+     * Programmer : manty
+     * Date: 03-03  21:28
+     */
+    public function role_add(){
+        $data = I('post.');
+        if (!empty($data)){
+            if (M('auth_group')->add($data)){
+                R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'添加角色'));
+                $this->success('添加角色成功');
+            }else{
+                $this->error('添加角色失败!');
+            }
+        }
+        $this->display();
+    }
+    
+    /**
+     * 权限管理角色删除
+     * Programmer : manty
+     * Date: 03-03  21:28
+     */
+    public function role_del(){
+        $ID = I('post.ID');
+        if ($ID == 1){
+            $return = array('state' => 3);
+            exit(json_encode($return));
+        }
+        if (M('auth_group')->where(array('id'=>$ID))->delete()){
+            R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'权限管理角色删除'));
+            $return = array('state' => 1);
+        }else{
+            $return = array('state' => 2);
+        }
+        exit(json_encode($return));
+    }
+    
+    /**
+     * 权限配置
+     * Programmer : manty
+     * Date: 02-07  21:28
+     */
+    public function power_edit(){
+        $menuList =  $this->Menus();
+        if($_GET['roleID'] || $_POST){
+            //管理员  $adminInfo['power']  1超级管理 2普通管理  3财务管理
+//            $account['account'] = $_COOKIE['name'];
+//            $auth_group = M('admin')->where($account)->join(' g_auth_group_access ON g_admin.id = g_auth_group_access.uid')->join(' g_auth_group ON g_auth_group_access.group_id = g_auth_group.id')->field('g_auth_group.id as groupId,g_auth_group.rules ')->select();
+            $auth_group = M('auth_group')->where('id ='.$_GET['roleID'])->find();
+        }
+        foreach ($menuList as $k =>$v) {
+                if(in_array($v['id'], explode(',', $auth_group['rules']))){
+                    $menuList[$k]['style'] = 'checked';
+                }
+                foreach ($v['twoMenu'] as $ke => $va) {
+                    if(in_array($va['id'], explode(',', $auth_group['rules'])))$menuList[$k]['twoMenu'][$ke]['style'] = 'checked';
+                    foreach ($va['threeMenu'] as $_ke => $_va) {
+                        if(in_array($_va['id'], explode(',', $auth_group['rules'])))$menuList[$k]['twoMenu'][$ke]['threeMenu'][$_ke]['style'] = 'checked';
+                    }
+                }
+         }
+        $this->assign('menuList', $menuList);
+        if($_POST){
+            //角色权限 
+            $rules = array_merge($_POST['oneMenu'],$_POST['twoMenu'],$_POST['threeMenu']);
+            foreach ($rules as $v) {
+                $role['rules'] .= $v .',';
+            }
+            $role['id'] = $_GET['roleID'];
+            $role['rules'] = substr($role['rules'],0,strlen($role['rules'])-1);
+            if (M('auth_group')->save($role)){
+                    R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'权限配置数据更新'));
+                    $this->success('权限配置成功！', U('config/power_config'));
+            }else{
+                    $this->error('权限配置失败！', U('config/power_config'));
+            }
+        }
+        $this->display();
+    }
+    
+    
+    /**
+     * 添加支付方式
+     * Programmer : manty
+     * Date: 02-07  21:28
+     */
+    public function pay_add(){
+        $PayconfigModel = D('Home/payconfig');
+        $data = I('post.');
+        if (!empty($data)){
+            if ($PayconfigModel->pay_add($data)){
+                $this->success('添加支付成功!', U('config/pay_config'));
+            }else{
+                $this->error('添加失败');
+            }
+        }
+        $this->display();
+    }
+    
+    /**
+     * 支付方式编辑
+     * Programmer : manty
+     * Date: 02-07  21:28
+     */
+    public function pay_edit(){
+        $PayconfigModel = D('Home/payconfig');
+        $pay_id = I('get.pay_id');
+        $payInfo = $PayconfigModel->get_pay_info($pay_id);
+        $data = I('post.');
+        if (!empty($data)){
+            if ($PayconfigModel->pay_edit($data)){
+                $this->success('修改支付成功!', U('config/pay_config'));
+            }else {
+                $this->error('修改支付失败');
+            }
+        }
+        
+        $this->assign('detail', $payInfo);
+        $this->display('pay_add');
+    }
+    
+    /**
+     * 删除支付方式
+     * Programmer : manty
+     * Date: 01-05  20:49
+     */
+    public function pay_del(){
+        $PayconfigModel = D('Home/payconfig');
+        $pay_id = I('post.id');
+        if ($PayconfigModel->pay_del($pay_id)){
+            $return = array('state' => true);
+        }else{
+            $return = array('state' => false);
+        }
+        exit(json_encode($return));
+    }
+    
+    /**
+     * 支付关闭
+     * Programmer : manty
+     * Date: 01-05  20:49
+     */
+    public function pay_close(){
+        $PayconfigModel = D('Home/payconfig');
+        $pay_id = I('post.id');
+        $data = array('id'=>$pay_id,'status'=>0);
+        if ($PayconfigModel->pay_play($data)){
+            $return = array('state' => true);
+        }else{
+            $return = array('state' => false);
+        }
+        exit(json_encode($return));
+    }
+    
+    /**
+     * 支付开启
+     * Programmer : manty
+     * Date: 01-05  20:49
+     */
+    public function pay_open(){
+        $PayconfigModel = D('Home/payconfig');
+        $pay_id = I('post.id');
+        $data = array('id'=>$pay_id,'status'=>1);
+        if ($PayconfigModel->pay_play($data)){
+            $return = array('state' => true);
+        }else{
+            $return = array('state' => false);
+        }
+        exit(json_encode($return));
+    }
+    
+    /**
+     * 网站配置
+     * Programmer : manty
+     * Date: 01-05  20:49
+     */
+    public function webconfig(){
+        if(!empty($_POST)){
+            $array = array(
+                'object'=>$_POST['object'],
+                'checkbox'=>$_POST['checkbox'],
+                'explain'=>$_POST['explain'],
+                'inlineCheckbox1'=>$_POST['inlineCheckbox1'],
+                'minMoney'=>$_POST['minMoney'],
+                'minWithdraw'=>$_POST['minWithdraw'],
+                'people'=>$_POST['people']
+            );
+            $file = 'Application/Common/Conf/webconfig.php'; 
+            //缓存 
+            $text='<?php return '.var_export($array,true).';'; 
+            if(fopen($file,'w+')){ 
+                if(file_put_contents($file,$text))
+                R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'网站配置数据更新'));
+                $this->success('保存成功!', U('config/webconfig'));
+            }else{ 
+              $this->error("保存配置失败!");
+            }
+        }
+      /*  $config = require('Application/Common/Conf/webconfig.php');
+        foreach ($config['checkbox'] as $k => $v) {
+                if(strcmp($v, 'on') == 0)$config['checkbox'][$k] = 'checked';
+        }
+        foreach ($config['inlineCheckbox1'] as $k => $v) {
+                if(strcmp($v, 'on') == 0)$config['inlineCheckbox1'][$k] = 'checked';
+        }
+        if(!empty($config)){
+            $this->assign('config', $config);
+        }*/
+        $config = M('setting')->order('id asc')->select();
+        $this->assign('config', $config);
+        $this->display();
+    }
+    function  webConfigUpdate(){
+        if (IS_POST){
+//            $data_post  =   $_POST;
+            //dump($_POST);exit();
+            $id = $_POST['id'];
+            $name = $_POST['name'];
+            $name_en = $_POST['name_en'];
+            $type= $_POST['type'];
+            $setting_value = $_POST['setting_value'];
+            $remark = $_POST['remark'];
+            $s =0;
+            $e =0;
+            foreach ($id as $k=>$v){
+                $data['id'] = $v;
+                $data['remark'] = $remark[$k];
+
+                if ($type[$k] == 3){
+                    $data['setting_value']  = implode(',',$_POST['setting_value_checkbox_'.$v]);
+                }else if($type[$k] == 1){
+                    $data['setting_value']  = $_POST['setting_value_'.$v];
+                }else if($type[$k] == 2){
+                    $data['setting_value']  = $_POST['setting_radio_value_'.$v];
+                }
+
+                $res   =   M('setting')->save($data);
+                if ($res){
+                    $s++;
+                }else{
+                    $e++;
+                }
+            }
+          /*  if ($data_post['type'] == 3){
+                $data_post['setting_value']  = implode(',',$data_post['setting_value']);
+            }
+            $data   =   M('setting')->save($data_post);
+            if ($data){*/
+                R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'修改web配置'));
+                $this->success("共保存【".$s."】条记录 未修改".$e."条记录!", U('config/webconfig'));
+            /*}else{
+                $this->error("保存配置失败!");
+            }*/
+        }
+
+
+    }
+
+    function delwebconfig(){
+        if (IS_POST){
+            $id  =   $_POST['id'];
+            $data   =   M('setting')->where(['id'=>$id])->delete();
+            if ($data){
+                R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'删除web配置'));
+                $this->success('保存配置成功!', U('config/webconfig'));
+            }else{
+                $this->error("删除失败!");
+            }
+        }
+    }
+    public function addWebConfig(){
+        if(IS_POST){
+            $data   = $_POST;
+            if ($data['type'] ==1){
+                $setting_key    ='';
+                $setting_value  = $data['setting_value'];
+            }
+            if ($data['type'] ==2 ){
+                $radio_key = $data['radio_key'];
+                /* for ($i=0;$i<count($radio_key);$i++){
+                     $data[$i][]
+                 }
+                 */
+                $setting_key_data = [];
+                foreach ($radio_key as $k=>$value){
+                    $setting_key_data[$k]['value'] = $k+1;
+                    $setting_key_data[$k]['name'] =  $radio_key[$k];
+                }
+                $setting_key    = json_encode($setting_key_data,true);
+                $setting_value  = $data['radio_value'];
+            }
+            if ($data['type'] == 3 ){
+                $setting_key_data = [];
+                $radio_key = $data['checkbox_key'];
+                foreach ($radio_key as $k=>$value){
+                    $setting_key_data[$k]['value'] = $k+1;
+                    $setting_key_data[$k]['name'] =  $radio_key[$k];
+                }
+                $setting_key    = json_encode($setting_key_data,true);
+                $setting_value  = implode(',',$data['checkbox_value']);
+
+            }
+            if (empty($data['name'])){
+                $this->error("名称不能为空!");
+            }
+            if (empty($data['name_en'])){
+                $this->error("英文名称不能为空!");
+            }
+            if (empty($data['type'])){
+                $this->error("类型!");
+            }
+            if (empty($setting_value)){
+                $this->error("配置值!");
+            }
+
+            $add_data   =   [
+                'name' => $data['name'],
+                'name_en' => $data['name_en'],
+                'type' => $data['type'],
+                'setting_key' => $setting_key,
+                'setting_value' => $setting_value,
+                'remark' => $data['remark'],
+                'add_time' => time()
+            ];
+            if (M('setting')->add($add_data)){
+                R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'添加系统配置'));
+                $this->success('保存配置成功!', U('config/webconfig'));
+            }else{
+                $this->error("保存配置失败!");
+            }
+
+        }
+    }
+
+    /**
+     * 客服配置
+     * Programmer : manty
+     * Date: 02-03  21:28
+     */
+    public function service_config() {
+        $WebconfigModel = D('Home/webconfig');
+        $data = I('post.');
+        $service_config = $WebconfigModel->get_service_config();
+        if (!empty($data)){
+            if ($WebconfigModel->service_config_edit($data)){
+                R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'客服配置数据更新'));
+                $this->success('保存配置成功!', U('config/service_config'));
+            }else{
+                $this->error("保存配置失败!");
+            }
+        }
+        $this->assign('service_config', $service_config);
+        $this->display();
+    }
+    
+    /**
+     * 清除缓存
+     * Programmer : manty
+     * Date: 02-03  21:28
+     */
+    private function _deleteDir($R){
+        $handle = opendir($R);
+        while(($item = readdir($handle)) !== false){
+            if($item != '.' and $item != '..'){
+                if(is_dir($R.'/'.$item)){
+                    $this->_deleteDir($R.'/'.$item);
+                }else{
+                    if(!unlink($R.'/'.$item))
+                        die('error!');
+                }
+            }
+        }
+        closedir( $handle );
+        return rmdir($R);
+    }
+    
+    /**
+     * 清除缓存
+     * Programmer : manty
+     * Date: 02-03  21:28
+     */
+    public function clearRuntime(){
+        $R = $_GET['path'] ? $_GET['path'] : RUNTIME_PATH;
+        if($this->_deleteDir($R))
+        R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>''));
+        $this->success('清楚缓存成功!');
+    }
+    /**
+     * 删除管理员
+     */
+    public function delteAdmin() {
+        $reasult = M('Role')->where('id ='.$_GET['roleID'])->delete();
+        if($reasult) $this->success('删除成功');
+    }
+    /**
+     * 添加管理员页面
+     */
+    public function addAdmin() {
+        $this->display();
+    }
+    /**
+     * 保存添加数据
+     */
+    public function saveAdd() {
+        $data['name'] = $_POST['name'];
+        $reasult = M('Role')->add($data);
+        if($reasult) $this->success('添加成功!', U('config/power_config'));
+    }
+    /**
+     * 智付网银支付(配置页面)
+     */
+    public function wisePay_config() {
+        $config = require('Application/Common/Conf/wisePay.php');
+        $this->assign('line', $config);
+        $this->display();
+    }
+    /**
+     * 保存智付网银支付(数据)
+     */
+    public function saveWise() {
+        $config = require('Application/Common/Conf/wisePay.php');
+        $file = 'Application/Common/Conf/wisePay.php'; 
+        $array = array(
+            'merchant_code' => $_POST['merchant_code'],
+            'merchant_private_key' => $_POST['merchant_private_key'],
+            'merchant_public_key' => $_POST['merchant_public_key'],
+            'dinpay_public_key' => $_POST['dinpay_public_key']
+        );
+        if(!empty($config)){
+            $array['payUrl'] = $config['payUrl'];
+            $array['status'] = $config['status'];
+            fopen('Application/Common/Conf/wisePay.php','wb');
+        }else {
+            $array['payUrl'] = 'mail.baochunhe.com';
+            $array['status'] = 1;
+        }
+        //缓存 
+        $text='<?php return '.var_export($array,true).';'; 
+        if(false!==fopen($file,'w+')){ 
+            if(file_put_contents($file,$text))
+            R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'智付网银支付(数据)更新'));
+            $this->success('保存成功!', U('config/wisePay_config'));
+        }else{ 
+          $this->error("保存配置失败!");
+        }
+    }
+    /**
+     * 关闭、开启智付
+     */
+    public function pay_list_status() {
+            $config = require('Application/Common/Conf/wisePay.php');
+            $file = 'Application/Common/Conf/wisePay.php'; 
+            $array['payUrl'] = $config['payUrl'];
+            if($_POST['id']){
+                $array['status'] = 0;
+            }else{
+                $array['status'] = 1;
+            }
+            $array['merchant_code'] = $config['merchant_code'];
+            $array['merchant_private_key'] = $config['merchant_private_key'];
+            $array['merchant_public_key'] = $config['merchant_public_key'];
+            $array['dinpay_public_key'] = $config['dinpay_public_key'];
+            fopen('Application/Common/Conf/wisePay.php','wb');
+            $text='<?php return '.var_export($array,true).';'; 
+            if (file_put_contents($file,$text)){
+                $return = array('state' => true);
+            }else{
+                $return = array('state' => false);
+            }
+            exit(json_encode($return));
+    }
+
+    /*取站点URL列表*/
+    public  function site_url(){
+        $site_url=D("Home/Siteurl");
+        $list=$site_url->get_SiteurlList();
+        /*dump($list);exit;*/
+        /*get_SiteurlList*/
+        $this->assign('list', $list);
+        $this->display();
+    }
+    /*删除站点URL*/
+    public  function site_url_del(){
+        $id = I('post.id');
+        if (M('siteurl')->delete($id)){
+            R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'Url删除'));
+            $return = array('state' => true);
+        }else{
+            $return = array('state' => false);
+        }
+        exit(json_encode($return));
+    }
+    /*修改状态*/
+    public function edit_url_status(){
+        $data=$_GET;
+        $Model=D("Home/Siteurl");
+        $arr=$Model->site_edit($data);
+        if ($arr) {
+            R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'Url状态修改成功'));
+            $this->success("状态更新成功");
+        }else{
+            $this->error("状态更新失败");
+        }
+    }
+    /*URL修改*/
+
+    public function edit_url(){
+        $data=$_POST;
+        $Model=D("Home/Siteurl");
+        $arr=$Model->site_edit($data);
+        if ($arr) {
+            R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'Url修改成功'));
+            $this->success("更新成功");
+        }else{
+            $this->error("更新失败");
+        }
+    }  
+
+   /* 添加URL*/
+   public function site_url_add(){
+    if(empty($_POST)){
+       
+        $this->display();
+    }else{
+         /*dump($_POST);*/
+         /*dump($_POST);exit;*/
+        /* array(4) {
+                  ["type"] => string(1) "2"
+                  ["url"] => string(10) "1232142142"
+                  ["remarks"] => string(12) "421312421321"
+                  ["status"] => string(1) "1"
+                }*/
+         $Model=D('Home/Siteurl');
+         if($Model->site_add($_POST)){
+                R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'Url添加成功'));
+                $this->success("url添加成功",U('Config/site_url'));
+            }else{
+                $this->error("url添加失败");
+         }
+    }
+   
+   }
+   // 银行卡信息
+   public function admin_bank(){
+    $orderM = M('admin_bank');
+    $list = $orderM->select();
+    // dump($list);exit
+    $this->assign("list",$list);
+    $this->display();
+    //增加
+     
+   }
+   //银行卡编辑
+   public function admin_bank_edit(){
+            $map['id']=$_GET['id'];
+            $data=M('admin_bank')->where($map)->find();
+            $this->assign("data",$data);
+            $this->display();
+        
+   }
+
+   // 保存银行卡内容
+   public function admin_bank_edit_save(){
+            /*["bank"] => string(12) "工商银行"
+            ["id"] => string(1) "3"
+            ["openbank"] => string(15) "北京天安门"
+            ["numb"] => string(6) "945641"
+            ["name"] => string(5) "admin"
+            ["status"] => string(1) "1"*/
+
+            /*["id"] => string(1) "3"
+            ["status"] => string(1) "1"
+              ["name"] => string(5) "admin"
+              ["numb"] => string(6) "945641"
+              ["bank"] => string(12) "工商银行"
+              ["openBank"] => string(15) "北京天安门"
+              ["addtime"] => string(10) "1500361339"*/
+            $data['id']=$_POST['id'];
+            $data['status']=$_POST['status'];
+            $data['name']=$_POST['name'];
+            $data['numb']=$_POST['numb'];
+            $data['bank']=$_POST['bank'];
+            $data['openbank']=$_POST['openbank'];
+            $data['addtime']=time();
+            $map['id']=$data['id'];
+            $info=M('admin_bank')->where($map)->save($data);
+            if ($info) {
+                R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'系统银行卡信息修改成功'));
+                $this->success("系统银行卡信息修改成功");
+            }else{
+                $this->error("系统银行卡信息修改失败");
+            }
+   }
+
+   // 删除银行卡数据
+
+ public function admin_bank_del(){
+            $info=M('admin_bank')->delete($_POST['id']);
+
+            if ($info) {
+                R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'系统银行卡信息删除成功'));
+                $return = array('state' => true);
+            }else {
+                $return = array('state' => false);
+        }
+        exit(json_encode($return));
+   }
+    //启用或者禁用银行卡
+    public function admin_bank_status(){
+        $info=M('admin_bank')->save($_GET);
+            if ($info) {
+                R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'系统银行卡状态修改成功'));
+                $this->success("系统银行卡状态修改成功");
+            }else{
+                $this->error("系统银行卡状态修改失败");
+            }
+    }
+    // 增加银行卡内容
+     public function admin_bank_add(){
+          $this->display();  
+     }
+   public function admin_bank_add_data(){
+            $data['id']=$_POST['id'];
+            $data['status']=$_POST['status'];
+            $data['name']=$_POST['name'];
+            $data['numb']=$_POST['numb'];
+            $data['bank']=$_POST['bank'];
+            $data['openbank']=$_POST['openbank'];
+            $data['addtime']=time();
+            // dump($data);
+            $info=M('admin_bank')->add($data);
+            if ($info) {
+                R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'系统银行卡信息添加成功'));
+                $this->success("系统银行卡信息添加成功");
+            }else{
+                $this->error("系统银行卡信息添加失败");
+            }
+   }
+
+   /*
+    *邮箱配置修改
+    */
+    public function email_config(){
+     
+            if (IS_POST) {
+               if ($_POST['MAIL_SMTPAUTH']==0) {
+                    $_POST['MAIL_SMTPAUTH']=FALSE;
+               }else{
+                    $_POST['MAIL_SMTPAUTH']=TRUE;
+               }
+               dump(C($_POST));
+
+               dump(C('MAIL_HOST'));
+            }else{
+                $email['MAIL_HOST']=C('MAIL_HOST');
+                $email['MAIL_SMTPAUTH']=C('MAIL_SMTPAUTH');
+                $email['MAIL_USERNAME']=C('MAIL_USERNAME');
+                $email['MAIL_FROM']=C('MAIL_FROM');
+                $email['MAIL_FROMNAME']=C('MAIL_FROMNAME');
+                $email['MAIL_PASSWORD']=C('MAIL_PASSWORD');
+                $email['MAIL_CHARSET']=C('MAIL_CHARSET');
+                $email['MAIL_ISHTML']=C('MAIL_ISHTML');
+                $this->assign('email',$email);
+                $this->display();
+        }
+
+    }
+}
+?>

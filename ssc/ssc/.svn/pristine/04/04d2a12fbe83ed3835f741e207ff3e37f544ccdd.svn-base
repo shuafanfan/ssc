@@ -1,0 +1,300 @@
+<?php 
+namespace Html\Controller;
+use Think\Controller;
+class GetdataController extends Controller {
+
+
+	/**
+    * 获取彩种开奖结果
+    */
+    public function getdata(){
+        $code=$_GET['code'];  //彩种ID
+        $limit=$_GET['limit']; //获取最新条数
+        $map['code']=$code;
+        $m=M('open_prize_data');
+        $list=$m->where($map)->limit($limit)->order('expect desc')->select();     
+        $this->ajaxReturn($list);
+    }
+
+    /**
+     * 标题栏旁的开奖结果及最后投注时间
+    */
+    public function getexpect(){
+        $data['cate_id'] = $_POST['cate_id']; 
+        $data['timeStamp'] = array('EGT',  time()); 
+        $list = M('cate_date_time')->where($data)->field('date,period,open_time')->order('timeStamp ASC')->select();
+       //dump($list);exit;
+       
+        $_list = array();
+        foreach($list as $_k => $_v){
+            $_list[$_k] = $_v;
+            $_time = strtotime($_v['open_time']);//投注截止时间
+            $_list[$_k]['open_time']  = date("H:i:s",$_time);
+        }
+        //print_r($_list);exit;
+        $pri_issues = ''; 
+        $pri_cur_issue = '';
+        $pri_lastopen = '';
+        $_pri_lastopen = '';
+
+               
+        foreach ($_list as $k => $v) {
+            if($k == 0){
+              if($data['cate_id']==2){
+                $_issue = date("Ymd").'-'.$v['period'];
+              }else{
+                $_issue = $v['period'];
+              }  
+                   $_endtime =  $v['date'].' '.$v['open_time'];               
+                $_opentime = date("Y-m-d H:i:s",  strtotime($_endtime) + 60);
+                $pri_cur_issue = '{'.'issue'.':'."'$_issue'".','.'endtime'.':'."'$_endtime'".','.'opentime'.':'."'$_opentime'".'}';
+                $condition['date'] = date('Y-m-d');
+                $condition['period'] = $v['period'] - 1;
+                $lastIssue = M('cate_date_time')->where($condition)->find();
+              if($data['cate_id']==2){
+                $issue = date("Ymd").'-'.$lastIssue['period'];
+              }else{
+                $issue = $lastIssue['period'];
+              }
+                $endtime =  $lastIssue['date'].' '.date("H:i:s",(strtotime($lastIssue['open_time']) - 60));
+                $opentime = date("Y-m-d H:i:s",  strtotime($endtime) + 60);
+
+                $pri_lastopen = '{'.'issue'.':'."'$issue'".','.'endtime'.':'."'$endtime'".','.'opentime'.':'."'$opentime'".','.'statuscode'.':'."'0'".'}';
+                $_pri_lastopen = '{'.'issue'.':'."'$issue'".','.'endtime'.':'."'$endtime'".'}'.',';
+                $lastOpenInfo = M('open_prize_data')->where(array('code'=>$data['cate_id'],'expect'=>date("Ymd").$lastIssue['period']))->find();
+                //dump( $lastOpenInfo);
+                if(!empty($lastOpenInfo)){
+                    $code = $lastOpenInfo['opencode'];
+                    $str = '';
+                    foreach (explode(',', $code) as $ke => $va) {
+                        if($ke == 4){
+                            $_str = "'$va'";
+                        }else{
+                            $str .= "'$va'".',';
+                        } 
+                    }
+                    $str = $str.$_str;
+                    $_lastOpenInfo = '{'."'code'".':'.'['.$str.']'.','."'issue'".':'."'$issue'".','."'statuscode'".':'."'2'".'}';
+                }
+                else{
+                    $_lastOpenInfo = '';
+                }
+            }
+
+        }
+        $pri_issues = $_pri_lastopen.($this->issue_data($data['cate_id']));
+        $pri_issues = '['.$pri_issues.']';
+        // print_r($pri_issues);exit;
+        $pri_servertime = date("Y-m-d H:i:s", time());
+        // print_r($pri_issues);exit;
+        $return = array('pri_lastopeninfo' =>$_lastOpenInfo,'pri_issues' =>$pri_issues,'pri_cur_issue'=>$pri_cur_issue,'pri_lastopen'=>$pri_lastopen,'pri_servertime'=>"'$pri_servertime'");
+         exit(json_encode($return));
+    }
+  
+    public function issue_data($cate_id){
+        $a = 'issue';
+        $b = 'endtime';
+        $data['cate_id'] = $cate_id; 
+        $data['timeStamp'] = array('EGT',  time()); 
+        // print_r($data);
+        $list = M('cate_date_time')->where($data)->field('date,period,open_time')->limit(119)->order('timeStamp ASC')->select();
+        // print_r(M('cate_date_time')->getLastSql());exit;
+        $_list = array();
+        if ($cate_id == 2){
+            foreach($list as $_k => $_v){
+                $_list[$_k] = $_v;
+                $_time = strtotime($_v['open_time']) - 60;
+                $_list[$_k]['open_time']  = date("H:i:s",$_time);
+            }
+        }
+        if (empty($_list)) {
+            $_list = $list;
+        }
+        // print_r($_list);exit;
+        foreach ($_list as $k => $v) {
+                if ($cate_id == 2) {
+                    $pri_issues_issue[$k]=  date("Ymd").'-'.$v['period'];
+                }else{
+                
+                    $pri_issues_issue[$k]=  $v['period'];
+                }
+                
+                $pri_issues_endtime[$k] =  $v['date'].' '.$v['open_time'];
+                // if($k == 118){
+                //     // exit('sss');
+                //     $c = '{'.$a.':'."'$pri_issues_issue[$k]'".','.$b.':'."'$pri_issues_endtime[$k]'".'}';
+                // }else{
+                //     $pri_issues .= '{'.$a.':'."'$pri_issues_issue[$k]'".','.$b.':'."'$pri_issues_endtime[$k]'".'}'.',';
+                // }
+                $pri_issues = $pri_issues.$c;
+        }
+        // print_r($pri_issues);exit;
+        return $pri_issues;
+    }
+
+
+    /**
+    * 获取彩票游戏彩种
+    */
+    public function getcategory(){
+        $category=M('category')->select();
+        dump($category);
+        //return $category;
+        //$this->ajaxReturn($category);
+        // $this->assign("userInfo",$userInfo); 
+        // $this->display('public');
+    }
+
+    /**
+    * 获取优惠活动
+    */
+    public function getactivity(){
+        $activity=M('activity')->select();
+        // $this->assign('activity',$activity);
+
+         //$this->display('Index/test');
+         $this->ajaxReturn($activity,json);
+    }
+
+    /**
+    * 获取线路检测值
+    */
+     public function getaurlping(){
+        $activity=M('activity')->select();
+        $data['status']=1;
+        $data['type']=1;
+        $url=M('siteurl')->where($data)->select();
+        $this->ajaxReturn($url);
+    }
+
+
+    /**
+    * 获取线路检测值
+    */
+    public function getaurlping2(){
+        // $ip = '127.0.0.1';
+         $data['status']=1;
+         $url=M('siteurl')->where($data)->select();
+         foreach ($url as $k => $v) {
+            dump($v['url']);
+         }
+        // dump($url);
+        $host = 'www.zuimoban.com';
+        $port = '80';
+        $num = 10; //Ping次数
+        //获取时间
+        function mt_f (){
+        list($usec,$sec) = explode(" ",microtime());
+        return ((float)$usec + (float)$sec); //微秒加秒
+        }
+        function ping_f($host,$port){
+        $time_s = mt_f();
+        $ip = gethostbyname($host);
+        $fp = @fsockopen($host,$port);
+        if(!$fp)
+            //\r\nConnect:".$port."
+        return 'reply time out!';
+        $get = "GET / HTTP/1.1\r\nHost:".$host."Close\r\n";
+        fputs($fp,$get);
+        fclose($fp);
+        $time_e = mt_f();
+        $time = $time_e - $time_s;
+        $time = ceil($time * 1000);
+        return $time.'<br />';
+        }
+
+
+        foreach ($url as $k => $v) {                 
+            echo $v['url'].' ['.gethostbyname($v['url']).'] <br />';
+            $ave=array();
+            for($i = 0;$i < $num;$i++){
+            echo ping_f($v['url'],$port);
+            $ave[]=ping_f($v['url'],$port);
+            $ping=array_sum($ave)/$num;
+
+            //每次运行中间间隔1S
+            sleep(0.01);
+            //刷新输出缓存
+            ob_flush();
+            flush();
+            }
+            echo $ping.'<br>';
+          
+            $pingtime=array();
+            $pingtime[]=$ping;
+           
+        }
+         dump($pingtime);
+}
+
+
+    /*
+     *对比期数号是否一致
+     */
+    public function expectcorect(){ 
+        $con = mysql_connect("118.89.29.73","root","root123");
+        mysql_query("set names 'utf8'");
+        mysql_select_db('gambling');
+
+        for ($i=1; $i <100 ; $i++) {                                 
+                $sql="SELECT a.id FROM  `g_open_prize_data` AS a JOIN `g_cate_date_time` AS b on a.expect=b.issue WHERE  b.date='2017-07-11' AND b.cate_id = a.code AND a.code=".$i;
+                $result = mysql_query($sql);
+                $test = mysql_fetch_assoc($result);
+                //dump($test);
+                if(!empty($test)){
+                  echo $i.'<br>';
+                }
+                        
+         }
+         mysql_close(); 
+    }
+
+
+    /*
+     *对比开奖期数和预设开奖期数
+     */
+    public function expectcompare(){
+        $list=M('category')->select();
+        foreach ($list as $k => $v) {
+             
+                $data['code']=array('EQ',$v['id']);
+                $data['opentime']=array('like','%2017-07-11%');
+                $result=M('open_prize_data')->where($data)->count('id');//已开奖的总期数
+                $data2['cate_id']=array('EQ',$v['id']);
+                $data2['date']=array('EQ','2017-07-11');
+                $result2=M('cate_date_time')->where($data2)->count('id');//预设的总期数
+                // $result = mysql_query($sql);
+                // $test = mysql_fetch_assoc($test); 
+                if($result!=$result2){ 
+                  echo $v['id'].'-'.$v['catename'].'--->获取的总期数'.$result.'-->'.$result2.'<br>';
+                  }    
+         }
+         
+    }
+
+    public function aaa(){
+        $activity=M('activity')->select();
+        // $this->assign('activity',1);
+
+        // $this->display('Html/activity');
+         $this->ajaxReturn($activity);
+         $a=date("Y-m-d",time());
+         dump($a);
+         echo strtotime ("2017-07-1");
+    }
+
+    public function getbetrecord(){
+        // $data['id']=$_GET['id'];
+        // $data2['expect']=$_GET['expect'];
+        // $list=M('bet_record')->where($data)->find();
+        // $list['time']=date('Y-m-d',$list['time']);
+        // $prize=M('open_prize_data')->where($data2)->find();
+        // $list['opencode']=$prize['opencode'];
+        // // dump($list);
+        // // dump($prize);
+        //  $this->ajaxReturn($list);
+        dump(time());
+        dump(date('Y-m-d',time()));
+    }
+}
+        

@@ -1,0 +1,51 @@
+                <table class="state_tab state_tab_no safe-logta clearfix" cellpadding=3 cellspacing=5>
+                    <thead>
+                    <tr>
+                        <th>用户名</th>
+                        <th>登录时间</th>
+                        <th>登录网址</th>
+                        <th>登录IP</th>
+                        <th>登录结果</th>
+                        <th>备注</th>
+                    </tr>
+                    </thead>
+                    <tbody id="a11111">
+                    <volist name="list" id="item">
+                    <tr>
+                        <td>{$item.userName}</td>
+                        <td>{$item.loginTime|date="Y-m-d H:i",###}</td>
+                        <td>{$item.url}</td>
+                        <td>{$item.ip}</td>
+                        <if condition="($item.status eq '成功')">
+                            <td style="color: rgb(85, 223, 131);">{$item.status}</td>
+                        </if>
+                        <if condition="($item.status eq '失败')">
+                            <td style="color: rgb(255, 102, 102);">{$item.status}</td>
+                        </if>
+                        <td>{$item.content}</td>
+                    </tr> 
+                    </volist>
+                    </tbody>
+                </table>
+                <div class="panging clearfix">
+                    <div class="panging_info fl">
+                        第<span>{$count.current}</span>页 ,共<span>{$count.count}</span>条 ,每页<span>{$count.number}</span>条
+                    </div>
+                    <div class="page_jump fr">
+                        <if condition="($count.current eq 1)">
+                             <span>上一页</span>
+                        </if>
+                        <if condition="($count.current neq 1)">
+                             <span  class="active">上一页</span>
+                        </if>
+                        <span class="active">{$count.current}</span>
+                        <if condition="($count.lastPage eq '')">
+                            <span class="active">下一页</span>
+                        </if>
+                        <if condition="($count.lastPage neq '')">
+                            <span>下一页</span>
+                        </if>
+                        <lable><input type="text" value="" name="jump"></lable>
+                        <span class="go" id="jump">跳转</span>
+                    </div>
+                </div>

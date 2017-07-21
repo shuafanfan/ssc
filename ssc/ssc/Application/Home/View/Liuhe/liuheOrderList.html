@@ -1,0 +1,169 @@
+ <!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/table_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:01 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>H+ 后台主题UI框架 - 基础表格</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="__PUBLIC__/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="__PUBLIC__/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>香港六合彩订单记录</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="table_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>用户名</th>
+                                    <th>订单号</th>
+                                    <th>投注时间</th>
+                                    <th>开奖数据</th>
+                                    <th>采种名称</th>
+                                    <th>投注期数</th>
+                                    <th>玩法</th>
+                                    <th>投注内容</th>
+                                    <th>元角模式</th>
+                                    <th>投注金额</th>
+                                    <th>中奖金额</th>
+                                    <th>订单状态</th>
+                                    <th>操作</th>
+
+                                </tr>
+                            </thead>
+                         
+                            <tbody>
+                              <volist name="list" id="item">
+                                <tr>
+                                    <td>{$item.id}</td> 
+                                     <td><a href="__URL__/liuheOrderList/userid/{$item.userId}">{$item.username}</a></td>
+                                     <td>{$item.orderNum}</td>
+                                     <td>{:date('Y-m-d H:i:s',$item['time'])}</td>
+                                     <td>{$item.issue}</td>
+                                     <td>{$item.catename}</td>
+                                     <!--asd-->
+                                     <td>{$item.twoName} {$item.playname}</td>
+                                     <td>{$item.content|subtext=10}</td>
+                                     <td><if condition="$item.mode eq 1">元
+                                     <elseif condition="$item.mode eq 2" />角
+                                     <elseif condition="$item.mode eq 3" />分
+                                     <else />厘
+                                     </if>
+                                     </td>
+                                     <td>{$item.money}</td>
+                                     <td>{$item.profitLoss}</td>
+                                     <td>
+                                     <if condition="$item.status eq 1">正常
+                                     <elseif condition="$item.status eq 2" />中奖
+                                     <elseif condition="$item.status eq 3" /><span class="label label-danger">未中奖</span>
+                                     <else />撤单
+                                     </if>
+                                     </td>
+                                     <td>
+                                      <!-- <a href="__URL__/orderDetails/id/{$item.id}">查看详情</a> -->
+                                      <a href="{:U('Home/Liuhe/liuheOrderDetails/id/'.$item['id'])}">查看详情</a>
+                                      <a href="javascript:del({$item.id})">撤单</a>
+                                     </td>  
+                                </tr>
+                              </volist>
+                            </tbody>
+                        </table>
+
+                       <div class="pages">{$page}</div> 
+                    </div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <script src="__PUBLIC__/js/jquery.min.js?v=2.1.4"></script>
+    <script src="__PUBLIC__/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="__PUBLIC__/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="__PUBLIC__/js/content.min.js?v=1.0.0"></script>
+    <script src="__PUBLIC__/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="__PUBLIC__/js/demo/peity-demo.min.js"></script>
+    <script>
+        $(document).ready(function(){$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})});
+    </script>
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+</body>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/table_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:01 GMT -->
+</html>
+
+<script>
+  $('#tc_bnt_dl').click(function(){
+          $('.tc_bj').show(100);
+          $('.tc_01').show(100);
+  });
+  $('#tc_bnt_qr').click(function(){
+          $('.tc_bj').hide(100);
+          $('.tc_01').hide(100);
+  });
+  $('#tc_bnt_qx').click(function(){
+          $('.tc_bj').hide(100);
+          $('.tc_01').hide(100);
+  });
+</script>
+<style>
+.pages a,.pages span {
+    display:inline-block;
+    padding:2px 5px;
+    margin:0 1px;
+    border:1px solid #f0f0f0;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+    
+}
+.pages a,.pages li {
+    display:inline-block;
+    list-style: none;
+    text-decoration:none; color:#58A0D3;
+        
+}
+.pages a.first,.pages a.prev,.pages a.next,.pages a.end{
+    margin:0;
+}
+.pages a:hover{
+    border-color:#50A8E6;
+}
+.pages span.current{
+    background:#50A8E6;
+    color:#FFF;
+    font-weight:700;
+    border-color:#50A8E6;
+</style>
+

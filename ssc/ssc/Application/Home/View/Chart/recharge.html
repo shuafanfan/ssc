@@ -1,0 +1,218 @@
+<include file="Public/header" />
+<div class="wrapper wrapper-content animated fadeInRight"> 
+ <div class="row"> 
+  <div class="col-sm-12"> 
+   <div class="ibox float-e-margins"> 
+    <div class="ibox-title"> 
+     <h5>充值统计</h5>
+     <div class="ibox-tools">
+      <div class="ibox-tools"><a href="{:U('count/racharge_count')}" class="btn btn-primary btn-xs">
+        <i class="fa fa-list"></i>
+        总计
+      </a></div>
+      </div>
+    <div class="ibox-content">
+     <div class="col-sm-10">
+      <div class="btn-group" id="active">
+       <button class="btn btn-white onactive active " data-id="3">三天内</button>
+       <button class="btn btn-white onactive" data-id="7">一周内</button>
+       <button class="btn btn-white onactive" data-id="15">15天内</button>
+       <button class="btn btn-white onactive" data-id="30">一月内</button>
+      </div>
+      <div id="main" style="width: 100%; height: 500px" >
+
+      </div>
+     </div>
+     <div class="col-sm-2">
+      <div class="ibox float-e-margins">
+       <div class="ibox-title">
+        <h5>数据统计</h5>
+        <div class="ibox-tools">
+         <a class="collapse-link">
+          <i class="fa fa-chevron-up"></i>
+         </a>
+        </div>
+       </div>
+       <div class="ibox-content">
+
+        <div class="widget style1 lazur-bg">
+         <div class="row vertical-align">
+          <div class="col-xs-12">
+           <!-- <i class="fa fa-rss fa-3x"></i> -->
+           <h3> <i class="fa fa-mail-reply-all"></i> 提现</h3>
+          </div>
+          <div class="col-xs-12 text-center">
+           <h1 class="font-bold"><i class="fa fa-cny "></i><span id="wnlSum_data"></span></h1>
+          </div>
+         </div>
+        </div>
+
+        <div class="widget style1 red-bg">
+         <div class="row vertical-align">
+          <div class="col-xs-12">
+           <!-- <i class="fa fa-rss fa-3x"></i> -->
+           <h3> <i class="fa fa-check "></i> 充值</h3>
+
+          </div>
+          <div class="col-xs-12 text-center">
+           <h1 class="font-bold"><i class="fa fa-cny "></i><span id="betSum_data"></span></h1>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <!--<div id="container" style="min-width:400px;height:400px"></div>-->
+    </div>      
+  </div>    
+ </div>   
+</div>
+<include file="Public/footer" />
+<!--<script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>-->
+<!--<script src="../../../../../../Public/js/chart.js"></script>-->
+  <script src="/Public/js/echarts.min.js?v=2.7"></script>
+  <script>
+      $('.onactive').click(function () {
+          $('.onactive').removeClass('.active');
+          $(this).addClass('.active');
+          var data_id =  $(this).attr('data-id');
+          Echarts(data_id);
+      })
+      var index = layer.load(1, {
+          shade: [0.1,'#fff'] //0.1透明度的白色背景
+      });
+   //   var  data_id =  $('#active').find('.active').attr('data-id');
+      // 基于准备好的dom，初始化echarts实例
+      Echarts(3);
+      function Echarts(data_id) {
+
+          $.ajax({
+              url: "{:U('Home/chart/moneyData')}",
+              type: 'post',
+              dataType: 'json',
+              data: {'data_id':data_id},
+              beforeSend:function() {
+                 layer.load(0, {shade: false});
+               //   layer.alert('1');
+                 // var html  =  "<div class='row' style='text-align: center;color: red'>加载中</div>";
+                  //$("#main").html(html);
+              },
+              success: function (data) {
+                 // $("#main").html();
+                  var myChart = echarts.init(document.getElementById('main'));
+                  var datedata =   data.data.date;
+                  var bet_recorddata =   data.data.bet_record;
+                  var brSumDatadata =   data.data.brSumData;
+                  var date = datedata.split(",");
+                  var bet_record = bet_recorddata.split(","); //充值
+                  var brSumData = brSumDatadata.split(",");//提现
+                  $('#betSum_data').text(data.data.betSum_data);
+                  $('#wnlSum_data').text(data.data.wnlSum_data);
+                  if (data.status == 1) {
+
+                      // 指定图表的配置项和数据
+                      option = {
+                          tooltip : {
+                              trigger: 'axis',
+                              showDelay : 0, // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+                              axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                                  type : "shadow"       // 默认为直线，可选为：‘line‘ | ‘shadow‘
+                              }
+                          },
+                          legend: {
+                              data:['充值','提现']
+                          },
+                          toolbox: {
+                              show : true,
+                              feature : {
+                                  mark : {
+                                      show: true,
+                                      title:{
+                                          mark:true
+                                      }
+                                  },
+                                  dataView : {show: true, readOnly: false},
+                                  magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                                  //restore : {show: true},
+                                  saveAsImage : {show: true}
+                              }
+                          },
+                          calculable : true,
+                          xAxis : [
+                              {
+                                  type : 'category',
+                                  show : true,
+                                  boundaryGap : false,
+                                  data : date
+                              }
+                          ],
+                          yAxis : [
+                              {
+                                  type : 'value',
+                                  zlevel : '1',
+                              }
+                          ],
+                          series : [
+                              {
+                                  name:'充值',
+                                  type:'line',
+                                  stack: '充值金额',
+                                  smooth: true,
+                                  symbolSize: 8,
+                                  itemStyle: {normal: {
+                                      color: 'red',
+                                  }
+                                  },
+                                  data:bet_record
+                              },
+                              {
+                                  name:'提现',
+                                  type:'line',
+                                  stack: '提现金额',
+                                  smooth: true,
+                                  symbolSize: 8,
+                                  itemStyle: {
+                                      normal: {
+                                          color: 'blue',
+                                      }
+                                  },
+                                  data:brSumData
+                              }
+                          ]
+                      };
+                      // 使用刚指定的配置项和数据显示图表。
+                      myChart.setOption(option);
+                  } else {
+                      layer.msg(data.msg);
+                      // window.location.reload();
+                  }
+              }
+          })
+
+
+      }
+
+  </script>
+
+<!--<script type="text/javascript">
+$(function () {
+  showChart('recharge', function() {
+    var list = new Array();
+    $.ajax({
+      url: '{:U('Home/Chart/rechargeData')}',
+      type: 'post',
+      dataType: 'json',
+      async: false,
+      success: function(data) {
+        var item = null;
+        for (var i = 0; i < data.data.length; i++) {
+          item = data.data[i];
+          list.push([Date.UTC(item.Y,item.n,item.j), item.money])
+        }
+      }
+    });
+    return list;
+  });
+});
+</script>-->
+

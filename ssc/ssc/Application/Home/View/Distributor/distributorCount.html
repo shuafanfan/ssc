@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/form_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:15 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>H+ 后台主题UI框架 - 基本表单</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="__PUBLIC__/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="__PUBLIC__/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>代理数据查看</small></h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+            
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <div  class="form-horizontal" ">
+                        <div class="form-group">
+                                    <div class="col-sm-3">
+                                         <div class=" input-group ">
+                                            <input placeholder="开始日期" class="input-sm form-control" id="start">
+                                            <span class="input-group-addon">到</span>
+                                            <input placeholder="结束日期" class="input-sm form-control" id="end">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                         <div class=" input-group ">
+                                            <button  class="btn btn-primary" type="button">查看数据</button>
+                                        </div>
+                                    </div>
+                        </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-3">
+                                        <div class="widget style1 navy-bg">
+                                            <div class="row">
+                                                <div class="col-xs-4">
+                                                    <i class="fa fa-cloud fa-5x"></i>
+                                                </div>
+                                                <div class="col-xs-8 text-right">
+                                                    <span> 下线会员 </span>
+                                                    <h2 class="font-bold">{$userCount}</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="widget style1 red-bg">
+                                            <div class="row">
+                                                <div class="col-xs-4">
+                                                    <i class="fa fa-cloud fa-5x"></i>
+                                                </div>
+                                                <div class="col-xs-8 text-right">
+                                                    <span> 充值情况 </span>
+                                                    <h2 class="font-bold">{$RechargeCount}</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="widget style1 navy-bg">
+                                            <div class="row">
+                                                <div class="col-xs-4">
+                                                    <i class="fa fa-cloud fa-5x"></i>
+                                                </div>
+                                                <div class="col-xs-8 text-right">
+                                                    <span> 提现情况 </span>
+                                                    <h2 class="font-bold">{$WithdrawalsCount}</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="widget style1 yellow-bg">
+                                            <div class="row">
+                                                <div class="col-xs-4">
+                                                    <i class="fa fa-cloud fa-5x"></i>
+                                                </div>
+                                                <div class="col-xs-8 text-right">
+                                                    <span> 盈亏情况 </span>
+                                                    <h2 class="font-bold">{$ProfitLossCount}</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="hr-line-dashed"></div>
+                                                <table class="table table-bordered">
+                                                        <thead>
+                                                           <tr>
+                                                                <th>采种</th>
+                                                                <th>下注量</th>
+                                                                <th>下注金额</th>
+                                                                <th>派奖量</th>
+                                                                <th>会员盈亏</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <volist name="lotterylist" id="vo">
+                                                            <if condition="$vo.pid eq 0">
+                                                            <tr>
+                                                                <td colspan="5">{$vo.catename }</td> 
+                                                            </tr>
+                                                            <else />
+                                                                <tr>
+                                                                <td>{$vo.catename }</td>
+                                                                <td>{$vo.orderSum }</td>
+                                                                <td>{$vo.orderMoneySum }</td>
+                                                                <td>{$vo.orderWinSum }</td>
+                                                                <td>{$vo.orderProSum }
+                                                                <!-- <span class="badge badge-primary">开启</span><span class="badge badge-danger">关闭</span> -->
+                                                                </td>
+                                                            </tr>
+                                                            </if>
+                                                            </volist>
+                                                        </tbody>
+                                                    </table>
+                                           <!--  <div class="pages">{$page}</div>  -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="__PUBLIC__/js/jquery.min.js?v=2.1.4"></script>
+    <script src="__PUBLIC__/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="__PUBLIC__/js/content.min.js?v=1.0.0"></script>
+    <script src="__PUBLIC__/js/plugins/layer/laydate/laydate.js"></script>
+    <script>
+        laydate({
+            elem:"#start",
+            event:"focus"
+        });
+        laydate({
+            elem:"#end",
+            event:"focus"
+        });
+            var start={
+            elem:"#start",
+            format:"YYYY/MM/DD ",
+            min: '1900-01-01 00:00:00', 
+            max: '2099-12-31 23:59:59',
+            istime:true,
+            istoday:false,
+            choose:function(datas){
+                end.min=datas;
+               
+            }
+        };
+
+        var end={
+            elem:"#end",
+            format:"YYYY/MM/DD",
+            min: '1900-01-01 00:00:00', //最小日期
+            max: '2099-12-31 23:59:59',
+            istime:true,
+            istoday:false,
+            choose:function(datas){
+                start.max=datas
+            }
+        };
+        laydate(start);
+        laydate(end);
+    </script>
+    <style>
+.pages a,.pages span {
+    display:inline-block;
+    padding:2px 5px;
+    margin:0 1px;
+    border:1px solid #f0f0f0;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+    
+}
+.pages a,.pages li {
+    display:inline-block;
+    list-style: none;
+    text-decoration:none; color:#58A0D3;
+        
+}
+.pages a.first,.pages a.prev,.pages a.next,.pages a.end{
+    margin:0;
+}
+.pages a:hover{
+    border-color:#50A8E6;
+}
+.pages span.current{
+    background:#50A8E6;
+    color:#FFF;
+    font-weight:700;
+    border-color:#50A8E6;
+</style>
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+</body>
+</html>

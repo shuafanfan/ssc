@@ -1,0 +1,88 @@
+<?php 
+namespace Home\Controller;
+use Think\Controller;
+class BankmoenyController extends CommonController {
+
+    /**
+     * 用户转账信息
+     * Programmer : manty
+     * Date: 05-26  15:10
+     */
+    public function Bankmoeny_list() {
+        if($_GET['status']){
+            $map['g_bank_play_money.status']=$_GET['status'];
+            // dump($map);
+            $count = M('bank_play_money')->where($map)->count();
+            // dump($count);exit;
+            $Page = getpage($count,5);
+            $show = $Page->show();
+            $list = M('bank_play_money')
+                ->where($map)
+                ->order('g_admin_bank.status DESC ')
+                ->join('g_user ON g_bank_play_money.userId = g_user.id')
+                ->join('g_admin_bank ON g_bank_play_money.bank_id = g_admin_bank.id')
+                ->field('g_admin_bank.bank,g_admin_bank.numb,g_bank_play_money.*,g_user.username')
+                ->limit($Page->firstRow.','.$Page->listRows)
+                ->select();
+            }else{
+                $count = M('bank_play_money')->count();
+                $Page = getpage($count,5);
+                $show = $Page->show();
+                $list = M('bank_play_money')
+                    ->order('g_admin_bank.status DESC ')
+                    ->join('g_user ON g_bank_play_money.userId = g_user.id')
+                    ->join('g_admin_bank ON g_bank_play_money.bank_id = g_admin_bank.id')
+                    ->field('g_admin_bank.bank,g_admin_bank.numb,g_bank_play_money.*,g_user.username')
+                    ->limit($Page->firstRow.','.$Page->listRows)
+                    ->select();
+            }
+        $this->assign("list",$list);
+        $this->assign('page', $Page->show());
+        $this->display();
+    }
+    public function bankmoney_Add(){       
+       //充值到用户账号上
+                $info['userId'] = $_POST["userId"];
+                $userInfo = M('user')->where($info)->find();
+                $updata['money'] = $userInfo['money'] + $_POST['money'];
+                $updata['id'] = $_POST["userId"];
+                if(M('user') -> save($updata)){
+                    //记录金钱日志
+                    $data['id'] = $_POST['id'];
+                    $data['real_money'] = $_POST['moeny'];
+                    $data['status'] = 1;
+                    // 写入数据
+                    if(M('bank_play_money')->save($data)){
+                        $where['money'] = $_POST['moeny'];
+                        $where['type']  = 1;
+                        $where['userId'] = $_POST['userId'];
+                        $where['time']=time();
+                        $innf = M('user_money_log')->add($where);
+                        if ($innf) {
+                             R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'充值成功'));
+                            $this->success('充值成功');
+
+                        }
+                    
+                    }else {
+                    $this->error('充值失败！');
+                    }
+                
+                }  else {
+                $this->error('充值失败！');
+                }
+    }
+    // 删除用户转账信息
+
+ public function admin_bank_del(){
+            $info=M('bank_play_money')->delete($_POST['id']);
+            if ($info) {
+                R('log/addLog',array('twoMenu'=>$_GET['twoMenu'],'content'=>'系统银行卡信息删除成功'));
+                $return = array('state' => true);
+            }else {
+                $return = array('state' => false);
+        }
+        exit(json_encode($return));
+   }
+    
+}

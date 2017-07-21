@@ -1,0 +1,1 @@
+a:9:{i:0;s:2:"id";i:1;s:6:"userId";i:2;s:4:"type";i:3;s:5:"money";i:4;s:11:"category_id";i:5;s:4:"time";i:6;s:6:"remark";s:3:"_pk";s:2:"id";s:5:"_type";a:7:{s:2:"id";s:7:"int(11)";s:6:"userId";s:7:"int(11)";s:4:"type";s:6:"int(2)";s:5:"money";s:13:"decimal(11,2)";s:11:"category_id";s:7:"int(11)";s:4:"time";s:7:"int(11)";s:6:"remark";s:4:"text";}}

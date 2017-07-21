@@ -1,0 +1,60 @@
+<?php 
+namespace Home\Controller;
+use Think\Verify;
+class IndexController extends CommonController {
+    
+    public function index(){
+
+            $account['account'] = $_COOKIE['name'];
+            //超级管理员
+            if(strcmp($_COOKIE['name'],'admin') == 0){
+                $menuList = R('Common/Menus');
+            }//检查权限
+            else {
+                $Auth = new \Think\Auth();
+                $adminInfo = M('admin')->where($account)->find();
+                $getGroups = $Auth->getGroups($adminInfo['id']);
+//                $getGroups = $Auth->getGroups(5);
+//                print_r($getGroups);exit;
+                $power['pid'] =0;
+                $power['id'] =array('in',  explode(',', $getGroups[0]['rules']));
+                $onelist = M('auth_rule')->where($power)->field('title,name,id')->select();
+                foreach ($onelist as $k => $v) {
+                        $menuList[$k] = $v;
+                        $twoList = M('auth_rule')->where('pid ='.$v['id'])->field('title,name,id')->select();
+                        $menuList[$k]['twoMenu'] = $twoList;
+                }
+            }
+            $auth_group = M('admin')->where($account)->join(' g_auth_group_access ON g_admin.id = g_auth_group_access.uid')->join(' g_auth_group ON g_auth_group_access.group_id = g_auth_group.id')->field('g_auth_group.title,g_admin.account')->find();
+        $this->assign('auth_group', $auth_group);
+        $this->assign('menuList', $menuList);
+        $this->display();
+    }
+    /**
+     * 获取当前管理员三级菜单全部信息
+     * @return type
+     */
+     public function threeMenu($twoMenu) {
+        $twoMenu = $_GET['twoMenu'];
+        //管理员  $adminInfo['power']  1超级管理 2普通管理  3财务管理
+        $account['account'] = $_COOKIE['name'];
+        if($account['account'] == 'admin'){
+            // exit('sss');
+            $condition['pid'] = $twoMenu;
+            $threeMenuList = M('auth_rule')->where($condition)->select();
+            // print_r($info);exit;
+        }else {
+            //角色有的权限
+            $auth_group = M('admin')->where($account)->join(' g_auth_group_access ON g_admin.id = g_auth_group_access.uid')->join(' g_auth_group ON g_auth_group_access.group_id = g_auth_group.id')->field('g_auth_group.id as groupId,g_auth_group.rules ')->select();
+            if(in_array($twoMenu, explode(',', $auth_group[0]['rules']))){
+                $threeMenuList = M('auth_rule')->where('pid ='.$twoMenu)->select();
+            }
+        }
+        if ($twoMenu != 24) {
+            if(count($threeMenuList) == 1)$threeMenuList = $threeMenuList[0];
+        }
+        return $threeMenuList;
+    }
+}
+
+?>

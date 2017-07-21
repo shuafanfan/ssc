@@ -1,0 +1,172 @@
+<include file="Public/header" />
+<style>
+.pages a,.pages span {
+    display:inline-block;
+    padding:2px 5px;
+    margin:0 1px;
+    border:1px solid #f0f0f0;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+}
+.pages a,.pages li {
+    display:inline-block;
+    list-style: none;
+    text-decoration:none; color:#58A0D3;
+}
+.pages a.first,.pages a.prev,.pages a.next,.pages a.end{
+    margin:0;
+}
+.pages a:hover{
+    border-color:#50A8E6;
+}
+.pages span.current{
+    background:#50A8E6;
+    color:#FFF;
+    font-weight:700;
+    border-color:#50A8E6;
+}
+</style>
+<div class="wrapper wrapper-content animated fadeInRight"> 
+   <div class="row"> 
+    <div class="col-sm-12">
+     <div class="btn-group" >
+      <form class="" method="get" action="">
+       日期：<input class="form-control" id="date" type="text"  name="date" style="width: 200px; display: inline;" value="{$date}" placeholder="开奖日期">
+       <input type="submit" class="btn btn-primary" value="搜索">
+      </form>
+     </div>
+     <div class="ibox float-e-margins"> 
+      <!--<div class="ibox-title">
+       <h5>截至{$time}共充值{$recharge_count}</h5>
+        <if condition="($threeMenuInfo neq '')">
+       <div class="ibox-tools">
+        <a href="{$threeMenuInfo.name}" class="btn btn-primary btn-xs">
+        <i class="fa fa-list"></i>
+       {$threeMenuInfo.title}
+      </a></div>
+       </if>
+      </div>-->
+      <div class="ibox-content">  
+       <div class="table-responsive">
+        <div id="main" style="width: 100%; height: 500px" >
+
+        </div>
+
+       </div>
+      </div>      
+     </div>      
+    </div>    
+   </div>   
+  </div> 
+  <include file="Public/footer" />
+
+<script src="/Public/js/echarts.min.js?v=2.7"></script>
+<script>
+    $('.onactive').click(function () {
+        $('.onactive').removeClass('.active');
+        $(this).addClass('.active');
+        var data_id =  $('#date').val();;
+        Echarts(data_id);
+    })
+    var  data_id =  $('#date').val();
+    // 基于准备好的dom，初始化echarts实例
+    Echarts(data_id);
+    function Echarts(data_id) {
+        $.ajax({
+            url: "{:U('Home/Count/rachargeInfoData')}",
+            type: 'post',
+            dataType: 'json',
+            data: {'data_id':data_id},
+            success: function (data) {
+                if (data.status == 1) {
+                    var userName =   data.data.userName;
+                    var rechargeSum =   data.data.rechargeSum;
+                    var rechargeCount =   data.data.rechargeCount;
+                    var date = userName.split(",");
+                    var bet_record = rechargeSum.split(","); //投注
+                    var brSumData = rechargeCount.split(",");//派奖
+                    var myChart = echarts.init(document.getElementById('main'));
+                    // 指定图表的配置项和数据
+                    option = {
+                        tooltip : {
+                            trigger: 'axis',
+                            showDelay : 1, // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+                            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                                type : "line"       // 默认为直线，可选为：‘line‘ | ‘shadow‘
+                            }
+                        },
+                        legend: {
+                            data:['充值金额','次数']
+                        },
+                        toolbox: {
+                            show : true,
+                            feature : {
+                                mark : {
+                                    show: true,
+                                    title:{
+                                        mark:true
+                                    }
+                                },
+                                dataView : {show: true, readOnly: false},
+                                magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                                //restore : {show: true},
+                                saveAsImage : {show: true}
+                            }
+                        },
+                        calculable : true,
+                        xAxis : [
+                            {
+                                type : 'category',
+                                show : true,
+                                boundaryGap : false,
+                                data : date
+                            }
+                        ],
+                        yAxis : [
+                            {
+                                type : 'value',
+                                zlevel : '1',
+                            }
+                        ],
+                        series : [
+                            {
+                                name:'充值金额',
+                                type:'line',
+                                stack: '总金额',
+                                smooth: true,
+                                symbolSize: 8,
+                                itemStyle: {normal: {
+                                    color: 'red',
+                                }
+                                },
+                                data:bet_record
+                            },
+                            {
+                                name:'次数',
+                                type:'line',
+                                stack: '次数',
+                                smooth: true,
+                                symbolSize: 8,
+                                itemStyle: {
+                                    normal: {
+                                        color: 'blue',
+                                    }
+                                },
+                                data: brSumData
+                            }
+                        ]
+                    };
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                } else {
+                    layer.msg(data.msg);
+                    // window.location.reload();
+                }
+            }
+        })
+
+
+    }
+
+</script>

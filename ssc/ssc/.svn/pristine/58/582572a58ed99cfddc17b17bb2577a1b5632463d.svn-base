@@ -1,0 +1,134 @@
+<form class="account-edit-form" id="form-set-user-bank2">
+                        <div class="row">
+                            <div class="th">开户银行:</div>
+                            <div class="td">
+                                <select class="bank_list" name="bank">
+                                    <option value="工商银行">工商银行</option>
+                                    <option value="农业银行">农业银行</option>
+                                    <option value="建设银行">建设银行</option>
+                                    <option value="中国银行">中国银行</option>
+                                    <option value="招商银行">招商银行</option>
+                                    <option value="交通银行">交通银行</option>
+                                    <option value="民生银行">民生银行</option>
+                                    <option value="光大银行">光大银行</option>
+                                    <option value="浦发银行">浦发银行</option>
+                                    <option value="兴业银行">兴业银行</option>
+                                    <option value="中信银行">中信银行</option>
+                                    <option value="邮政储蓄">邮政储蓄</option>
+                                    <option value="平安银行">平安银行</option>
+                                    <option value="广发银行">广发银行</option>
+                                    <option value="上海银行">上海银行</option>
+                                    <option value="北京银行">北京银行</option>
+                                    <option value="华夏银行">华夏银行</option>
+                                    <option value="上海农行">上海农行</option>
+                                    <option value="北京农商">北京农商</option>
+                                    <option value="渤海银行">渤海银行</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="th">开户银行地址:</div>
+                            <lable class="td"><input type="text" name="address"></lable>
+                            <div class="tip"><i class="zhuyi"></i>请输入开户银行地址</div>
+                        </div>
+                        <div class="row">
+                            <div class="th">开户名:</div>
+                            <lable class="td"><input type="text" name="account_user"></lable>
+                            <div class="tip"><i class="zhuyi"></i>请输入开户名</div>
+                        </div>
+                        <div class="row">
+                            <div class="th">银行卡号:</div>
+                             <lable class="td"><input type="text" name="bank_key"></lable>
+                            <div class="tip"><i class="zhuyi"></i>请输入银行卡号</div>
+                        </div>
+                        <div class="row">
+                            <div class="th">是否锁定:</div>
+                            <lable class="td">
+                                <lable><input type="radio" checked="checked" name="lock" value="1">锁定</lable>
+                                <lable><input type="radio" name="lock" value="0">不锁定</lable>
+                            </lable>
+                        </div>
+                        <div class="row">
+                            <div class="th">资金密码:</div>
+                             <lable class="td"><input type="password" name="fund_pwd"></lable>
+                            <div class="tip"><i class="zhuyi"></i>请输入资金密码(该密码为平台资金密码)</div>
+                        </div>
+                         <div class="row">
+                            <div class="th"></div>
+                            <div class="hand">
+                                <a class="submit_deposit btn_blank_info">提交</a><a class="go_back">返回上一页</a>
+                            </div>
+                        </div>
+                        </form>
+
+                    <script>
+$('#form-set-user-bank2 .btn_blank_info').click(function(){
+	console.log($('#form-set-user-bank2').serialize())
+	$.ajax({
+                type: "POST",
+                url:"{:U('Html/User/blank_info_add')}",
+                data:$('#form-set-user-bank2').serialize() ,
+                async: false,
+                dataType: 'json',
+                success: function(data) {
+                		if(data.state == 0){              
+                        	alert('银行重复');
+                        }
+                        if (data.state == 1) {
+                            alert('请输入开户银行地址');
+                        }
+                        if (data.state == 2) {
+                            alert('请输入开户名');
+                        } 
+                        if (data.state == 3) {
+                            alert('请输入银行卡号');
+                        }
+                        if (data.state == 4) {
+                            alert('请输入资金密码');
+                        }
+                        
+                        if(data.state == 19){
+                        	alert('开户名不存在')
+                        }
+                        if (data.message != '' && data.state == 5) {
+                            alert(data.message);
+                        }
+                        if (data.state == 6) {
+//                            alert('sss');
+                            $.ajax({
+                                type: "POST",
+                                url:"{:U('Html/Index/logout')}",
+                                data: {'status':1},
+                                async: false,
+                                dataType: 'json',
+                                success: function(data) {
+                                    if (data.state == 1) {
+//                                        alert('退出成功！');
+                                        login(false);
+                                    }
+
+                                }
+                            });
+                        }
+                        if (data.state == 7) {
+                            alert('添加成功');
+                            //$(".bind_card_show2").hide().siblings('.menu-user-bank').show();
+							$(".bind_card_show2").hide();
+							$.ajax({
+                    		cache: true,
+                    		type: "POST",
+                    		url:"{:U('Html/User/userBlank_info')}",
+                    		data:'id' + '=' + 1,
+                    		async: false,
+                    		success: function(data) {
+                        	$('#menu-user-bank').html(data)
+							$(".menu-user-bank").show();
+							
+                    }
+                });
+                        }
+//                        $('#page_log').html(data)
+                }
+            });
+});   
+</script>

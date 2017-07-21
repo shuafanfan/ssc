@@ -1,0 +1,34 @@
+<include file="Public/header" />
+<body class="gray-bg">
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <div><h1 class="logo-name"></h1></div>
+            <h3>后台管理</h3>
+
+            <form class="m-t" role="form" action="" method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="account" placeholder="用户名" required="">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" placeholder="密码" required="" >
+                </div>
+                <div class="">
+                 <input id="j_verify" name="code" type="text" class="form-control x164 in" placeholder="验证码">
+                 <img id="verify_img" alt="点击更换" title="点击更换" src="{:U('index/verify',array())}" class="m">
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
+            </form>
+        </div>
+    </div>
+<include file="Public/footer" />
+<script>
+$("#verify_img").click(function() {
+   var verifyURL = "{:U('index/verify',array())}";
+   var time = new Date().getTime();
+   $("#verify_img").attr({
+      "src" : verifyURL
+   });
+});
+</script>
+</body>
+</html>

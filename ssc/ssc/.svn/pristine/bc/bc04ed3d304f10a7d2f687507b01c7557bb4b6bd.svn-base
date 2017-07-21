@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/contacts.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:18:21 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>银行卡</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="__PUBLIC__/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="__PUBLIC__/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+
+    <link href="__PUBLIC__/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+
+           <!--  <div class="col-sm-4">
+               <div class="contact-box">
+                  
+                       <div class="col-sm-4">
+                           <div class="text-center">
+                               <img alt="image" class="img-circle m-t-xs img-responsive" src="__PUBLIC__/img/bank/timg.jpg">
+                           </div>
+                       </div>
+                       <div class="col-sm-8">
+                           <h3><strong>招商银行</strong></h3>
+                           <br>
+                           <strong><i class="fa fa-map-marker"></i> 江苏省南京市鼓楼支行</strong>
+                           <br>
+                            <br>
+                           <strong>卡号：6214830250618054</strong><br>
+                           <br>
+                          <strong>开户名：萧以明</strong>
+                      
+                       </div>
+                           <div class="pull-right">
+                               <a class="btn btn-xs btn-white"><i class="glyphicon glyphicon-ban-circle"></i> 解绑</a>
+                               <a class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> 修改</a>
+                           </div>
+                       <div class="clearfix"></div>
+                   
+               </div>
+           </div> -->
+<!-- 卡一 -->
+<if condition="$banklist.arr eq 0">
+          该用户还未绑定银行卡   <a href="#" onClick="javascript :history.go(-1);">点击返回</a>
+    </else>
+        <volist name="banklist" id="vo">
+               <div class="col-sm-4">
+                    <div class="contact-box">
+                            <div class="col-sm-4">
+                                <div class="text-center">
+                                    <img alt="image" class="img-circle m-t-xs img-responsive" src="__PUBLIC__/bank/{$vo.bank}.png">
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <h3><strong>{$vo.bank}</strong></h3>
+                                <br>
+                                <strong><i class="fa fa-map-marker"></i> {$vo.openBank}</strong>
+                                <br>
+                                 <br>
+                                <strong>卡号：{$vo.numb}</strong><br>
+                                  <br>
+                                <strong>状态：
+                                    <if condition="$vo.status eq  0">锁定
+                                        <else /> 正常
+                                    </if>
+                                </strong><br>
+                                <br>
+                               <strong>开户名：{$vo.name}</strong>
+                           
+                            </div>
+                                <div class="pull-right">
+                                    <if condition="$vo.status eq  1"><a class="btn btn-xs btn-white" href="__URL__/lockbank/id/{$vo.id}/status/0"><i class="glyphicon glyphicon-ban-circle"></i> 锁定</a>
+                                        <else /> <a class="btn btn-xs btn-white" href="__URL__/lockbank/id/{$vo.id}/status/1"><i class="glyphicon glyphicon-ban-circle"></i> 解锁</a>
+                                    </if>
+                                    
+                                    <a class="btn btn-xs btn-primary" href="__URL__/editbank/id/{$vo.id}"><i class="fa fa-pencil"></i> 修改</a>
+                                    <a class="btn btn-xs btn-white" href="__URL__/delbank/id/{$vo.id}"><i class="glyphicon glyphicon-ban-circle"></i> 删除</a>
+                                </div>
+                            <div class="clearfix"></div>
+                        
+                    </div>
+                </div>
+        </volist>
+  </if>
+		
+<!-- 卡二 -->
+        </div>
+    </div>
+    <script src="__PUBLIC__/js/jquery.min.js?v=2.1.4"></script>
+    <script src="__PUBLIC__/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="__PUBLIC__/js/content.min.js?v=1.0.0"></script>
+    <script>
+        $(document).ready(function(){$(".contact-box").each(function(){animationHover(this,"pulse")})});
+    </script>
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+</body>
+</html>

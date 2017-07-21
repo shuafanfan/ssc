@@ -1,0 +1,161 @@
+<include file="Public/header" />
+<style>
+.pages a,.pages span {
+    display:inline-block;
+    padding:2px 5px;
+    margin:0 1px;
+    border:1px solid #f0f0f0;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+}
+.pages a,.pages li {
+    display:inline-block;
+    list-style: none;
+    text-decoration:none; color:#58A0D3;
+}
+.pages a.first,.pages a.prev,.pages a.next,.pages a.end{
+    margin:0;
+}
+.pages a:hover{
+    border-color:#50A8E6;
+}
+.pages span.current{
+    background:#50A8E6;
+    color:#FFF;
+    font-weight:700;
+    border-color:#50A8E6;
+}
+</style>
+<div class="wrapper wrapper-content animated fadeInRight"> 
+   <div class="row"> 
+    <div class="col-sm-12"> 
+     <div class="ibox float-e-margins"> 
+      <div class="ibox-title"> 
+       <h5>预警配置</h5>
+       <div class="btn-group" style="clear:both;width: 100%;">
+       <div  style="float: right;">
+           <if condition="($threeMenuInfo neq null)">
+        <button class="btn btn-success" onclick="location.href='{$threeMenuInfo.0.name}'">{$threeMenuInfo.0.title}</button>
+       <button data-toggle="dropdown"  class="btn btn-warning dropdown-toggle" >{$threeMenuInfo.1.title}</button> 
+       </if> <ul class="dropdown-menu">
+                    <volist name="categoryList" id="sList">
+                    <li><a href="{:U('Home/Warn/warn_config',array('gcId'=>$sList['id']))}">{$sList.catename}</a>
+                         </li>
+                    </volist>
+                 </ul>
+       </div>
+       
+       </div>
+      
+      <div class="ibox-content">  
+       <div class="table-responsive"> 
+        <table class="table table-striped"> 
+         <thead> 
+          <tr> 
+          <th>分类</th>
+           <th>彩种</th> 
+           <th>玩法</th> 
+           <th>标识</th> 
+           <th>注数</th> 
+           <th>连中次数</th> 
+           <th>预警级别</th> 
+           <th>操作</th> 
+          </tr> 
+         </thead> 
+         <tbody> 
+         <foreach name="pay_list" item="item" key="key">
+          <tr> 
+          <td>{$item.cname}</td> 
+           <td>{$item.catename}</td> 
+           <td>{$item.playname}</td>  
+           <td>{$item.mark}</td>
+           <td>{$item.stakes}</td>
+           <td>{$item.num}</td>
+           <td>{$item.warnLeve}</td>
+           <td>
+            <if condition="($item.status eq 1)">
+              <a href="javascript:close({$item.id})">关闭</a>
+             </if>
+            <if condition="($item.status eq 0)">
+              <a href="javascript:open({$item.id})">开启</a>
+              </if>
+              <a href="javascript:del({$item.id})">删除</a>
+           </td>  
+          </tr>
+          </foreach>
+          </tbody> 
+        </table> 
+       </div> 
+       <div class="pages">{$page}</div> 
+      </div>      
+     </div>      
+    </div>    
+   </div>   
+  </div> 
+  <include file="Public/footer" />
+  <script type="text/javascript">
+     function del(ID){
+    	 if (confirm('确定删除吗？') == true){
+    		 $.ajax({
+    			 url: '{:U('Home/Warn/warn_del')}',
+    			 type: 'post',
+    			 dataType: 'json',
+    		     data: {'id':ID},
+    		     success: function (data) {
+    		    	 if (data.state == true) {
+                         alert('删除成功！');
+                         window.location.reload(); 
+                     } else {
+                    	 alert('删除失败!');
+                    	 window.location.reload(); 
+                     }
+    		     }
+    		 });
+    	 }
+     }
+  </script> 
+  
+  <script type="text/javascript">
+     function close(ID){
+    	 if (confirm('确定关闭吗？') == true){
+    		 $.ajax({
+    			 url: '{:U('Home/Warn/warn_close')}',
+    			 type: 'post',
+    			 dataType: 'json',
+    		     data: {'id':ID},
+    		     success: function (data) {
+    		    	 if (data.state == true) {
+                         alert('关闭成功！');
+                         window.location.reload(); 
+                     } else {
+                    	 alert('关闭失败!');
+                    	 window.location.reload(); 
+                     }
+    		     }
+    		 });
+    	 }
+     }
+  </script>
+  
+  <script type="text/javascript">
+     function open(ID){
+    	 if (confirm('确定开启吗？') == true){
+    		 $.ajax({
+    			 url: '{:U('Home/Warn/warn_open')}',
+    			 type: 'post',
+    			 dataType: 'json',
+    		     data: {'id':ID},
+    		     success: function (data) {
+    		    	 if (data.state == true) {
+                         alert('开启成功！');
+                         window.location.reload(); 
+                     } else {
+                    	 alert('开启失败!');
+                    	 window.location.reload(); 
+                     }
+    		     }
+    		 });
+    	 }
+     }
+  </script>

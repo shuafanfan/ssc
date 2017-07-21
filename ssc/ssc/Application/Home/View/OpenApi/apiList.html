@@ -1,0 +1,92 @@
+<html>
+ <head></head>
+ <body class="gray-bg">
+  <include file="Public/header" />  
+  <div class="wrapper wrapper-content animated fadeInRight"> 
+   <div class="row"> 
+    <div class="col-sm-12"> 
+     <div class="ibox float-e-margins"> 
+      <div class="ibox-title"> 
+       <h5>彩票开奖接口</h5>
+       <a href="{:U('Home/OpenApi/apiAdd')}">
+       <button type="button" class="btn btn-primary" style="float:right;margin-top:-10px;">添加接口+</button>
+       </a>
+      </div> 
+      <div class="ibox-content">
+       <div class="table-responsive"> 
+        <table class="table table-striped"> 
+         <thead> 
+          <tr> 
+           <th>id</th> 
+           <th>彩种</th> 
+           <th>Api</th> 
+           <th>状态</th>
+           <th>操作</th> 
+          </tr> 
+         </thead> 
+         <tbody> 
+         <foreach name="openapi_list" item="item" key="key" >
+          <tr> 
+           <td>{$item.id}</td> 
+           <td>{$item.category.catename}</td> 
+           <td>{$item.url}</td> 
+           <td>{$item.status}</td>
+           <td>
+            <if condition="($item.status eq '启用')">
+               <a href="javascript:prohibit({$item.id})">禁用</a>
+             <else/><a href="javascript:start({$item.id})">启用</a>
+            </if>
+           </td>  
+          </tr> 
+         </foreach>
+         </tbody> 
+        </table> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+  <include file="Public/footer" />
+  <script type="text/javascript">
+  function prohibit(ID){
+ 	 if (confirm('确定禁用该接口吗？') == true){
+ 		 $.ajax({
+ 			 url: '{:U('Home/openApi/openapiProhibit')}',
+ 			 type: 'post',
+ 			 dataType: 'json',
+ 		     data: {'ID':ID},
+ 		     success: function (data) {
+ 		    	 if (data.state == true) {
+                      alert('禁用成功！');
+                      window.location.reload(); 
+                  } else {
+                 	 alert('该Api已被禁用!');
+                  }
+ 		     }
+ 		 });
+ 	 }
+  }
+  </script>
+  <script type="text/javascript">
+  function start(ID){
+ 	 if (confirm('确定启用该接口吗？') == true){
+ 		 $.ajax({
+ 			 url: '{:U('Home/openapi/openapiStart')}',
+ 			 type: 'post',
+ 			 dataType: 'json',
+ 		     data: {'ID':ID},
+ 		     success: function (data) {
+ 		    	 if (data.state == true) {
+                      alert('启用成功！');
+                      window.location.reload(); 
+                  } else {
+                 	 alert('该Api已启用!');
+                  }
+ 		     }
+ 		 });
+ 	 }
+  }
+  </script>     
+ </body>
+</html>

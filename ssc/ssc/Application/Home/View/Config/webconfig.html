@@ -1,0 +1,367 @@
+<link href="__PUBLIC__/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="__PUBLIC__/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="__PUBLIC__/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="__PUBLIC__/css/animate.min.css" rel="stylesheet">
+<link href="__PUBLIC__/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<!--<link href="__PUBLIC__/css/plugins/switchery/switchery.css" rel="stylesheet" type="text/css"/>-->
+<!--<link href="__PUBLIC__/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet" type="text/css"/>-->
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+  <!--  <div class="col-sm-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>系统设置</h5>
+        </div>
+        <div class="ibox-content">
+          <form method="post" class="form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">站点对象:</label>
+              <div class="col-sm-10">
+                  <input type="text" name="object"  class="form-control" value="{$config.object}">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">站点开关:</label>
+              <div class="col-sm-10"> <input type="checkbox" name="checkbox[]" {$config.checkbox.0} class="js-switch_3" /> </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">开关说明:</label>
+              <div class="col-sm-10">
+                  <input type="text"  name="explain"  value="{$config.explain}"  class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">官方开关:</label>
+              <div class="col-sm-10"> <input type="checkbox" name="checkbox[]"  {$config.checkbox.1} class="js-switch_3" /> </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">民间开关:</label>
+              <div class="col-sm-10"> <input type="checkbox" name="checkbox[]" {$config.checkbox.2} class="js-switch_3" /> </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">元角模式:</label>
+              <div class="col-sm-10">
+                <div class="checkbox checkbox-success checkbox-inline">
+                  <input type="checkbox" id="inlineCheckbox1" name="inlineCheckbox1[]" {$config.inlineCheckbox1.0}>
+                  <label for="inlineCheckbox1"> 元 </label>
+                </div>
+                <div class="checkbox checkbox-success checkbox-inline">
+                  <input type="checkbox" id="inlineCheckbox2"  name="inlineCheckbox1[]" {$config.inlineCheckbox1.1}>
+                  <label for="inlineCheckbox2"> 角 </label>
+                </div>
+                <div class="checkbox checkbox-success checkbox-inline">
+                  <input type="checkbox" id="inlineCheckbox3"  name="inlineCheckbox1[]" {$config.inlineCheckbox1.2}>
+                  <label for="inlineCheckbox3"> 分 </label>
+                </div>
+                <div class="checkbox checkbox-success checkbox-inline">
+                  <input type="checkbox" id="inlineCheckbox4"  name="inlineCheckbox1[]" {$config.inlineCheckbox1.3}>
+                  <label for="inlineCheckbox4"> 厘 </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">总代投注开关:</label>
+              <div class="col-sm-10"> <input type="checkbox"  name="checkbox[]" {$config.checkbox.3} class="js-switch_3" /> </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">最低充值限制:</label>
+              <div class="col-sm-10"> 
+                <input type="text" class="form-control" name="minMoney" value="{$config.minMoney}" >
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">最低提现:</label>
+              <div class="col-sm-10"> 
+                <input type="text" class="form-control" name="minWithdraw" value="{$config.minWithdraw}">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">提款排队人数:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="people" value="{$config.people}">
+                排队人数=真实+后台</div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-4 col-sm-offset-2">
+                <button class="btn btn-primary" type="submit">保 存</button>
+                &lt;!&ndash;<button class="btn btn-white" type="submit">取消</button>&ndash;&gt;
+                <button type="button" class="btn btn-primary" onclick="history.go(-1)">返回</button>
+              </div>
+            </div>
+          </form>  
+        </div>
+      </div>
+    </div>-->
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <!--                    <h5>-->
+            <div class="col-sm-12">
+              <div class="col-sm-2">基本配置</div>
+<!--              <div class="col-sm-5">
+                <div class="form-group">
+                  <div class="input-group m-b"><span class="input-group-addon">名称</span>
+                  <label class="col-sm-3 control-label " for="form-field-1"> 配置类型选择 ：</label>
+                  <div class="col-sm-3">
+                    <select  name="j_type"  class="form-control select " placeholder="配置类型选择">
+                      <option   selected="selected" value="">选择类型</option>
+                      <option value="1">文本</option>
+                      <option value="2">单选</option>
+                      <option value="3">多选</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>-->
+            <style>
+              .wd50{
+                width: 60px;
+                /*border: 1px solid red;*/
+                padding-left:5px;
+                padding-right: 5px;
+                text-align: center;
+              }
+              .checkbox, .radio{
+                margin-top: 0px;
+              }
+              .wd150{
+                width: 150px;
+              }
+            </style>
+            <div class="ibox-content">
+              <div class="form-horizontal" id="select">
+              </div>
+            </div>
+          </div>
+          <div class="ibox-content">
+            <form method="post" action="{:U('home/config/webConfigUpdate')}" class="form-horizontal">
+                <volist name="config" id="vo">
+                  <!--<form method="post" action="{:U('home/config/webConfigUpdate')}">-->
+                    <input name="id[]" value="{$vo.id}" type="hidden"/>
+                    <div class="form-group">
+                      <div class="col-sm-12">
+                        <div class="m-b col-sm-2">
+                          <div class="input-group m-b"><span class="input-group-addon">名称</span>
+                            <input type="text" disabled  value="{$vo.name}" name="name[]" placeholder="名称" class="form-control">
+                          </div>
+                        </div>
+                        <div class="m-b col-sm-2">
+                          <div class="input-group m-b"><span class="input-group-addon">英文名称</span>
+                            <input type="text" disabled value="{$vo.name_en}" name="name_en[]"  placeholder="英文名称" class="form-control">
+                          </div>
+                        </div>
+                    <if condition="($vo.type eq '1')">
+                      <input name="type[]" value="{$vo.type}" type="hidden"/>
+                        <div class="m-b col-sm-4">
+                          <div class="input-group m-b"><span class="input-group-addon">值</span>
+                            <input type="text" value="{$vo.setting_value}" name="setting_value_{$vo.id}"  placeholder="站点名称" class="form-control">
+                          </div>
+                        </div>
+                  </if>
+                    <if condition="($vo.type eq '2')">
+                      <input name="type[]" value="{$vo.type}" type="hidden"/>
+                    <div class="m-b col-sm-4">
+                      <div class="input-group m-b"><span class="input-group-addon">值</span>
+                        <div class="checkbox i-checks form-control" id="select_radio_add">
+                          <?php
+                                  $setting_key = json_decode($vo['setting_key'],true);
+                                  foreach($setting_key as $v){
+                                    if($v['value'] == $vo['setting_value']){
+                                        echo '<label><input type="radio" checked  value="'.$v['value'].'" name="setting_radio_value_'.$vo['id'].'"> <i></i> '.$v['name'].'</label>';
+                          }else{
+                          echo '<label><input type="radio"   value="'.$v['value'].'" name="setting_radio_value_'.$vo['id'].'"> <i></i> '.$v['name'].'</label>';
+                          }
+                          }
+                          ?>
+                        </div>
+                      </div>
+                    </div>
+                  </if>
+                    <if condition="($vo.type eq '3')">
+                      <input name="type[]" value="{$vo.type}" type="hidden"/>
+                    <div class="m-b col-sm-4">
+                      <div class="input-group m-b"><span class="input-group-addon">值</span>
+                        <div class="checkbox i-checks form-control" id="select_checkbox_add">
+                          <?php
+                                  $setting_key = json_decode($vo['setting_key'],true);
+                                  $setting_value = explode(',',$vo['setting_value']);
+                                  foreach($setting_key as $v){
+                                    if(in_array($v['value'],$setting_value)){
+                                        echo '<label><input type="checkbox" checked  value="'.$v['value'].'" name="setting_value_checkbox_'.$vo['id'].'[]"> <i></i> '.$v['name'].'</label>';
+                                    }else{
+                                       echo '<label><input type="checkbox"   value="'.$v['value'].'" name="setting_value_checkbox_'.$vo['id'].'[]"> <i></i> '.$v['name'].'</label>';
+                                    }
+                                }
+                          ?>
+                        </div>
+                      </div>
+                    </div>
+                  </if>
+                    <div class="m-b col-sm-3">
+                    <div class="input-group m-b"><span class="input-group-addon">备注</span>
+                      <input type="text" name="remark[]"  disabled value="{$vo.remark}" placeholder="备注" class="form-control">
+                    </div>
+                  </div>
+                   <!-- <div class="m-b col-sm-1 wd50">
+                    <button class="btn btn-primary" type="submit">保存</button>
+                  </div>-->
+<!--                  <div class="m-b col-sm-1 wd50"><div data-id="{$vo.id}" class="btn btn-danger del-data">删除</div>   </div>-->
+                  </div>
+                </div>
+                  <div class="hr-line-dashed"></div>
+                  <!--</form>-->
+              </volist>
+              <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                  <button class="btn btn-primary" type="submit">保存内容</button>
+                  <button class="btn btn-white" type="submit">取消</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+    <script src="__PUBLIC__/js/jquery.min.js?v=2.1.4"></script>
+    <script src="__PUBLIC__/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="__PUBLIC__/js/content.min.js?v=1.0.0"></script>
+    <script src="__PUBLIC__/js/plugins/iCheck/icheck.min.js"></script>
+    <!--<script src="__PUBLIC__/js/plugins/datapicker/bootstrap-datepicker.js"></script> -->
+    <!--<script src="__PUBLIC__/js/plugins/switchery/switchery.js"></script> -->
+ <!--   <script src="__PUBLIC__/js/plugins/cropper/cropper.min.js"></script>
+    <script src="__PUBLIC__/js/demo/form-advanced-demo.min.js"></script>-->
+    <script>
+        $(document).ready(function(){
+            checksCheck();
+        });
+    </script>
+</body>
+</html>
+
+<script type="text/javascript">
+    $(function () {
+        $('.del-data').click(function () {
+            var id = $(this).attr('data-id');
+
+            MyPost("{:U('home/config/delwebconfig')}",{'id':id})
+        })
+        
+        
+        $('.select').change(function () {
+            var select_id = $(this).val();
+            var html = '';
+            html+=' <form  action="{:U('Home/config/addWebConfig')}" class="from" method="post">';
+            html+=' <div class="form-group">';
+            html+='    <div class="col-sm-12">';
+            html+='   <label class="col-sm-1 control-label wd50">名称</label>';
+            html+='   <div class=" m-b col-sm-1 wd150"><input type="text" name="name" placeholder="名称" class="form-control">';
+            html+='   </div>';
+            html+='   <label class="col-sm-1 control-label wd50">英文名</label>';
+            html+='   <div class="m-b col-sm-1 wd150">';
+            html+='    <input type="text" placeholder="英文名称" name="name_en" class="form-control">';
+            html+='   </div>';
+            if(select_id == 1){
+                html+='    <input type="hidden"  value="1" name="type">';
+                html+='   <label class="col-sm-1 control-label wd50">配置值</label>';
+                html+='   <div class="m-b col-sm-1 wd150">';
+                html+='    <input type="text" placeholder="配置值" name="setting_value" class="form-control">';
+                html+='   </div>';
+            }
+            if(select_id == 2){
+                html+='    <input type="hidden"  value="2" name="type">';
+                html+='   <label class="col-sm-1 control-label wd50">选项</label>';
+                html+='   <div class="m-b col-sm-5 ">';
+                html+='   <div class="checkbox i-checks " id="select_radio_add">';
+              /*  html+='  <label> <input type="radio" checked  name="a"> <i></i> 开启</label>';
+               html+='  <label> <input type="radio"   name="a"> <i></i> 开启</label>';*/
+                html+='   </div>';
+                html+='   </div>';
+                html+='   <label class="col-sm-1 control-label wd50 btn btn-primary select_radio_add" >添加选项</label>';
+            }
+
+            if(select_id == 3){
+                html+='    <input type="hidden"  value="3" name="type">';
+                html+='   <label class="col-sm-1 control-label wd50">选项</label>';
+                html+='   <div class="m-b col-sm-5 ">';
+                html+='   <div class="checkbox i-checks " id="select_checkbox_add">';
+                html+='   </div>';
+                html+='   </div>';
+                html+='   <label class="col-sm-1 control-label wd50 btn btn-primary select_checkbox_add" >添加选项</label>';
+            }
+            html+='   <label class="col-sm-1 control-label wd50">备注</label>';
+            html+='   <div class="m-b col-sm-1 wd150">';
+            html+='    <input type="text" name="remark" placeholder="备注" class="form-control">';
+            html+='   </div>';
+            html+='   <div class="m-b col-sm-1 wd50">';
+            html+='     <button class="btn btn-primary" type="submit">保存</button>';
+            html+='   </div>';
+            html+='   <div class="m-b col-sm-1 wd50">';
+            html+='     <div class="btn btn-danger del" >删除</div>';
+            html+='   </div>';
+            html+='   </div>';
+            html+='   </div>';
+            html+='    <div class="hr-line-dashed"></div>';
+            html+='   </form>';
+
+            $('#select').append(html);
+            checksCheck();
+        })
+
+        $('body').on('click','.select_radio_add',function () {
+            var lenth =  $('#select_radio_add').find('.select_radio').length;
+            var radio_value = lenth+1
+            var html =''
+            html+='  <div class="m-b col-sm-3 select_radio">' +
+                '<div class="m-b col-sm-4"><label> <input type="radio" name="radio_value" value="'+radio_value+'"> <i></i></label></div>' +
+                '<div class="m-b col-sm-2"><input name="radio_key[]" placeholder="选项名称"  class="wd50 form-control"></div>' +
+                '</div>';
+            $('#select_radio_add').append(html);
+            checksCheck();
+        })
+
+        $('body').on('click','.select_checkbox_add',function () {
+            var lenth =  $('#select_checkbox_add').find('.select_checkbox').length;
+            var radio_value = lenth+1
+            var html =''
+            html+='  <div class="m-b col-sm-3 select_checkbox">' +
+                '<div class="m-b col-sm-4"><label> <input type="checkbox"   value="'+radio_value+'" name="checkbox_value[]"> <i></i></label></div>' +
+                '<div class="m-b col-sm-2"><input name="checkbox_key[]" class="wd50 form-control"></div>' +
+                '</div>';
+            $('#select_checkbox_add').append(html);
+            checksCheck();
+        })
+
+        $('body').on('click','.del',function () {
+            $(this).parents('.from').remove();
+        })
+
+    })
+
+    function checksCheck() {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+    }
+    function MyPost(url,args){
+        var body = $(document.body),
+            form = $("<form method='post'></form>"),
+            input;
+        form.attr({"action":url});
+        $.each(args,function(key,value){
+            input = $("<input type='hidden'>");
+            input.attr({"name":key});
+            input.val(value);
+            form.append(input);
+        });
+
+        form.appendTo(document.body);
+        form.submit();
+        document.body.removeChild(form[0]);
+    }
+</script>

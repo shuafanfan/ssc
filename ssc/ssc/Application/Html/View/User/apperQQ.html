@@ -1,0 +1,43 @@
+                    <form class="account-edit-form" id="qq-form">
+                        <div class="row">
+                            <div class="th">用户名:</div>
+                            <lable class="td" content="user-name">{$userInfo.nickname}</lable>
+                        </div>
+                        <div class="row">
+                            <div class="th">绑定安全QQ:</div>
+                            <lable class="td"><input type="text" name="qq"></lable>
+                            <div class="tip"><i class="zhuyi"></i>请输入安全QQ</div>
+                        </div>
+                        <div class="row">
+                            <div class="th"></div>
+                            <div class="hand">
+                                <a class="submit_deposit">提交</a><a class="go_back">取消</a>
+                            </div>
+                        </div>
+                    </form>
+<script>
+	$('#qq-form .submit_deposit').click(function(){
+		var  form_v = $('#qq-form input').val();
+		var  form_l = $('#qq-form input').val().length;
+		if( form_l !== 0){
+//                    alert(9)
+                    $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url:'{:U('Html/User/bindingQQ')}',
+                    data:$('#qq-form').serialize(),
+                    async: false,
+                    dataType: 'json',
+                    success: function(data) {
+                        if(data.state == 1){
+                             alert('绑定成功');
+                            $('#security_qq').html('<h3 class="qq-icon">绑定安全QQ:<span>'+ data.qq + '</span></h3>');
+                            $(".qq_show").hide().siblings('.security_level').show();
+                            
+                         }
+                    }
+                });
+			
+		}
+	})
+</script>

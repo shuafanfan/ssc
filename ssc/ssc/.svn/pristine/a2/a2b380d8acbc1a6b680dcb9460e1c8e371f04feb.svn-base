@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JC后台系统</title>
+    <link href="/Public/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="/Public/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="/Public/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/Public/layui/css/layui.css" rel="stylesheet">
+    <link href="/Public/css/animate.min.css" rel="stylesheet">
+    <link href="/Public/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/Public/css/plugins/simditor/simditor.css" />
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>活动--添加活动</h5>
+                </div>
+                <div class="ibox-content">
+                    <form action="{:U('activity/edit')}" method="post" class="form-horizontal" >
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">活动LOGO:</label>
+                            <div class="col-sm-5">
+                                <div class="site-demo-upload">
+                                    <img id="LAY_demo_upload" src="{$info.activity_logo}">
+                                    <div class="site-demo-upbar">
+                                        <input type="file" name="logo" class="layui-upload-file" id="test">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden"  class="form-control" id="activity_logo" value="{$info.activity_logo}" name="activity_logo"/>
+                        <div class="form-group">
+                            <input type="hidden"  class="form-control" value="{$info.id}" name="id"/>
+                            <label class="col-sm-2 control-label">活动名称:</label>
+                            <div class="col-sm-5">
+                                <input type="text"  class="form-control" value="{$info.activity_name}" name="activity_name"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">活动开关:</label>
+                            <div class="col-sm-5">
+                                <div class="checkbox i-checks form-control" >
+                                    <label> <input type="radio"  <if condition="$info.activity_status eq 1">checked="checked"</if>   value="1" name="activity_status"> <i></i> 开启</label>
+                                    <label><input type="radio"  <if condition="$info.activity_status eq 2">checked="checked"</if>  value="2" name="activity_status"> <i></i> 开启</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">活动链接:</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="activity_url" class="form-control" value="{$info.activity_url}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">活动规则:</label>
+                            <div class="input-group m-b col-sm-5" >
+                                <if condition="$info.activity_rule neq '' ">
+                                    <volist name="info['activity_rule']" id="vo">
+                                        <div class="input-group m-b">
+                                            <span class="input-group-addon">最小值</span>
+                                            <input type="number" name="min[]" class="form-control" placeholder="区间最小值" value="{$vo.min}" >
+                                            <span class="input-group-addon">最大值</span>
+                                            <input type="number" name="max[]" class="form-control" placeholder="区间最大值" value="{$vo.max}" >
+                                            <span class="input-group-addon">送</span>
+                                            <input type="text" name="value[]" placeholder="百分比20% 或者其他数字"  class="form-control" value="{$vo.value}" >
+                                            <input class="btn btn-success bnt-tianjia"  style="position: absolute; width: 60px;" value="添加">
+                                        </div>
+                                    </volist>
+                                <else/>
+                                    <div class="input-group m-b">
+                                        <span class="input-group-addon">最小值</span>
+                                        <input type="number" name="min[]" class="form-control" placeholder="区间最小值" value="{$item.key}" >
+                                        <span class="input-group-addon">最大值</span>
+                                        <input type="number" name="max[]" class="form-control" placeholder="区间最大值" value="{$item.key}" >
+                                        <span class="input-group-addon">送</span>
+                                        <input type="text" name="value[]" placeholder="百分比20% 或者其他数字"  class="form-control" value="" >
+                                        <input class="btn btn-success bnt-tianjia"  style="position: absolute; width: 60px;" value="添加">
+                                    </div>
+                                </if>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">概率配置:</label>
+                            <div class="input-group m-b col-sm-5">
+                                <if condition="$info.winning_rule neq '' ">
+                                    <volist name="info['winning_rule']" id="vo">
+                                        <div class="input-group m-b">
+                                            <span class="input-group-addon">送</span>
+                                            <input type="number" name="money[]" class="form-control" placeholder="赠送金额" value="{$vo.money}" >
+                                            <span class="input-group-addon">概率</span>
+                                            <input type="text" name="rate[]" placeholder="百分比20%"  class="form-control" value="{$vo.rate}" >
+                                            <input class="btn btn-success bnt-tianjia_loo"  style="position: absolute; width: 60px;" value="添加">
+                                        </div>
+                                    </volist>
+                                <else/>
+                                    <div class="input-group m-b">
+                                        <span class="input-group-addon">送</span>
+                                        <input type="number" name="money[]" class="form-control" placeholder="赠送金额" value="{$item.key}" >
+                                        <span class="input-group-addon">概率</span>
+                                        <input type="text" name="rate[]" placeholder="百分比20%"  class="form-control" value="" >
+                                        <input class="btn btn-success bnt-tianjia_loo"  style="position: absolute; width: 60px;" value="添加">
+                                    </div>
+                                </if>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">活动说明:</label>
+                            <div class="col-sm-8">
+                                <textarea type="text" id="editor"  name="activity_detail" style="height: 200px;" class="form-control" >{$info.activity_detail}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">保存内容</button>
+                                <button class="btn btn-white" onclick="javascript:history.go(-1)">取消</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/Public/js/jquery.min.js?v=2.1.4"></script>
+<script src="/Public/layui/layui.js"></script>
+<script src="/Public/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/Public/js/content.min.js?v=1.0.0"></script>
+<script src="/Public/js/plugins/iCheck/icheck.min.js"></script>
+<script type="text/javascript" src="/Public/js/plugins/simditor/module.js"></script>
+<script type="text/javascript" src="/Public/js/plugins/simditor/uploader.js"></script>
+<script type="text/javascript" src="/Public/js/plugins/simditor/hotkeys.js"></script>
+<script type="text/javascript" src="/Public/js/plugins/simditor/simditor.js"></script>
+<script>
+    var editor=new Simditor({textarea:$("#editor")});
+    layui.use('upload', function(){
+        layui.upload({
+            url: "{:U('Home/Upload/index')}"
+            ,elem: '#test' //指定原始元素，默认直接查找class="layui-upload-file"
+            ,method: 'POST' //上传接口的http类型
+            ,success: function(res){
+                console.log(res);
+                if (res.code){
+                    LAY_demo_upload.src = res.data.url;
+                    activity_logo.value = res.data.url;
+                }else{
+                    layer.msg(res.msg);
+                }
+            }
+        });
+    })
+    $(document).ready(function(){
+
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+        $(document).on('click','.bnt-tianjia',function(){
+            $(this).val('删除');
+            $(this).removeClass('bnt-tianjia').addClass('bnt-shanchu');
+            $(this).removeClass('btn-success').addClass('btn-white');
+            var html = '';
+            html+='     <div class="input-group m-b">';
+            html+='       <span class="input-group-addon">最小值</span>';
+            html+='       <input type="number" name="min[]" class="form-control" placeholder="区间最小值" value="{$item.key}" >';
+            html+='       <span class="input-group-addon">最大值</span>';
+            html+='      <input type="number" name="max[]" class="form-control" placeholder="区间最大值" value="{$item.key}" >';
+            html+='       <span class="input-group-addon">送</span>';
+            html+='       <input type="text" name="value[]" placeholder="百分比20% 或者其他数字"  class="form-control" value="" >';
+            html+='       <input class="btn btn-success bnt-tianjia"  style="position: absolute; width: 60px;" value="添加">';
+            html+='    </div>';
+            $(this).parent('.input-group').parent('.input-group').append(html);
+        });
+
+        $(document).on('click','.bnt-shanchu',function(){
+            $(this).parent('.input-group').remove();
+        });
+        $(document).on('click','.bnt-tianjia_loo',function(){
+            $(this).val('删除');
+            $(this).removeClass('bnt-tianjia_loo').addClass('bnt-shanchu_loo');
+            $(this).removeClass('btn-success').addClass('btn-white');
+            var html = '';
+            html+='     <div class="input-group m-b">';
+            html+='       <span class="input-group-addon">送</span>';
+            html+='       <input type="number" name="money[]" class="form-control" placeholder="区间最小值" value="{$item.key}" >';
+            html+='       <span class="input-group-addon">概率</span>';
+            html+='       <input type="text" name="rate[]" placeholder="百分比20%"  class="form-control" value="" >';
+            html+='       <input class="btn btn-success bnt-tianjia_loo"  style="position: absolute; width: 60px;" value="添加">';
+            html+='    </div>';
+            $(this).parent('.input-group').parent('.input-group').append(html);
+        });
+
+        $(document).on('click','.bnt-shanchu_loo',function(){
+            $(this).parent('.input-group').remove();
+        });
+    });
+
+
+</script>
+</body>
+</html>

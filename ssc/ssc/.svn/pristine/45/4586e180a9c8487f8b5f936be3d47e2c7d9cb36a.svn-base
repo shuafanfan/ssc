@@ -1,0 +1,57 @@
+<include file="Public/header" /> 
+<body class="gray-bg">
+    <div class="wrapper wrapper-content">
+     <form action="" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{$detail.id}">
+        <input type="hidden" name="type" value="1">
+        <div class="row animated fadeInRight">
+                <div class="col-md-2">
+                   <div class="form-group">
+                       <label for="showEasing">经销商账号</label>
+                       <input id="showEasing" type="text" name="username" placeholder="" class="form-control" value="{$detail.username}" required>
+                   </div>
+                   <if condition="($detail.id eq '')">
+                   <div class="form-group">
+                       <label>密码</label>
+                       <input type="password" name="password" placeholder="" class="form-control" value="{$detail.password}" required>
+                   </div>
+                   </if>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                       <label for="showMethod">手机</label>
+                       <input id="showMethod" type="text" name="mobile" placeholder="" class="form-control" value="{$detail.mobile}" required>
+                   </div>
+                   <div class="form-group">
+                       <label for="showMethod">余额</label>
+                       <input id="showMethod" type="text" name="money" placeholder="" class="form-control" value="{$detail.money}" required>
+                   </div>
+               </div>
+        </div>
+        <div class="row animated fadeInRight">
+               <div class="col-md-2">
+                   <div class="form-group">
+                       <label for="showEasing">头像</label>
+                       <if condition="($detail.images eq '')">
+                         <input type="file" name="weblogo" class="form-control" required>
+                         <else /><img src="/Uploads/Public/{$detail.images}" width="200" hight="200" /><input type="file" name="weblogo" class="form-control">
+                       </if>
+                   </div>
+               </div>
+        </div>
+        <button type="submit" class="btn btn-w-m btn-primary">提交</button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">返回</button>
+        </form>
+    </div>
+    <script src="../../../Public/js/jquery.min.js?v=2.1.4"></script>
+    <script src="../../../Public/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="../../../Public/js/content.min.js?v=1.0.0"></script>
+    <script src="../../../Public/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="../../../Public/js/demo/peity-demo.min.js"></script>
+    <script type="text/javascript" src="../../../Public/js/plugins/simditor/module.js"></script>
+    <script type="text/javascript" src="../../../Public/js/plugins/simditor/uploader.js"></script>
+    <script type="text/javascript" src="../../../Public/js/plugins/simditor/hotkeys.js"></script>
+    <script type="text/javascript" src="../../../Public/js/plugins/simditor/simditor.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+<include file="Public/header" />
+<div class="wrapper wrapper-content">
+	<div class="row">
+
+		<div class="col-sm-12">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5><?=$cateInfo['catename']?></h5>
+				</div>
+				<div class="ibox-content">
+					<div class="project-list">
+						<table class="table table-hover" id="tab">
+							<thead>
+								<tr>
+									<td class="project-status">
+										ID
+									</td>
+									<td class="project-title">
+										玩法名称
+									</td>
+									<td class="project-completion">
+										最低奖金
+									</td>
+									<td class="project-state">
+										最高奖金
+									</td>
+									<td class="project-state">
+										最高注数
+									</td>
+									<td class="project-state">
+										状态
+									</td>
+									<td class="project-actions">
+										操作
+									</td>
+								</tr>
+							</thead>
+							<tbody>
+
+								<?php
+                       $list =  findChild($list);
+                      foreach($list as $play):
+                    ?>
+
+								<?php
+                           if($play['level'] == 1){
+                                    echo '<tr><td class="project-status"><span class="label label-primary">'.$play['id'].'</span></td><td colspan="6" class="project-title">'.$play['playname'].'</td></tr>';
+                          }else if($play['level'] == 2){
+                                echo '<tr><td class="project-status"><span class="label label-primary">'.$play['id'].'</span></td><td colspan="6" class="project-title">┣━'.$play['playname'].'</td></tr>';
+                            }else if($play['level'] == 3){
+                            
+                        ?>
+								<!--<form role="form" class="form-inline">-->
+								<tr class="from  b">
+									<input class="play-id" type="hidden" name="id" value="<?=$play['id']?>">
+									<input class="play-status" type="hidden" name="status" value="<?=$play['status']?>">
+									<td class="project-status">
+										<span class="label label-primary">
+                                       <?=$play['id']?>
+                                  </span>
+									</td>
+									<td class="project-title">┣━┣━
+										<?=$play['playname']?>
+									</td>
+									<td class="project-completion">
+										<div class="input-group">
+											<input type="text" name="min_bonus" placeholder="最低奖金" class="form-control play-min_bonus" value="<?=$play['min_bonus']?>">
+										</div>
+									</td>
+									<td class="project-state">
+										<div class="input-group">
+											<input type="text" name="max_bonus" placeholder="最高奖金" class="form-control play-max_bonus" value="<?=$play['max_bonus']?>">
+										</div>
+									</td>
+									<td class="project-state">
+										<div class="input-group">
+											<input type="text" name="number" placeholder="最高注数" class="form-control play-number" value="<?=$play['num']?>">
+										</div>
+									</td>
+									<td class="project-state play-status-word">
+										<?=$play['status']==0?'关闭':'开启'?>
+									</td>
+									<td class="project-actions">
+										<a class="change-status-btn" href="javascript:;">
+											<?=$play['status']==1?'关闭':'开启'?>
+										</a>
+										<a class="change-info-btn" href="javascript:;">保存</a>
+										<a href="javascript:void(0);" id="a">44</a>
+									</td>
+
+								</tr>
+								<!--</form>-->
+								<?php }?>
+								<?php endforeach;?>
+							</tbody>
+						</table>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<?php foreach($cate['PlayWayTypes'] as $item):?>
+		<?php endforeach;?>
+	</div>
+</div>
+<include file="Public/footer" />
+<script type="text/javascript">
+	function add(a, b) {
+		var c = Math.floor((a - b) / 0.166);
+		return c;
+	}
+	$('#a').click(function({
+			var a = $(this).parent().siblings('td').children('input[name=max_bonus]').val();
+			var b = $(this).parent().siblings.('td').children('input[name=min_bonus]').val();
+			var d = add(a, b); $(this).siblings('td').children('input[name=number]').val(d);
+	});
+
+	// $('.change-info-btn').on({click:function() {
+	//     var form = $(this).parents('.from');
+	//     var id = form.find('.play-id').val();
+	//     var min_bonus = form.find('.play-min_bonus').val();
+	//     var max_bonus = form.find('.play-max_bonus').val();
+	//     var sum = (min_bonus+max_bonus)/0.166 ;
+	//     var form.find('.play-number').val()=sum;
+
+	//   }
+
+	$('.change-status-btn').on({
+		click: function() {
+			var form = $(this).parents('.from');
+			var id = form.find('.play-id').val();
+			var status = parseInt(form.find('.play-status').val());
+			$.ajax({
+				url: "{:U('Home/category/changeStatus')}",
+				type: 'post',
+				dataType: 'json',
+				data: { 'id': id, 'status': status },
+				success: function(data) {
+					if(data.state == 1) {
+						if(status == 1) {
+							form.find('.play-status').val(0);
+							form.find('.play-status-word').html('关闭');
+							form.find('.change-status-btn').html('开启');
+						} else {
+							form.find('.play-status').val(1);
+							form.find('.play-status-word').html('开启');
+							form.find('.change-status-btn').html('关闭');
+						}
+					} else {
+						layer.alert('修改状态失败！');
+					}
+				}
+			});
+		}
+	})
+
+	$('.change-info-btn').on({
+		click: function() {
+			var form = $(this).parents('.from');
+			var id = form.find('.play-id').val();
+			var min_bonus = form.find('.play-min_bonus').val();
+			var max_bonus = form.find('.play-max_bonus').val();
+			var sum = (min_bonus + max_bonus) / 0.166;
+			var number = form.find('.play-number').val();
+			$.ajax({
+				url: "{:U('Home/category/changeInfo')}",
+				type: 'post',
+				dataType: 'json',
+				data: { 'id': id, 'min_bonus': min_bonus, 'max_bonus': max_bonus, 'num': number },
+				success: function(data) {
+					if(data.state == 1) {
+						layer.alert('保存成功！');
+					}
+					if(data.state == 2) {
+						layer.alert('保存失败！');
+						window.location.reload();
+					}
+				}
+			});
+		}
+	})
+</script>

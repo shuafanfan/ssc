@@ -1,0 +1,73 @@
+<include file="Public/header" />
+<style>
+.pages a,.pages span {
+    display:inline-block;
+    padding:2px 5px;
+    margin:0 1px;
+    border:1px solid #f0f0f0;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+}
+.pages a,.pages li {
+    display:inline-block;
+    list-style: none;
+    text-decoration:none; color:#58A0D3;
+}
+.pages a.first,.pages a.prev,.pages a.next,.pages a.end{
+    margin:0;
+}
+.pages a:hover{
+    border-color:#50A8E6;
+}
+.pages span.current{
+    background:#50A8E6;
+    color:#FFF;
+    font-weight:700;
+    border-color:#50A8E6;
+}
+</style>
+<div class="wrapper wrapper-content animated fadeInRight"> 
+   <div class="row"> 
+    <div class="col-sm-12"> 
+     <div class="ibox float-e-margins"> 
+      <div class="ibox-title"> 
+       <h5>开奖记录</h5>
+       </div>
+      
+      <div class="ibox-content">  
+       <div class="table-responsive"> 
+        <table class="table table-striped"> 
+         <thead> 
+          <tr> 
+           <th>彩种</th> 
+           <th>无开奖时间</th> 
+          </tr> 
+         </thead> 
+         <tbody> 
+         <foreach name="pay_list" item="item" key="key">
+          <tr> 
+           <td>{$item.catename}</td> 
+           <td>{$item.playName}</td>  
+           <td>{$item.mark}</td>
+           <td>{$item.stakes}</td>
+           <td>{$item.num}</td>
+           <td>{$item.warnLeve}</td>
+           <td>
+           </td>  
+          </tr>
+          </foreach>
+          </tbody> 
+        </table> 
+       </div> 
+       <div class="pages">{$page}</div> 
+      </div>      
+     </div>      
+    </div>    
+   </div>   
+  </div> 
+  <include file="Public/footer" />
+  
+
+  
+ 

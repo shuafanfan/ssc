@@ -1,0 +1,173 @@
+<include file="Public/header" />
+<div class="wrapper wrapper-content animated fadeInRight"> 
+   <div class="row"> 
+    <div class="col-sm-12"> 
+        <div class="ibox float-e-margins">
+          <input type="hidden" id="category-id" value="<?=$categoryID?>">
+            <div class="ibox-title">
+                <h5>盈亏数据</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="profile.html#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                  <!--  <ul class="dropdown-menu dropdown-user">
+                        <li><a href="profile.html#">选项1</a>
+                        </li>
+                        <li><a href="profile.html#">选项2</a>
+                        </li>
+                    </ul>-->
+
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="btn-group" id="active">
+                    <button class="btn btn-white onactive active " data-id="3">三天内</button>
+                    <button class="btn btn-white onactive" data-id="7">一周内</button>
+                    <button class="btn btn-white onactive" data-id="15">15天内</button>
+                    <button class="btn btn-white onactive" data-id="30">一月内</button>
+                </div>
+                <div id="main" style="width: 100%; height: 500px" ></div>
+
+            </div>
+        </div>
+    </div>    
+   </div>   
+  </div>
+
+  <include file="Public/footer" />
+  <script src="/Public/js/echarts.min.js?v=2.7"></script>
+<script>
+    $('.onactive').click(function () {
+        $('.onactive').removeClass('.active');
+        $(this).addClass('.active');
+        var cid =  $('#category-id').val();
+        var type = $(this).attr('data-id');
+        Echarts(cid, type);
+    })
+    var  cid =  $('#category-id').val();
+   var  type =  $('#active').find('.active').attr('data-id');
+   console.log(cid);
+   console.log(type);
+    // 基于准备好的dom，初始化echarts实例
+    Echarts(cid, type);
+    function Echarts(cid, type) {
+
+        var myChart = echarts.init(document.getElementById('main'));
+        $.ajax({
+            url: "{:U('Home/Count/betData')}",
+            type: 'get',
+            dataType: 'json',
+            data: {'id':cid, 'type': type},
+            success: function (data) {
+                var datedata =   data.data.date;
+                var deficitdata =   data.data.deficit;
+                var bet_recorddata =   data.data.bet_record;
+                var brSumDatadata =   data.data.brSumData;
+                var date = datedata.split(",");
+                var bet_record = bet_recorddata.split(","); //投注
+                var brSumData = brSumDatadata.split(",");//派奖
+                var deficit = deficitdata.split(","); //亏
+
+                $('#defSum_data').text(data.data.defSum_data);
+                $('#betSum_data').text(data.data.betSum_data);
+                $('#wnlSum_data').text(data.data.wnlSum_data);
+                if (data.status == 1) {
+                    // 指定图表的配置项和数据
+                    option = {
+                        tooltip : {
+                            trigger: 'axis',
+                            showDelay : 0, // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+                            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                                type : "shadow"       // 默认为直线，可选为：‘line‘ | ‘shadow‘
+                            }
+                        },
+                        legend: {
+                            data:['投注','派奖','盈亏']
+                        },
+                        toolbox: {
+                            show : true,
+                            feature : {
+                                mark : {
+                                    show: true,
+                                    title:{
+                                        mark:true
+                                    }
+                                },
+                                 dataView : {show: true, readOnly: false},
+                                magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                                //restore : {show: true},
+                                saveAsImage : {show: true}
+                            }
+                        },
+                        calculable : true,
+                        xAxis : [
+                            {
+                                type : 'category',
+                                show : true,
+                                boundaryGap : false,
+                                data : date
+                            }
+                        ],
+                        yAxis : [
+                            {
+                                type : 'value',
+                                zlevel : '1',
+                            }
+                        ],
+                        series : [
+                            {
+                                name:'投注',
+                                type:'line',
+                                stack: '总量',
+                                smooth: true,
+                                symbolSize: 8,
+                                itemStyle: {normal: {
+                                    color: 'red',
+                                }
+                                },
+                                data:bet_record
+                            },
+                            {
+                                name:'派奖',
+                                type:'line',
+                                stack: '总量',
+                                smooth: true,
+                                symbolSize: 8,
+                                itemStyle: {
+                                    normal: {
+                                        color: 'blue',
+                                     }
+                                },
+                                data:brSumData
+                            },
+                            {
+                                name:'盈亏',
+                                type:'line',
+                                stack: '总量',
+                                symbol: 'arrow',
+                                symbolSize: 8,
+                                itemStyle: {
+                                    normal: {
+                                        color: 'Green'
+                                    }
+                                },
+                                data:deficit
+                            }
+                        ]
+                    };
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                } else {
+                    layer.msg(data.msg);
+                   // window.location.reload();
+                }
+            }
+        })
+
+
+    }
+
+</script>

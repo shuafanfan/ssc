@@ -1,0 +1,42 @@
+                    <form class="account-edit-form" id="iphone-form">
+                        <div class="row">
+                            <div class="th">用户名:</div>
+                            <lable class="td" content="user-name">{$userInfo.nickname}</lable>
+                        </div>
+                        <div class="row">
+                            <div class="th">绑定安全电话:</div>
+                            <lable class="td"><input type="text" name="iphone"></lable>
+                            <div class="tip"><i class="zhuyi"></i>请输入安全电话</div>
+                        </div>
+                        <div class="row">
+                            <div class="th"></div>
+                            <div class="hand">
+                                <a class="submit_deposit">提交</a><a class="go_back">取消</a>
+                            </div>
+                        </div>
+                    </form>
+<script>
+	$('#iphone-form .submit_deposit').click(function(){
+		var  form_v = $('#iphone-form input').val();
+		var  form_l = $('#iphone-form input').val().length;
+		if( form_l !== 0){
+                    $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url:'{:U('Html/User/bindingIphone')}',
+                    data:$('#iphone-form').serialize(),
+                    async: false,
+                    dataType: 'json',
+                    success: function(data) {
+                        if(data.state == 1){
+                             alert('绑定成功');
+                            $('#security_iphone').html('<h3 class="phone-icon">绑定安全电话:<span>'+ data.iphone + '</span></h3>');
+                            $(".iphone_show").hide().siblings('.security_level').show();
+                            
+                         }
+                    }
+                });
+			
+		}
+	})
+</script>

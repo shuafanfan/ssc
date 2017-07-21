@@ -1,0 +1,44 @@
+<include file="Public/header" /> 
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight"> 
+   <div class="row"> 
+    <div class="col-sm-12"> 
+     <div class="ibox float-e-margins"> 
+      <div class="ibox-title"> 
+       <h5>会员拨款</h5>
+      <div class="ibox-content">  
+        <form action="" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{$detail.id}">
+        <div class="row animated fadeInRight">
+                <div class="col-md-2">
+                   <div class="form-group">
+                       <label for="showEasing">会员账号</label>
+                       <input id="showEasing" type="text" name="username" placeholder="" class="form-control" value="{$detail.username}" required readonly="true">
+                   </div>
+                   <div class="form-group">
+                       <label for="hideEasing">会员昵称</label>
+                       <input id="hideEasing" type="text" name="nickname" placeholder="" class="form-control" value="{$detail.nickname}" required readonly="true">
+                   </div>
+                   <div class="form-group">
+                       <label for="showMethod">拨款金额</label>
+                       <input id="showMethod" type="text" name="money" placeholder="" class="form-control" value="" required>
+                   </div>
+                </div>
+        </div>
+        <button type="submit" class="btn btn-w-m btn-primary">提交</button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">返回</button>
+       </form>
+      </div>      
+     </div>      
+    </div>    
+   </div>   
+  </div>
+  </div> 
+    <script src="__PUBLIC__/Public/js/jquery.min.js?v=2.1.4"></script>
+    <script src="__PUBLIC__/Public/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="__PUBLIC__/Public/js/content.min.js?v=1.0.0"></script>
+    <script src="__PUBLIC__/Public/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="__PUBLIC__/Public/js/demo/peity-demo.min.js"></script>
+
+</body>
+</html>

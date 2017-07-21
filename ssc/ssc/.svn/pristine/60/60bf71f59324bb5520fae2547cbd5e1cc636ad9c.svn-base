@@ -1,0 +1,42 @@
+<include file="Public/header" />
+<div class="wrapper wrapper-content animated fadeInRight"> 
+ <div class="row"> 
+  <div class="col-sm-12"> 
+   <div class="ibox float-e-margins"> 
+    <div class="ibox-title"> 
+     <h5>用户注册统计</h5>
+     <div class="ibox-tools"><a href="{:U('Home/Count/user_count')}" class="btn btn-primary btn-xs">
+        <i class="fa fa-list"></i>
+        总计
+      </a></div></div>
+    <div class="ibox-content">  
+    <div id="container" style="min-width:400px;height:400px"></div>
+    </div>      
+  </div>    
+ </div>   
+</div>
+<include file="Public/footer" />
+<script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>
+<script src="../../../../../../Public/js/chart.js"></script>
+<script type="text/javascript">
+$(function () {
+  showChart('user', function() {
+    var list = new Array();
+    $.ajax({
+      url: '{:U('Home/Chart/userData')}',
+      type: 'post',
+      dataType: 'json',
+      async: false,
+      success: function(data) {
+        var item = null;
+        for (var i = 0; i < data.data.length; i++) {
+          item = data.data[i];
+          list.push([Date.UTC(item.Y,item.n,item.j), item.money])
+        }
+      }
+    });
+    return list;
+  });
+});
+</script>
+

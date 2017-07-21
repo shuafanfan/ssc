@@ -1,0 +1,105 @@
+<include file="Public/header" />
+<div class="wrapper wrapper-content animated fadeInRight"> 
+   <div class="row"> 
+    <div class="col-sm-12"> 
+     <div class="ibox float-e-margins"> 
+      <div class="ibox-title"> 
+       <h5>彩种时间配置</h5>
+      <div class="ibox-content">  
+       <div class="table-responsive"> 
+        <table id="period-table" class="table table-striped" data-cid="{$cate.id}" data-cname="{$cate.catename}"> 
+         <thead> 
+          <tr> 
+           <th>彩种</th>
+           <th>日期</th>
+           <th>期数</th>
+           <th>开奖时间</th>
+           <th>操作</th> 
+          </tr> 
+         </thead> 
+         <tbody> 
+         <?php foreach($list as $item):?>
+          <tr data-id="{$item.id}">
+            <td><?=$cate['catename']?></td> 
+             <td><input class="a-period-val" type="text" value="<?=$item['date']?>"></td>
+           <td><input class="period-val" type="text" value="<?=$item['period']?>"></td>
+           <td><input class="time-val" type="text" value="<?=$item['open_time']?>"></td>
+           <td>
+              <a class="update-period-btn" href="javascript:;">保存</a>
+              <a class="delete-period-btn" href="javascript:;">删除</a>
+           </td>  
+          </tr>
+          <?php endforeach;?>
+          </tbody> 
+        </table> 
+        <button id="add-period" class="btn btn-primary">添加期数+</button>
+       </div> 
+      </div>      
+     </div>      
+    </div>    
+   </div>   
+  </div> 
+  </div>
+  <include file="Public/footer" />
+  <script type="text/javascript">
+    $('#add-period').on({
+      click: function() {
+        var cname = $('#period-table').attr('data-cname');
+        var cid = $('#period-table').attr('data-cid');
+        $.ajax({
+             url: '{:U('Home/category/addPeriod')}',
+             type: 'post',
+             dataType: 'json',
+             data: {'cate_id':cid},
+             success: function (data) {
+                 if (data.state == 1) {
+                     $('#period-table').append('<tr data-id="'+data.record.id+'"><td>'+cname+'</td><td><input class="a-period-val" type="text" value="'+data.record.date+'"></td><td><input class="peroid-val" type="text" value="'+data.record.period+'"></td><td><input class="time-val" type="text" value="'+data.record.open_time+'"></td><td><a class="update-period-btn" href="javascript:;">保存</a> <a class="delete-period-btn" href="javascript:;">删除</a></td></tr>');
+                 }
+                 if (data.state == 2) {
+                     alert('添加失败！');
+                 }
+             }
+         });
+      }
+    });
+    $('#period-table').on('click', '.delete-period-btn', function() {
+        var tr = $(this).parent('td').parent('tr');
+        var id = tr.attr('data-id');
+        $.ajax({
+             url: '{:U('Home/category/delPeriod')}',
+             type: 'post',
+             dataType: 'json',
+             data: {'ID':id},
+             success: function (data) {
+                 if (data.state == 1) {
+                    tr.remove();
+                 }
+                 if (data.state == 2) {
+                     alert('删除失败！');
+                 }
+             }
+         });
+    });
+
+    $('#period-table').on('click', '.update-period-btn', function() {
+        var tr = $(this).parent('td').parent('tr');
+        var id = tr.attr('data-id');
+        var date = tr.find('.a-period-val').val();
+        var period = tr.find('.period-val').val();
+        var open_time = tr.find('.time-val').val();
+        $.ajax({
+             url: '{:U('Home/category/updatePeriod')}',
+             type: 'post',
+             dataType: 'json',
+             data: {'id':id, period: period, open_time: open_time,date: date},
+             success: function (data) {
+                 if (data.state == 1) {
+                     alert('保存成功！');
+                 }
+                 if (data.state == 2) {
+                     alert('保存失败！');
+                 }
+             }
+         });
+    });
+  </script> 

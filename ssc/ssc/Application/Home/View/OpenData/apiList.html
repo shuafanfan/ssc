@@ -1,0 +1,190 @@
+<html>
+ <head>
+  <style>
+   .pages a,.pages span {
+    display:inline-block;
+    padding:2px 5px;
+    margin:0 1px;
+    border:1px solid #f0f0f0;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+
+   }
+   .pages a,.pages li {
+    display:inline-block;
+    list-style: none;
+    text-decoration:none; color:#58A0D3;
+
+   }
+   .pages a.first,.pages a.prev,.pages a.next,.pages a.end{
+    margin:0;
+   }
+   .pages a:hover{
+    border-color:#50A8E6;
+   }
+   .pages span.current{
+    background:#50A8E6;
+    color:#FFF;
+    font-weight:700;
+    border-color:#50A8E6;
+  </style>
+ </head>
+ <body class="gray-bg">
+  <include file="Public/header" />  
+  <div class="wrapper wrapper-content animated fadeInRight"> 
+   <div class="row"> 
+    <div class="col-sm-12"> 
+     <div class="ibox float-e-margins">
+
+      <div class="ibox-title">
+       <h5>彩票【<span style="color: red;padding: 0 5px;">{$cate_name}</span>】开奖数据</h5>
+       <br/>
+       <div class="btn-group" >
+        <form class="" method="get" action="">
+         日期：<input class="form-control" id="date" type="text"  name="date" style="width: 200px; display: inline;" value="{$date}" placeholder="开奖日期">
+         <input type="submit" class="btn btn-primary" value="搜索">
+        </form>
+       </div>
+       <br/>
+       <div class="row">
+        <div id="ww" class="btn-group">
+          <foreach name="category_list" item="item" key="key">
+            <if condition="$cate_id eq $item['id']">
+                <a  class="btn btn-primary race_c" type="button" cate_id="{$item.id}"  >{$item.catename}</a>
+             <else />
+                <a  class="btn btn-white race_c" type="button" cate_id="{$item.id}" >{$item.catename}</a>
+            </if>
+          </foreach>
+        </div>
+       </div>
+      </div>
+      <div class="ibox-content">
+       <div class="table-responsive"> 
+        <table class="table table-bordered">
+         <thead>
+         <tr>
+          <th>采种</th>
+          <th>期号</th>
+          <th>日期</th>
+          <th>开奖数据</th>
+          <th>状态</th>
+          <th>订单数</th>
+          <th>已派奖</th>
+          <th>中奖数</th>
+          <th>参与人数</th>
+          <th>投注金额</th>
+          <th>盈亏</th>
+          <th>注数</th>
+          <th>开奖</th>
+         </tr>
+         </thead>
+         <tbody>
+         <volist name="list" id="vo">
+          <tr>
+           <td>{$cate_name}</td>
+           <td>{$vo.period}</td>
+           <td>{$vo.date}</td>
+           <td>{$vo.opendata}</td>
+           <td>{$vo.openstatus}</td>
+           <td>{$vo.orderumb}</td>
+           <td>{$vo.orderWinSum}</td>
+           <td>中奖数</td>
+           <td>{$vo.orderNumber}</td>
+           <th>{$vo.orderMoneySum}</th>
+           <td>{$vo.orderProSum}</td>
+           <td>{$vo.orderSum}</td>
+           <td><a data-toggle="modal" cate_id="{$cate_id}" expect="{$vo.period}"  class="btn btn-primary btn-xs kaiJiang"  href="#modal-form">手动开奖</a></td>
+          </tr>
+         </volist>
+         </tbody>
+        </table>
+       </div>
+       <div class="pages">{$page}</div>
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+  <include file="Public/footer" />
+
+  <div id="modal-form" class="modal fade" aria-hidden="true">
+   <div class="modal-dialog">
+    <div class="modal-content">
+     <div class="modal-body">
+      <div class="row">
+       <div class="col-sm-12 b-r">
+        <h3 class="m-t-none m-b">手动添加【<span style="color: red;padding: 0 5px;">{$cate_name}</span>】开奖号码</h3>
+        <form method="post" class="form-horizontal" action="__URL__/openAdd">
+         <div class="form-group">
+          <label>开奖期数</label>
+          <input type="text" id="issue"  name="expect"  placeholder="请输入开奖期数" class="form-control">
+          <input type="hidden"  name="cate_id" value="{$cate_id}"  class="form-control">
+         </div>
+         <div class="form-group">
+          <label>开奖号码  (以,区分 如：1,2,3,4,7)</label>
+          <input type="text" name="opencode" placeholder="请输入开奖号码" class="form-control">
+         </div>
+         <div>
+          <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>手动开奖</strong>
+          </button>
+         </div>
+        </form>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <script src="/Public/js/plugins/layer/laydate/laydate.js"></script>
+  <script type="text/javascript">
+      laydate({
+          elem: '#date',
+          format: 'YYYY-MM-DD', //日期格式 // 分隔符可以任意定义，该例子表示只显示年月
+//          min: laydate.now(), //设定最小日期为当前日期
+          max: '2099-06-16', //最大日期
+          festival: true, //显示节日
+          istime: true,   //是否显示时分秒
+          istoday: true,
+      });
+
+      $('.kaiJiang').click(function () {
+          var cate_id = $(this).attr('cate_id');
+          var expect = $(this).attr('expect');
+          $('#issue').val(expect);
+      });
+
+
+      $('#ww .race_c').click(function() {
+          $(this).removeClass('btn-white').addClass('btn-primary').siblings().removeClass('btn-primary').addClass('btn-white');
+          var cate_id =  $(this).attr('cate_id');
+         // OpenData(cate_id);
+         var date =  $('#date').val();
+          if(date !=''){
+              MyGet('',{"cate_id":cate_id,"p":0,"date":date});
+          }else {
+              MyGet('',{"cate_id":cate_id,"p":0});
+          }
+      });
+      function MyGet(url,args){
+          var body = $(document.body),
+              form = $("<form method='get'></form>"),
+              input;
+          form.attr({"action":url});
+          $.each(args,function(key,value){
+              input = $("<input type='hidden'>");
+              input.attr({"name":key});
+              input.val(value);
+              form.append(input);
+          });
+
+          form.appendTo(document.body);
+          form.submit();
+          document.body.removeChild(form[0]);
+      }
+
+  </script>
+
+ </body>
+</html>

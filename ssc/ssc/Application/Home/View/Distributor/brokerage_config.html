@@ -1,0 +1,66 @@
+<include file="Public/header" />
+<div class="wrapper wrapper-content animated fadeInRight"> 
+   <div class="row"> 
+    <div class="col-sm-12"> 
+     <div class="ibox float-e-margins"> 
+      <div class="ibox-title">
+         <div class="btn-group" style="float: right;">
+         <button class="btn btn-success" onclick="location.href='/index.php/Home/distributor/brokerage_config_add/ID/{$brokerage_id}'">添加配置项+</button>
+         </div> 
+      <div class="ibox-content">  
+       <div class="table-responsive"> 
+       <form action="" method="post">
+        <table class="table table-striped"> 
+         <thead> 
+          <tr> 
+          <foreach name="brokerage_config" item="item" key="key">
+           <th>{$item}</th>
+          </foreach> 
+          </tr> 
+         </thead> 
+         <tbody> 
+         <foreach name="brokerage_config_value" item="item" key="key">
+          <tr>
+           <input type="hidden" name="{$item.id}[id]" value="{$item.id}">
+           <foreach name="item.config_value" item="k" key="v">
+           <td><input name="{$item.id}[config_value][]" value="{$k}"></td> 
+           </foreach>
+           <td><a href="javascript:brokerage_config_del({$item.id})">删除</a></td>
+          </tr>
+          </foreach>
+          </tbody> 
+        </table> 
+        <button type="submit" class="btn btn-w-m btn-primary">提交</button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">返回</button>
+        </form>
+       </div>  
+      </div>      
+     </div>      
+    </div>    
+   </div>   
+  </div>
+  </div> 
+  <include file="Public/footer" />
+  <script type="text/javascript">
+     function brokerage_config_del(id){
+    	 if (confirm('确定删除该配置项吗？') == true){
+    		 $.ajax({
+    			 url: '{:U('Home/distributor/brokerage_config_del')}',
+    			 type: 'post',
+    			 dataType: 'json',
+    		     data: {'id':id},
+    		     success: function (data) {
+    		    	 if (data.state == true) {
+                         alert('删除成功！');
+                         window.location.reload(); 
+                     } else {
+                    	 alert('删除失败!');
+                     }
+    		     }
+    		 });
+    	 }
+     }
+  </script>
+
+ </body>
+</html>

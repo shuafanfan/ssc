@@ -1,0 +1,159 @@
+<include file="Public/header" />
+<style>
+.pages a,.pages span {
+    display:inline-block;
+    padding:2px 5px;
+    margin:0 1px;
+    border:1px solid #f0f0f0;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+}
+.pages a,.pages li {
+    display:inline-block;
+    list-style: none;
+    text-decoration:none; color:#58A0D3;
+}
+.pages a.first,.pages a.prev,.pages a.next,.pages a.end{
+    margin:0;
+}
+.pages a:hover{
+    border-color:#50A8E6;
+}
+.pages span.current{
+    background:#50A8E6;
+    color:#FFF;
+    font-weight:700;
+    border-color:#50A8E6;
+}
+</style>
+<div class="wrapper wrapper-content animated fadeInRight"> 
+   <div class="row"> 
+    <div class="col-sm-12"> 
+     <div class="ibox float-e-margins"> 
+      <div class="ibox-title"> 
+       <h5>彩种分类列表</h5> 
+       <div class="btn-group" style="float: right;">
+       <button class="btn btn-success" onclick="location.href='/index.php/Home/category/categoryAdd'">添加顶级分类+</button>
+       </div> 
+      <div class="ibox-content">  
+       <div class="table-responsive"> 
+        <table class="table table-striped"> 
+         <thead> 
+          <tr> 
+           <th>id</th> 
+           <th>彩种</th>
+           <th>Api</th> 
+           <th>状态</th> 
+           <th>操作</th> 
+          </tr> 
+         </thead> 
+         <tbody> 
+         <foreach name="category_list" item="item" key="key">
+          <tr> 
+           <td>{$item.id}</td> 
+           <td>{$item.catename}</td>  
+           <td>{$item.openUrl}</td>
+           <td>{$item.status}</td>
+           <td>
+              <a href="{:U('Home/category/categoryEdit/ID/'.$item['id'])}">编辑</a>
+              <if condition="($pid eq '')">
+              <a href="{:U('Home/category/categoryList/ID/'.$item['id'])}">二级分类</a>
+              </if>
+              <if condition="($pid eq '')">
+              <a href="{:U('Home/category/categoryAdd/pid/'.$item['id'])}">添加二级分类</a>
+              </if>
+              <if condition="($pid neq '')">
+              <a href="{:U('Home/OpenApi/apiAdd/cateID/'.$item['id'])}">开奖接口</a>
+              </if>
+              <if condition="($pid eq '')">
+              <a href="{:U('Home/category/playConfig/ID/'.$item['id'])}">玩法配置</a>
+              </if>
+              <if condition="($pid neq '')">
+              <a href="{:U('Home/category/timeConfig/ID/'.$item['id'])}">时间配置</a>
+              </if>
+              <a href="javascript:del({$item.id})">删除</a>
+            <if condition="($item.status eq '开启')">
+               <a href="javascript:prohibit({$item.id})">禁用</a>
+             <else/><a href="javascript:start({$item.id})">启用</a>
+            </if>
+           </td>  
+          </tr>
+          </foreach>
+          </tbody> 
+        </table> 
+       </div> 
+       <div class="pages">{$page}</div> 
+      </div>      
+     </div>      
+    </div>    
+   </div>   
+  </div> 
+  <include file="Public/footer" />
+  <script type="text/javascript">
+     function del(ID){
+    	 if (confirm('确定删除吗？') == true){
+    		 $.ajax({
+    			 url: '{:U('Home/category/categoryDel')}',
+    			 type: 'post',
+    			 dataType: 'json',
+    		     data: {'ID':ID},
+    		     success: function (data) {
+    		    	 if (data.state == 1) {
+                         alert('删除成功！');
+                         window.location.reload(); 
+                     }
+    		    	 if (data.state == 2) {
+                         alert('删除失败！');
+                         window.location.reload(); 
+                     }
+    		    	 if (data.state == 3) {
+                         alert('存在二级分类不能删除！');
+                         window.location.reload(); 
+                     }
+    		    	 
+    		     }
+    		 });
+    	 }
+     }
+  </script> 
+ <script type="text/javascript">
+  function prohibit(ID){
+ 	 if (confirm('确定禁用该接口吗？') == true){
+ 		 $.ajax({
+ 			 url: '{:U('Home/Category/closeCategory')}',
+ 			 type: 'post',
+ 			 dataType: 'json',
+ 		     data: {'ID':ID},
+ 		     success: function (data) {
+ 		    	 if (data.state == true) {
+                      alert('禁用成功！');
+                      window.location.reload(); 
+                  } else {
+                 	 alert('该Api已被禁用!');
+                  }
+ 		     }
+ 		 });
+ 	 }
+  }
+  </script>
+  <script type="text/javascript">
+  function start(ID){
+ 	 if (confirm('确定启用该接口吗？') == true){
+ 		 $.ajax({
+ 			 url: '{:U('Home/Category/openCategory')}',
+ 			 type: 'post',
+ 			 dataType: 'json',
+ 		     data: {'ID':ID},
+ 		     success: function (data) {
+ 		    	 if (data.state == true) {
+                      alert('启用成功！');
+                      window.location.reload(); 
+                  } else {
+                 	 alert('该Api已启用!');
+                  }
+ 		     }
+ 		 });
+ 	 }
+  }
+  </script>     

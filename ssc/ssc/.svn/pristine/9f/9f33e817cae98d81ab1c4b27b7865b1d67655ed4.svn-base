@@ -1,0 +1,139 @@
+<script type="text/javascript">
+    
+        var money =$('#money33').text();
+        money = money.substring(0,money.indexOf('.')+{$_SESSION['moneynum']});
+        $('#money33').text(money);
+        var money2 =$('.money_num').text();
+        money2 = money2.substring(0,money2.indexOf('.')+{$_SESSION['moneynum']});
+        $('.money_num').text(money);
+
+            
+</script>
+                <div class="user_cont_top">
+                    <div class="head_sculpture"></div>
+                    <span class="user-name">{$userInfo.nickname}</span>
+                    <span class="user-type">代理</span>
+                    <span>余额:</span>
+                    <span class="money_num">{$userInfo.money}</span>
+                    <span class="fa-refresh">刷新</span>
+                    <span class="my_bank_card">
+                        <i></i>
+                        我的银行卡
+                        <span class="num">({$userInfo.count})</span>
+                    </span>
+                </div>
+                <ul class="info-item clearfix">
+                    <li>
+                        <i></i>
+                        最近登录时间:
+                        <span>{$userInfo.logintime|date="Y-m-d H:i",###}</span>
+                    </li>
+                    <li class="even">
+                        <i></i>
+                        最近登录IP:
+                        <span>{$userInfo.login_ip}</span>
+                    </li>
+                    <li>
+                        <i></i>
+                        上次登录时间:
+                        <span>{$userInfo.last_logintime|date="Y-m-d H:i",###}</span>
+                    </li>
+                    <li class="even">
+                        <i></i>
+                        上次登录IP:
+                        <span>{$userInfo.last_login_ip}</span>
+                    </li>
+                </ul>
+                <div class="account-info">
+                    <h3>账户信息</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>用户名</th>
+                                <th>注册时间</th>
+                                <th>账户余额</th>
+                                <th>高频彩返点</th>
+                                <th>低频彩返点</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{$userInfo.username}</td>
+                                <td>{$userInfo.addtime|date="Y-m-d H:i",###}</td>
+                                <td id='money33'>{$userInfo.money}</td>
+                                <td>{$userInfo.top_rebate}</td>
+                                <td>{$userInfo.low_rebate}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="account-info">
+                    <h3>团队信息</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>团队成员(人)</th>
+                                <th>今日注册</th>
+                                <th>当前在线</th>
+                                <th>今日返点</th>
+                                <th>团队余额(不包含自己)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0.000</td>
+                                <td>0.000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="account-info acc_info_bottom">
+                    <h3>我的配额</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>等级</th>
+                                <th>-</th>
+                                <th>-</th>
+                                <th>-</th>
+                                <th>-</th>
+                                <th>-</th>
+                                <th>-</th>
+                                <th>-</th>
+                                <th>-</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>剩余</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+<script>
+    $(document).on('click','.fa-refresh',function(){
+	var  fa_refresh = $(this).siblings('.money_num');
+	var  fa_refresh_h = $(this).siblings('.money_num').html();
+	$.ajax({
+                cache: true,
+                type: "POST",
+                url:'{:U('Html/User/user_refreshMoney')}',
+                data:{'fa_refresh':fa_refresh_h},
+                async: false,
+                success: function(data) {
+                    $('#money span').html(data.money);
+                }
+            });
+});
+</script>

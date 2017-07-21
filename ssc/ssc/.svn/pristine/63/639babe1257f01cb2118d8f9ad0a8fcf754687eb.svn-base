@@ -1,0 +1,80 @@
+<include file="Public/header" />
+<style>
+.pages a,.pages span {
+    display:inline-block;
+    padding:2px 5px;
+    margin:0 1px;
+    border:1px solid #f0f0f0;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+}
+.pages a,.pages li {
+    display:inline-block;
+    list-style: none;
+    text-decoration:none; color:#58A0D3;
+}
+.pages a.first,.pages a.prev,.pages a.next,.pages a.end{
+    margin:0;
+}
+.pages a:hover{
+    border-color:#50A8E6;
+}
+.pages span.current{
+    background:#50A8E6;
+    color:#FFF;
+    font-weight:700;
+    border-color:#50A8E6;
+}
+</style>
+<div class="wrapper wrapper-content animated fadeInRight"> 
+   <div class="row"> 
+    <div class="col-sm-12"> 
+     <div class="ibox float-e-margins"> 
+      <div class="ibox-title"> 
+       <h5>数据备份还原列表</h5>
+        <if condition="($threeMenuInfo.id neq '')">
+         <div class="btn-group" style="float: right;">
+         <button class="btn btn-success" onclick="location.href='{$threeMenuInfo.name}'">{$threeMenuInfo.title}</button>
+         </div> 
+         </if>
+      <div class="ibox-content">  
+       <div class="table-responsive"> 
+        <table class="table table-striped"> 
+         <thead> 
+          <tr> 
+           <th>id</th> 
+           <th>操作者</th>
+           <th>时间</th>
+           <th>保存路径</th>
+           <th>操作</th> 
+          </tr> 
+         </thead> 
+         <tbody> 
+         <foreach name="list" item="item" key="key">
+          <tr> 
+           <td>{$item.id}</td> 
+           <td>{$item.adminName}</td>  
+           <td>{$item.saveTime|date="Y-m-d H:i",###}</td>
+            <td>{$item.saveRoute}</td>
+           <td>
+            <!--<a href="javascript:bak({$item.saveRoute})">还原</a>-->
+            <a onclick="return confirm('确定将数据库还原到当前备份吗？')"href="{:U('Bak/index',array('Action'=>'RL','File'=>$item['saveRoute']))}">还原</a>
+              <a href="{:U('Bak/index',array('Action'=>'download','file'=>$item['saveRoute']))}">下载</a>
+              <a onclick="return confirm('确定删除该备份文件吗？')"href="{:U('Bak/index',array('Action'=>'Del','File'=>$item['saveRoute'],'row'=>$item['id']))}">删除</a>
+           </td>  
+          </tr>
+          </foreach>
+          </tbody> 
+        </table> 
+       </div> 
+       <div class="pages">{$page}</div> 
+      </div>      
+     </div>      
+    </div>    
+   </div>   
+  </div>
+  </div> 
+  <include file="Public/footer" />
+ </body>
+</html>

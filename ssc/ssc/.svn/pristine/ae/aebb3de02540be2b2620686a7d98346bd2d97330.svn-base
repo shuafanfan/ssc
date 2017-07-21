@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/tabs_panels.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:53 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>彩种列表</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="__PUBLIC__/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="__PUBLIC__/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="tabs-container">
+                    
+                    <!-- 选项卡层 -->
+                    <div class="tab-content">
+                        <!-- 选项卡1 -->
+                        <div id="tab-1" class="tab-pane active">
+                            <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="ibox float-e-margins">
+                
+                                                <div class="ibox-content">
+
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>彩种名称</th>
+                                                                <th>彩种类别</th>
+                                                                <th style="width: 120px">开奖接口</th>
+                                                                <th style="width: 120px">派奖接口</th>
+                                                                <th>状态</th>
+                                                                <th>操作</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <volist name="oneCate" id="oneCate">
+                                                            <tr style="height: 50px;">
+                                                                <td>{$oneCate.id}</td>
+                                                                <td>{$oneCate.catename}</td>
+                                                                <td style="width: 120px"><a href="#">{$oneCate.oneCate.catename}</a></td>
+                                                                <td style="width: 120px"  title="{$oneCate.openUrl}">{$oneCate.openUrl|substr=0,30}</td>
+                                                                <td title="{$oneCate.winningUrl}">{$oneCate.winningUrl|substr=0,30}</td>
+                                                                <td><if condition="($oneCate.status eq '开启')">
+                                                                    <a href="javascript:prohibit({$oneCate.id})">关闭</a>
+                                                                  <else/><a href="javascript:start({$oneCate.id})">开启</a>
+                                                                    </if>
+                                                                    <!--<a href="#"><span class="badge badge-danger">关闭</span></a>-->
+                                                                </td>
+                                                                <td><a href="{:U('Home/category/timeConfig/ID/'.$oneCate['id'])}">时间管理</a> | <a href="{:U('Home/category/playConfig/ID/'.$oneCate['oneCate']['id'])}">奖金配置</a> | <a href="{:U('Home/OpenApi/apiAdd/cateID/'.$oneCate['id'])}">接口管理</a> | <a href="{:U('Home/category/categoryEdit/ID/'.$oneCate['id'])}">编辑</a> | <a href="javascript:del({$oneCate.id})">删除</a> </td>
+                                                            </tr>  
+                                                        </volist>
+<!--                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>重庆时时彩</td>
+                                                                <td><a href="#">时时彩</a></td>
+                                                                <td>开奖接口API(这里是API网址)</td>
+                                                                <td><a href="#"><span class="badge badge-danger">关闭</span></a></td>
+                                                                <td><a href="#">时间管理</a> | <a href="#">奖金配置</a> | <a href="#">接口管理</a> | <a href="#">编辑</a> | <a href="#">删除</a> </td>
+                                                            </tr>-->
+
+
+
+                                                             
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            </div>
+                        </div>
+                        <!-- 选项卡1结束 -->
+                    </div>
+
+<!-- 选项卡层结束 -->
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <script src="__PUBLIC__/js/jquery.min.js?v=2.1.4"></script>
+    <script src="__PUBLIC__/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="__PUBLIC__/js/content.min.js?v=1.0.0"></script>
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+    <script type="text/javascript">
+     function del(ID){
+    	 if (confirm('确定删除吗？') == true){
+    		 $.ajax({
+    			 url: '{:U('Home/category/categoryDel')}',
+    			 type: 'post',
+    			 dataType: 'json',
+    		     data: {'ID':ID},
+    		     success: function (data) {
+    		    	 if (data.state == 1) {
+                         alert('删除成功！');
+                         window.location.reload(); 
+                     }
+    		    	 if (data.state == 2) {
+                         alert('删除失败！');
+                         window.location.reload(); 
+                     }
+    		    	 if (data.state == 3) {
+                         alert('存在二级分类不能删除！');
+                         window.location.reload(); 
+                     }
+    		    	 
+    		     }
+    		 });
+    	 }
+     }
+  </script> 
+<script type="text/javascript">
+  function prohibit(ID){
+ 	 if (confirm('确定禁用该接口吗？') == true){
+ 		 $.ajax({
+ 			 url: '{:U('Home/Category/closeCategory')}',
+ 			 type: 'post',
+ 			 dataType: 'json',
+ 		     data: {'ID':ID},
+ 		     success: function (data) {
+ 		    	 if (data.state == true) {
+                      alert('禁用成功！');
+                      window.location.reload(); 
+                  } else {
+                 	 alert('该Api已被禁用!');
+                  }
+ 		     }
+ 		 });
+ 	 }
+  }
+  </script>
+  <script type="text/javascript">
+  function start(ID){
+ 	 if (confirm('确定启用该接口吗？') == true){
+ 		 $.ajax({
+ 			 url: '{:U('Home/Category/openCategory')}',
+ 			 type: 'post',
+ 			 dataType: 'json',
+ 		     data: {'ID':ID},
+ 		     success: function (data) {
+ 		    	 if (data.state == true) {
+                      alert('启用成功！');
+                      window.location.reload(); 
+                  } else {
+                 	 alert('该Api已启用!');
+                  }
+ 		     }
+ 		 });
+ 	 }
+  }
+  </script>     
+</body>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/tabs_panels.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:53 GMT -->
+</html>

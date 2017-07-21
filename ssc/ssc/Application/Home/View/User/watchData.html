@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/tabs_panels.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:53 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico"> <link href="__PUBLIC__/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="__PUBLIC__/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="tabs-container">
+                    <ul class="nav nav-tabs">
+                        <li data="tab1" {$tab} <if condition="$tab eq 'tab1'"> class="active" </if> ><a data-toggle="tab" href="#tab-1" aria-expanded="<if condition="$tab eq 'tab1'">true<else/>false</if>"> 帐变记录</a>
+                        </li>
+                        <li data="tab2" <if condition="$tab eq 'tab2'"> class="active" </if>class=""><a data-toggle="tab" href="#tab-2" aria-expanded=" <if condition="$tab eq 'tab2'">true<else/>false</if> ">投注记录</a>
+                        </li>
+                        <li data="tab3" <if condition="$tab eq 'tab3'"> class="active" </if>class=""><a data-toggle="tab" href="#tab-3" aria-expanded=" <if condition="$tab eq 'tab3'">true<else/>false</if> ">登录记录</a>
+                        </li>
+                    </ul>
+                    <!-- 选项卡层 -->
+                    <div class="tab-content">
+                        <!-- 选项卡1 -->
+                        <div id="tab-1" class="tab-pane <if condition="$tab eq 'tab1'">active</if> ">
+                            <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="ibox float-e-margins">
+                                                <div class="ibox-title">
+                                                    <h5>帐变记录</h5>
+                                                    <div class="ibox-tools">
+                                                        <a class="dropdown-toggle" data-toggle="dropdown" href="table_basic.html#" aria-expanded="false">
+                                                            <i class="fa fa-wrench"></i>
+                                                        </a>
+                                                        <ul class="dropdown-menu dropdown-user">
+                                                            <li><a href="table_basic.html#">数据图表</a>
+                                                            </li>
+                                                        </ul>
+
+                                                    </div>
+                                                </div>
+                                                <div class="ibox-content">
+
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <!--<th>昵称</th>-->
+                                                                <th>金额</th>
+                                                                <th>类型</th>
+                                                                <th>时间</th>
+                                                                <th>状态</th>
+                                                                <!--<th>操作</th>-->
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <volist name="user_money_log"  id="vo">
+                                                            <tr>
+                                                                <td>{$vo.id}</td>
+                                                                <!--<td>{$userId}</td>-->
+                                                                <td>{$vo['money']}</td>
+                                                                <td>
+                                                                    <if condition="$vo['type'] eq 1">
+                                                                        <span class="label">充值</span>
+                                                                        <elseif condition="$vo['type'] eq 2" />
+                                                                        <span class="label">提现</span>
+                                                                        <elseif condition="$vo['type'] eq 3" />
+                                                                        <span class="label label-danger">转账</span>
+                                                                        <else />
+                                                                        下注
+                                                                    </if>
+                                                                </td>
+                                                                <td>{:date('Y-m-d H:i:s',$vo['time'])}</td>
+                                                           <!--<td><span class="label label-warning">{$type}</span></td>-->
+                                                                <!--    <td>2017年3月28日 12:04:25</td>-->
+                                                                <td>成功</td>
+                                                                <!--<td><a href="#">详情</a></td>-->
+                                                            </tr>
+                                                        </volist>
+                                                             
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            </div>
+                        </div>
+                        <!-- 选项卡1结束 -->
+                        <!-- 选项卡2 -->
+                        <div id="tab-2" class="tab-pane <if condition="$tab eq 'tab2'">active</if>">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-title">
+                                                <h5>投注记录</h5>
+                                            </div>
+                                            <div class="ibox-content">
+
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>昵称</th>
+                                                            <th>彩种</th>
+                                                            <th>玩法</th>
+                                                            <th>期数</th>
+                                                            <th>数据</th>
+                                                            <th>状态</th>
+                                                            <th>时间</th>
+                                                            <th>操作</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <volist name="list"  id="vo">
+                                                        <tr>
+                                                            <td>{$vo.id}</td>
+                                                            <td>{$vo.username}</td>
+                                                            <td>{$vo.catename}</td>
+                                                            <td>{$vo.playname}</td>
+                                                            <td>{$vo.issue}</td>
+                                                            <td>{$vo.content|subtext=10}</td>
+                                                            <!--<td>未中奖</td>-->
+                                                            <td>
+                                                                <if condition="$vo['status'] eq 1">
+                                                                    <span class="label">正常</span>
+                                                                    <elseif condition="$vo['status'] eq 2" />
+                                                                    <span class="label">中奖</span>
+                                                            <elseif condition="$vo['status'] eq 3" />
+                                                                <span class="label label-danger">未中奖</span>
+                                                            <else />
+                                                                    撤单
+                                                           </if>
+                                                            </td>
+                                                            <td>{:date('Y-m-d H:i:s',$vo['time'])}</td>
+                                                            <td><a href="{:U('Home/User/betOrder/id/'.$vo['id'])}">详情</a></td>
+                                                        </tr>
+                                                    </volist>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                            <div class="pages">{$page}</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                       <!--  选项卡2结束 -->
+
+<!-- 选项卡3 -->
+                        <div id="tab-3" class="tab-pane  <if condition="$tab eq 'tab3'">active</if>">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-title">
+                                                <h5>投注记录</h5>
+                                            </div>
+                                            <div class="ibox-content">
+
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>昵称</th>
+                                                            <th>登录时间</th>
+                                                            <th>登录IP</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <volist name="user_login"  id="vo">
+                                                        <tr>
+                                                            <td>{$vo['id']}</td>
+                                                            <td>{$vo['userName']}</td>
+                                                            <td>{:date('Y-m-d H:i:s',$vo['loginTime'])}</td>
+                                                            <td>{$vo['ip']}</td>
+                                                        </tr>
+                                                    </volist>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+<!-- 选项卡3结束 -->
+
+                    </div>
+
+<!-- 选项卡层结束 -->
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <script src="__PUBLIC__/js/jquery.min.js?v=2.1.4"></script>
+    <script src="__PUBLIC__/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="__PUBLIC__/js/content.min.js?v=1.0.0"></script>
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+</body>
+<script type="text/javascript">
+    $(function () {
+        $('.nav-tabs li').click(function () {
+            var tab =  $(this).attr('data');
+            MyGet('',{'tab':tab});
+        })
+    })
+
+    function MyGet(url,args){
+        var body = $(document.body),
+            form = $("<form method='get'></form>"),
+            input;
+        form.attr({"action":url});
+        $.each(args,function(key,value){
+            input = $("<input type='hidden'>");
+            input.attr({"name":key});
+            input.val(value);
+            form.append(input);
+        });
+
+        form.appendTo(document.body);
+        form.submit();
+        document.body.removeChild(form[0]);
+    }
+</script>
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/tabs_panels.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:53 GMT -->
+</html>

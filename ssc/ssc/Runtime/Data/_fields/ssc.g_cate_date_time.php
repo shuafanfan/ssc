@@ -1,0 +1,1 @@
+a:9:{i:0;s:2:"id";i:1;s:4:"date";i:2;s:7:"cate_id";i:3;s:6:"period";i:4;s:5:"issue";i:5;s:9:"open_time";i:6;s:9:"timeStamp";s:3:"_pk";s:2:"id";s:5:"_type";a:7:{s:2:"id";s:7:"int(11)";s:4:"date";s:11:"varchar(12)";s:7:"cate_id";s:10:"tinyint(4)";s:6:"period";s:8:"char(12)";s:5:"issue";s:11:"varchar(30)";s:9:"open_time";s:4:"time";s:9:"timeStamp";s:7:"int(11)";}}

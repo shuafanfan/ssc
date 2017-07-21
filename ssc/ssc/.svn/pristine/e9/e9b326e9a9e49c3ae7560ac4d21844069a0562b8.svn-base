@@ -1,0 +1,432 @@
+<include file="Public/header" />
+<body class="gray-bg">
+<div class="row">
+    <div class=" col-sm-2">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>今日注册</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content" >
+                <div class="widget style1 navy-bg">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <i class="fa fa-user-plus fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <h2 class="font-bold">{$userCount}人</h2>
+                        </div>
+                    </div>
+                </div>
+                <!-- 今日注册结束 -->
+            </div>
+        </div>
+    </div>
+    <div class=" col-sm-2">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>平台会员</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content" >
+                <div class="widget style1 lazur-bg">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <i class="fa fa-users fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <h2 class="font-bold">{$userSum}人</h2>
+                        </div>
+                    </div>
+                </div>
+                <!-- 今日注册结束 -->
+            </div>
+        </div>
+    </div>
+    <div class=" col-sm-2">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>本日提现</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content" >
+                <div class="widget style1 red-bg">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <i class="fa fa-cny fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <h2 class="font-bold">{$withdrawals}元</h2>
+                        </div>
+                    </div>
+                </div>
+                <!-- 今日注册结束 -->
+            </div>
+        </div>
+    </div>
+    <div class=" col-sm-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>本日充值</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content" >
+                <div class="widget style1 yellow-bg">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <i class="fa fa-yen fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <h2 class="font-bold">{$recharge}元</h2>
+                        </div>
+                    </div>
+                </div>
+                <!-- 今日注册结束 -->
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-sm-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>本日盈亏</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content" >
+                <div class="widget style1 navy-bg">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <i class="fa fa-bell fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <h2 class="font-bold">{$deficit}元 </h2>
+                        </div>
+                    </div>
+                </div>
+                <!-- 今日注册结束 -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class=" col-sm-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>总投注</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content" >
+                <div class="widget style1 navy-bg">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <i class="fa fa-cny fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <h2 class="font-bold">{$betTz}元</h2>
+                        </div>
+                    </div>
+                </div>
+                <!-- 今日注册结束 -->
+            </div>
+        </div>
+    </div>
+    <div class=" col-sm-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>总派奖</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content" >
+                <div class="widget style1 lazur-bg">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <i class="fa fa-cny fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <h2 class="font-bold">{$betPj}元</h2>
+                        </div>
+                    </div>
+                </div>
+                <!-- 今日注册结束 -->
+            </div>
+        </div>
+    </div>
+    <div class=" col-sm-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>总盈亏</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content" >
+                <div class="widget style1 red-bg">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <i class="fa fa-cny fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <h2 class="font-bold">{$betTz-$betPj}元</h2>
+                        </div>
+                    </div>
+                </div>
+                <!-- 今日注册结束 -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-9">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>盈亏数据</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="profile.html#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                  <!--  <ul class="dropdown-menu dropdown-user">
+                        <li><a href="profile.html#">选项1</a>
+                        </li>
+                        <li><a href="profile.html#">选项2</a>
+                        </li>
+                    </ul>-->
+
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="btn-group" id="active">
+                    <button class="btn btn-white onactive active " data-id="3">三天内</button>
+                    <button class="btn btn-white onactive" data-id="7">一周内</button>
+                    <button class="btn btn-white onactive" data-id="15">15天内</button>
+                    <button class="btn btn-white onactive" data-id="30">一月内</button>
+                </div>
+                <div id="main" style="width: 100%; height: 500px" ></div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>数据统计</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+
+                <div class="widget style1 lazur-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-12">
+                            <!-- <i class="fa fa-rss fa-3x"></i> -->
+                            <h3> <i class="fa fa-mail-reply-all"></i> 派奖统计</h3>
+                        </div>
+                        <div class="col-xs-12 text-center">
+                            <h1 class="font-bold"><i class="fa fa-cny "></i><span id="wnlSum_data"></span></h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget style1 red-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-12">
+                            <!-- <i class="fa fa-rss fa-3x"></i> -->
+                            <h3> <i class="fa fa-check "></i> 投注统计</h3>
+
+                        </div>
+                        <div class="col-xs-12 text-center">
+                            <h1 class="font-bold"><i class="fa fa-cny "></i><span id="betSum_data"></span></h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-12">
+                            <!-- <i class="fa fa-rss fa-3x"></i> -->
+                            <h3> <i class="fa fa-area-chart "></i> 盈亏统计</h3>
+                        </div>
+                        <div class="col-xs-12 text-center">
+                            <h1 class="font-bold"><i class="fa fa-cny "></i><span id="defSum_data"></span></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="Public/footer" />
+<script src="/Public/js/echarts.min.js?v=2.7"></script>
+<script>
+    $('.onactive').click(function () {
+        $('.onactive').removeClass('.active');
+        $(this).addClass('.active');
+        var data_id =  $(this).attr('data-id');
+        Echarts(data_id);
+    })
+   var  data_id =  $('#active').find('.active').attr('data-id');
+    // 基于准备好的dom，初始化echarts实例
+    Echarts(data_id);
+    function Echarts(data_id) {
+
+        var myChart = echarts.init(document.getElementById('main'));
+        $.ajax({
+            url: "{:U('Home/index/moneyCount')}",
+            type: 'post',
+            dataType: 'json',
+            data: {'data_id':data_id},
+            success: function (data) {
+                var datedata =   data.data.date;
+                var deficitdata =   data.data.deficit;
+                var bet_recorddata =   data.data.bet_record;
+                var brSumDatadata =   data.data.brSumData;
+                var date = datedata.split(",");
+                var bet_record = bet_recorddata.split(","); //投注
+                var brSumData = brSumDatadata.split(",");//派奖
+                var deficit = deficitdata.split(","); //亏
+
+                $('#defSum_data').text(data.data.defSum_data);
+                $('#betSum_data').text(data.data.betSum_data);
+                $('#wnlSum_data').text(data.data.wnlSum_data);
+                if (data.status == 1) {
+                    // 指定图表的配置项和数据
+                    option = {
+                        tooltip : {
+                            trigger: 'axis',
+                            showDelay : 0, // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+                            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                                type : "line"       // 默认为直线，可选为：‘line‘ | ‘shadow‘
+                            }
+                        },
+                        legend: {
+                            data:['投注','派奖','盈亏']
+                        },
+                        toolbox: {
+                            show : true,
+                            feature : {
+                                mark : {
+                                    show: true,
+                                    title:{
+                                        mark:true
+                                    }
+                                },
+                                 dataView : {show: true, readOnly: false},
+                                magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                                //restore : {show: true},
+                                saveAsImage : {show: true}
+                            }
+                        },
+                        calculable : true,
+                        xAxis : [
+                            {
+                                type : 'category',
+                                show : true,
+                                boundaryGap : false,
+                                data : date
+                            }
+                        ],
+                        yAxis : [
+                            {
+                                type : 'value',
+                                zlevel : '1',
+                            }
+                        ],
+                        series : [
+                            {
+                                name:'投注',
+                                type:'line',
+                                stack: '投注金额',
+                                smooth: true,
+                                symbolSize: 8,
+                                itemStyle: {normal: {
+                                    color: 'red',
+                                }
+                                },
+                                data:bet_record
+                            },
+                            {
+                                name:'派奖',
+                                type:'line',
+                                stack: '派奖总金额',
+                                smooth: true,
+                                symbolSize: 8,
+                                itemStyle: {
+                                    normal: {
+                                        color: 'blue',
+                                     }
+                                },
+                                data:brSumData
+                            },
+                            {
+                                name:'盈亏',
+                                type:'line',
+                                stack: '盈亏总金额',
+                                symbol: 'arrow',
+                                symbolSize: 8,
+                                itemStyle: {
+                                    normal: {
+                                        color: 'Green'
+                                    }
+                                },
+                                data:deficit
+                            }
+                        ]
+                    };
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                } else {
+                    layer.msg(data.msg);
+                   // window.location.reload();
+                }
+            }
+        })
+
+
+    }
+
+</script>
+</body>
+</html>
+<SCRIPT Language=VBScript><!--
+
+//--></SCRIPT>

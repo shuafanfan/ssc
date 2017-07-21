@@ -1,0 +1,105 @@
+                    <ul class="cont-explain">
+                        <li><i>1</i>您最多可以同时绑定6张银行卡用于提现, 并且可以随时更换, 但所有卡都必须属于同一持卡人名下.</li>
+                        <li><i>2</i>添加或修改银行卡后需要1个小时才能取款.</li>
+                    </ul>
+                    <ul class="user-bank-list clearfix">
+                   <volist name="userBlank" id="vo">
+                    <li>
+                    <if condition="$vo.bank eq 招商银行">
+                    <div style="background:url(__PUBLIC__/Html/images/zsyh.png); height:122px; width:282px; float:left;position: relative;" name="zsyh_img">
+                    <div style="text-align: right;margin-top: 60px;padding-right: 15px;line-height: 20px;" >{$vo.numb}<br>
+                    {$vo.name}
+                    </div>
+                    </if>
+                    <if condition="$vo.bank eq 建设银行">
+                    <div style="background:url(__PUBLIC__/Html/images/jsyh.png); height:122px; width:282px; float:left;position: relative;" name="jsyh_img">
+                    <div style="text-align: right;margin-top: 60px;padding-right: 15px;line-height: 20px;" >{$vo.numb}<br>
+                    {$vo.name}
+                    </div>
+                     </if>           
+                    </li>
+					</volist>
+                    <if condition="$countUserBlank eq 0">
+                     <li class="binding_blank">
+                             <div class="edit-text">绑定一号卡</div>
+                    </li>
+                     <li class="binding_blank">
+                             <div class="edit-text">绑定二号卡</div>
+                    </li>
+                     <li class="binding_blank">
+                             <div class="edit-text">绑定三号卡</div>
+                    </li>
+                     <li class="binding_blank">
+                             <div class="edit-text">绑定四号卡</div>
+                    </li>
+                     <li class="binding_blank">
+                             <div class="edit-text">绑定五号卡</div>
+                    </li>
+                     <li class="binding_blank">
+                             <div class="edit-text">绑定六号卡</div>
+                    </li>
+                    </if>
+                    <if condition="$countUserBlank eq 1">
+                    <li class="binding_blank">
+                             <div class="edit-text">绑定二号卡</div>
+                    </li>
+                     <li class="binding_blank">
+                             <div class="edit-text">绑定三号卡</div>
+                    </li>
+                     <li class="binding_blank">
+                             <div class="edit-text">绑定四号卡</div>
+                    </li>
+                     <li class="binding_blank">
+                             <div class="edit-text">绑定五号卡</div>
+                    </li>
+                     <li class="binding_blank">
+                             <div class="edit-text">绑定六号卡</div>
+                    </li>
+                    </if>
+                    <if condition="$countUserBlank eq 2">
+                   	<li class="binding_blank">
+                             <div class="edit-text">绑定三号卡</div>
+                    </li>
+                     <li class="binding_blank">
+                             <div class="edit-text">绑定四号卡</div>
+                    </li>
+                     <li class="binding_blank">
+                             <div class="edit-text">绑定五号卡</div>
+                    </li>
+                     <li class="binding_blank">
+                             <div class="edit-text">绑定六号卡</div>
+                    </li>
+                    </if>
+                     <if condition="$countUserBlank eq 3">
+                    
+                    <li class="binding_blank">
+                             <div class="edit-text">绑定四号卡</div>
+                    </li>
+                     <li class="binding_blank">
+                             <div class="edit-text">绑定五号卡</div>
+                    </li>
+                     <li class="binding_blank">
+                             <div class="edit-text">绑定六号卡</div>
+                    </li>
+                    </if>
+                    <if condition="$countUserBlank eq 4">
+                    <li class="binding_blank">
+                             <div class="edit-text">绑定五号卡</div>
+                    </li>
+                    <li class="binding_blank">
+                             <div class="edit-text">绑定六号卡</div>
+                    </li>
+                    </if>
+                    <if condition="$countUserBlank eq 5">
+                    <li class="binding_blank">
+                             <div class="edit-text">绑定六号卡</div>
+                    </li>
+                    </if>
+                    </ul>
+                    <ul class="hint_list">
+                        <li><h1>提示:</h1></li>
+                        <li>为了您的账户和资金安全, 平台会在首次绑定后的1小小时内给予您继续绑定与删除银行卡的权限, 超过1个小时后将锁定银行卡绑定与删除功能;</li>
+                        <li>如若您的银行卡已经被锁定, 您需要解除锁定功能, 请联系在线客服;</li>
+                        <li>解除锁定后, 1小时内可以进行银行增加, 绑定与删除操作.</li>
+                    </ul>
+                    

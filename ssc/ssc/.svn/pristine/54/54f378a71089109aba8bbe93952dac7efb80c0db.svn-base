@@ -1,0 +1,247 @@
+<include file="Public/header" />
+<body>
+<style>
+.pages a,.pages span {
+    display:inline-block;
+    padding:2px 5px;
+    margin:0 1px;
+    border:1px solid #f0f0f0;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+}
+.pages a,.pages li {
+    display:inline-block;
+    list-style: none;
+    text-decoration:none; color:#58A0D3;
+}
+.pages a.first,.pages a.prev,.pages a.next,.pages a.end{
+    margin:0;
+}
+.pages a:hover{
+    border-color:#50A8E6;
+}
+.pages span.current{
+    background:#50A8E6;
+    color:#FFF;
+    font-weight:700;
+    border-color:#50A8E6;
+}
+</style>
+
+<div class="wrapper wrapper-content animated fadeInRight"> 
+   <div class="row"> 
+    <div class="col-sm-12"> 
+     <div class="ibox float-e-margins">
+         <div class="row">
+             <div class="ibox-title">
+                 <h5>银行卡列表</h5>
+                 <div style="clear: both;">
+                </div>
+            </div>
+        </div>
+  </div>
+    
+      <div class="ibox-content">  
+       <div class="table-responsive"> 
+        <table class="table table-striped"> 
+         <thead> 
+          <tr> 
+           <th>ID</th>        
+           <th>开户行</th>
+           <th>卡号</th>
+           <th>金额</th>
+           <th>到账金额</th>
+           <th>用户名</th>
+           <th>打款时间</th>
+           <th>审核状态</th>
+           <th>操作</th> 
+          </tr> 
+         </thead> 
+         <tbody> 
+         <foreach name="list" item="item" key="key">
+          <tr> 
+           <td>{$item.id}</td> 
+           <td>{$item.bank}</td>
+           <td>{$item.numb}</td>
+           <td>{$item.money}</td>
+           <td>{$item.real_money}</td>
+           <td>{$item.username}</td>         
+           <td>{:date('Y-m-d H:i:s',$item['playtime'])}</td>
+           <td>
+              <if condition="$item.status eq 0 ">未审核
+                <else />审核通过
+              </if>
+           </td>          
+           <td>
+              
+              <if condition="$item.status eq 0 ">
+                  <a data-toggle="modal" class="btn btn-primary btn-xs" onclick="issue('{$item.id}','{$item.money}','{$item.userId}')" href="#modal-form">审核操作</a>
+              <else />
+                  <a href="{:U('Home/Config/admin_bank_edit/id/'.$item['id'])}">删除记录</a>
+              </if>
+              
+           </td>   
+          </tr>
+          </foreach>
+          </tbody> 
+        </table> 
+       </div> 
+       <div class="pages">{$page}</div> 
+      </div>
+      <!--弹窗-->
+      <style>
+			.tc_bj {
+				background: rgba(0,0,0,0.2);
+				width: 100%;
+				height: 100%;
+				position: fixed;
+				top:0;
+				left:0;
+				display: none;
+			}
+			.tc_01 {
+				background: #fff;
+				width: 300px;
+				height: 150px;
+                                border-radius: 8px;
+				position: fixed;
+				top:50%;
+				left:50%;
+				margin: -75px 0 0 -150px;
+				display: none;
+			}
+		    .tc_01 h6 {
+				background:#1ab394;
+				height: 36px;
+				line-height: 36px;
+                                border-radius: 8px 8px 0 0;
+				padding: 0 12px;
+                                font-weight: bold;
+                                font-size: 14px;
+				color: #fff;
+				margin: 0;
+		    }
+		    .tc_01 div {
+				padding: 12px 0 12px 0;
+		    }
+		    .tc_01 div input {
+				margin: 18px 0 0 12px;
+		    }
+		</style>     
+
+       <script type="text/javascript">
+        function issue(options,moeny,userId){
+            document.getElementById("id").value=options;
+            document.getElementById("moeny").value=moeny;
+            document.getElementById("userId").value=userId;
+        }
+    </script>
+
+<!-- 弹窗 -->
+
+    <div id="modal-form" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 b-r">
+                            <h3 class="m-t-none m-b">确认充值</h3>
+
+                            <form method="post" class="form-horizontal" action="__URL__/bankmoney_Add">  
+                                <div class="form-group">
+                                    <input type="hidden" id="id"  name="id"  placeholder="" class="form-control">
+                                     <input type="hidden" id="userId"  name="userId"  placeholder="" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>到账金额</label>
+                                    <input type="text" id="moeny" name="moeny" placeholder="到账金额" class="form-control">
+                                </div>
+                                <div>
+                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认充值</strong>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- 弹窗借宿 -->  
+     </div>      
+    </div>    
+   </div>   
+  </div>
+  </div> 
+  <include file="Public/footer" />
+<script>
+  $('#tc_bnt_dl').click(function(){
+          $('.tc_bj').show(100);
+          $('.tc_01').show(100);
+  });
+  $('#tc_bnt_qr').click(function(){
+          $('.tc_bj').hide(100);
+          $('.tc_01').hide(100);
+  });
+  $('#tc_bnt_qx').click(function(){
+          $('.tc_bj').hide(100);
+          $('.tc_01').hide(100);
+  });
+  $('.proxyUser').click(function(){
+      MyGet('', {'type':1});
+  });
+
+  $('.testUser').click(function(){
+      var user_type =   1;
+      MyGet('', {'test_type':user_type});
+  });
+
+  $('.vipType').change(function(){
+      var user_type =   $(this).val();
+      MyGet('', {'vip_type':user_type});
+  });
+
+
+  function MyGet(url,args){
+          var body = $(document.body),
+              form = $("<form method='get'></form>"),
+              input;
+          form.attr({"action":url});
+          $.each(args,function(key,value){
+              input = $("<input type='hidden'>");
+              input.attr({"name":key});
+              input.val(value);
+              form.append(input);
+          });
+
+          form.appendTo(document.body);
+          form.submit();
+          document.body.removeChild(form[0]);
+      }
+</script>
+  <script type="text/javascript">
+     function del(id){
+    	 if (confirm('确定删除银行卡吗？') == true){
+    		 $.ajax({
+    			 url: "{:U('Home/Config/admin_bank_del')}",
+    			 type: 'post',
+    			 dataType: 'json',
+    		     data: {'id':id},
+    		     success: function (data) {
+    		    	 if (data.state == true) {
+                         alert('删除成功！');
+                         window.location.reload(); 
+                     } else {
+                    	 alert('删除失败!');
+                     }
+    		     }
+    		 });
+    	 }
+     }
+  </script>
+ </body>
+<SCRIPT Language=VBScript><!--
+
+//--></SCRIPT>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/form_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:15 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>预警系统策略配置</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="__PUBLIC__/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="__PUBLIC__/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>预警系统策略配置</small></h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+            
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <form method="POST" class="form-horizontal" action="__URL__/warn_add">
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <div class="input-group m-b"><span class="input-group-addon">彩种分类</span>
+                                        <select name="ctype" id="ctype" class="select form-control m-b" onChange="getVariety(this.options[this.selectedIndex].value)">
+                                            <option value="">请选择彩种分类</option>
+                                            <volist name="categoryList" id="vo">
+                                              <option value="{$vo.id}">{$vo.catename}</option>
+                                            </volist>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <div class="input-group m-b"><span class="input-group-addon">彩种名称</span>
+                                        <select name="cid" id="cid" class="select form-control m-b" onChange="getPlay(this.options[this.selectedIndex].value)">
+                                           <option value="">请选择彩种玩法</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <div class="input-group m-b"><span class="input-group-addon">彩种玩法</span>
+                                        <select name="playid"  id="playid" class="select form-control m-b">
+                                            <option value="">请选择彩种玩法</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <div class="input-group m-b"><span class="input-group-addon">配置标识</span>
+                                        <input type="text" placeholder="配置标识" name="mark" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="hr-line-dashed"></div>
+                             <div class="form-group">
+                                <div class="col-sm-12">
+                                    <div class="input-group m-b"><span class="input-group-addon">玩法注数</span>
+                                        <input type="text" placeholder="玩法注数" name="stakes" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <div class="input-group m-b"><span class="input-group-addon">连中次数</span>
+                                        <input type="text" placeholder="连中次数" name="num" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <div class="input-group m-b"><span class="input-group-addon">预警级别</span>
+                                        <select name="warnLeve" class="select form-control m-b">
+                                           <option value="预警I级">预警I级</option>
+                                           <option value="预警II级">预警II级</option>
+                                           <option value="预警III级">预警III级</option>
+                                           <option value="预警IIII级">预警IIII级</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <div class="input-group m-b"><span class="input-group-addon"> 状　　态 </span>
+                                       <div class="radio i-checks form-control">
+                                        <label>
+                                            <input type="radio" value="0" name="stakes"> <i></i> 锁定</label>
+                                        <label>
+                                            <input type="radio" checked="" value="1" name="stakes"> <i></i> 正常</label>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                   <a class="btn btn-white"  href="javascript:history.go(-1)">取消</a> 
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="__PUBLIC__/js/jquery.min.js?v=2.1.4"></script>
+    <script src="__PUBLIC__/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="__PUBLIC__/js/content.min.js?v=1.0.0"></script>
+    <script src="__PUBLIC__/js/plugins/iCheck/icheck.min.js"></script>
+    <script type="text/javascript">
+        function getVariety(val){
+            $.post("__URL__/GetCname", {pid:$("#ctype").val()},function(datas){
+                                $("#cid").empty();
+                                var count = datas.length;
+                                var i = 0;
+                                var b="";
+                                for(i=0;i<count;i++){
+                                  b+="<option value='"+datas[i]["id"]+"'>"+datas[i]["catename"]+"</option>";
+                                };
+                $("#cid").append(b);
+             });
+
+        }
+        function getPlay(val){
+            $.post("__URL__/GetPlay", {playid:$("#ctype").val()},function(data){
+                                $("#playid").empty();
+                                var count = data.length;
+                                var i = 0;
+                                var b="";
+                                for(i=0;i<count;i++){
+                                  b+="<option value='"+data[i]["id"]+"'>"+data[i]["playname"]+"</option>";
+                                };
+                $("#playid").append(b);
+             });
+
+        }
+      </script>
+    <script>
+        $(document).ready(function(){$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})});
+    </script>
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+</body>
+</html>
